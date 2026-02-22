@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('client_prove_socials', function (Blueprint $table) {
+            $table->id();
+            $table->string('logo');
+            $table->text('url');
+            $table->boolean('is_active')->default(0);
+
+            $table->foreignId('client_id')
+            ->constrained('clients')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('client_prove_socials');
+    }
+};
