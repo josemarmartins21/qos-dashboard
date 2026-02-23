@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClientProveSocial;
+use App\services\clientprovesocial\ClientProveSocialService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClientProveSocialController extends Controller
 {
+    public function __construct(
+        private ClientProveSocialService $clientProveSocialService,
+    )
+    {
+        
+    }
     /**
      * Display a listing of the resource.
      */
@@ -28,7 +36,25 @@ class ClientProveSocialController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /** |image|mimes:jpeg,png,jpg,gif,svg */
+        $validator = Validator::make($request->all(), [
+            'name' => ['required|string|max:100'],
+            'logo' => 'required|max:2048',
+            'url' => 'required|url',
+            'is_active' => 'required|boolean|min:0|max:1',
+        ], [
+            'name.required' => 'O :attribute é obrigatório',
+            'logo.required' => 'O :attribute é obrigatório',
+            'url.url' => 'O :attribute deve ser uma URL válida. Foi enviada :input', 
+        ], [
+            'name' => 'nome',
+            'logo' => 'logotipo',
+            'url' => 'link',
+        ]);
+
+        
+
+        var_dump($validator->fails());
     }
 
     /**

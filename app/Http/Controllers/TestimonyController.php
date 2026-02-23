@@ -20,7 +20,7 @@ class TestimonyController extends Controller
     public function index()
     {
         try {
-            $testimonies = $this->testimonyService->getAll();
+            $testimonies = $this->testimonyService->getWithClient();
             return response()->json([
                 'status' => true,
                 'data' => $testimonies,
@@ -37,18 +37,12 @@ class TestimonyController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
-                    'name' => ['required', 'string', 'max:100', 'min:4'],
-                    'company_role' => ['required', 'string'],
-                    'user_id' => ['nullable', 'integer',/*  'exists:users,id',  */'min:1', 'numeric'],
+                    'client_id' => ['required','integer', 'exists:clients,id', 'min:1', 'numeric'],
                     'testimony' => ['required', 'string',],
                     'is_active' => ['boolean', 'min:0', 'max:1',],
                 ],  [
-                    'name.required' => 'O campo :attribute é obrigatório.',
-                    'company_role.required' => 'O campo :attribute é obrigatório.',
                     'testimony.required' => 'O :attribute é obrigatório.',
                 ], [
-                    'name' => 'nome', 
-                    'company_role' => 'cargo/empresa',
                     'testimony' => 'depoimento',
                 ]);
     
@@ -73,6 +67,57 @@ class TestimonyController extends Controller
             ], 400);
         }
         
+    }
+
+    public function show(Testimony $testimony)
+    {
+        try {
+            $testimony = $this->testimonyService->get($testimony->id);
+            return response()->json([
+                'status' => true,
+                'data' => $testimony,
+            ], 200);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
+    }
+
+    public function update(Request $request, Testimony $testimony)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                    'client_id' => ['required', 'integer', 'exists:clients,id', 'min:1', 'numeric'],
+                    'testimony' => ['required', 'string',],
+                    'is_active' => ['boolean', 'min:0', 'max:1',],
+                ],  [
+                    'testimony.required' => 'O :attribute é obrigatório.',
+                ], [
+                    'testimony' => 'depoimento',
+                ]);
+    
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'messages' => $validator->errors(),
+                ], 400);
+            }  
+
+            $updatedTestimony = $this->testimonyService->update($testimony->id, $validator->validated());
+
+            return response()->json([
+                'status' => $updatedTestimony,
+                'message' => 'depoimento atualizado com sucesso!',
+            ], 200);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
     }
 
     public function destroy(Testimony $testimony)

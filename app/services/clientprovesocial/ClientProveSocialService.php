@@ -1,27 +1,23 @@
 <?php
 
-namespace App\services\clients;
+namespace App\services\clientprovesocial;
+// client_prove_socials
 
-use App\Models\Client;
-use App\services\clients\contracts\ClientServiceInterface;
-use App\services\testimonys\contracts\TestimonyServiceInterface;
 
-class ClientService implements ClientServiceInterface {
+use App\Models\ClientProveSocial;
+use App\services\clientprovesocial\contracts\ClientProveSocialInterface;
 
-    public function __construct(
-        private TestimonyServiceInterface $testimonyService,
-    )
-    {
-        
-    }
+class ClientProveSocialService implements ClientProveSocialInterface {
+
     /**
      * Lista todos clientes cadastrados.
      * @return array
      */
     public function getAll(): array
     {
-        $clients = Client::paginate(5)->toArray();
-        return $clients;
+        $attributes = ['logo', 'url', 'client_id', 'is_active', 'created_at',];
+        $proveSocial = ClientProveSocial::select($attributes)->get()->toArray();
+        return $proveSocial;
     }
     
     /**
@@ -31,7 +27,7 @@ class ClientService implements ClientServiceInterface {
      * 
      * @return array
      */
-    public function save($data = []): array
+   /*  public function save($data = []): array
     {
         
         $client = array_slice($data, 0, 3);
@@ -64,6 +60,6 @@ class ClientService implements ClientServiceInterface {
     public function get(int $id): Client
     {
         return Client::findOrFail($id);
-    }
+    } */
     
 }

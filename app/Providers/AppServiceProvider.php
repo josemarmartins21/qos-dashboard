@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\services\clientprovesocial\ClientProveSocialService;
+use App\services\clientprovesocial\contracts\ClientProveSocialInterface;
 use App\services\clients\contracts\ClientServiceInterface;
 use App\services\clients\ClientService;
 use App\services\testimonys\contracts\TestimonyServiceInterface;
@@ -18,9 +20,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             ClientServiceInterface::class,
              ClientService::class); 
+
         $this->app->bind(
             TestimonyServiceInterface::class,
              TestimonyService::class);
+
+        $this->app->bind(
+        ClientProveSocialInterface::class,
+            ClientProveSocialService::class);
     }
 
     /**

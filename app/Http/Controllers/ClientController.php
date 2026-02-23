@@ -122,7 +122,38 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => ['required', 'string', 'max:100', 'min:4'],
+                'company_role' => ['required', 'string'],
+                'user_id' => ['nullable', 'integer', 'exists:users,id', 'min:1', 'numeric'],
+            ],  [
+                'name.required' => 'O campo :attribute é obrigatório.',
+                'company_role.required' => 'O campo :attribute é obrigatório.',
+            ], [
+                'name' => 'nome', 
+                'company_role' => 'cargo/empresa',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'messages' => $validator->errors(),
+                ], 400);
+            }
+
+            $client = $this->clientService->update($client->id, $validator->validated());
+
+            return response()->json([
+                'status' => true,
+                'data' => $client->toArray(),
+            ], 200);    
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
     }
 
     /**
