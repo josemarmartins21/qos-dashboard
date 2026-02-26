@@ -12,8 +12,8 @@ class Question extends Model
         'user_id',
     ];
 
-    private const LIMIT = 10;
-    private const MIN = 3;
+    private const LIMIT = 11;
+    private const MIN = 4;
 
     public static function getLimit()
     {

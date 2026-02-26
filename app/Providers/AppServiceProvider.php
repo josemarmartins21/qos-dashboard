@@ -6,6 +6,8 @@ use App\services\clientprovesocial\ClientProveSocialService;
 use App\services\clientprovesocial\contracts\ClientProveSocialInterface;
 use App\services\clients\contracts\ClientServiceInterface;
 use App\services\clients\ClientService;
+use App\services\questions\contracts\QuestionServiceInterface;
+use App\services\questions\QuestionService;
 use App\services\testimonys\contracts\TestimonyServiceInterface;
 use App\services\testimonys\TestimonyService;
 use Illuminate\Support\ServiceProvider;
@@ -18,16 +20,24 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(
-            ClientServiceInterface::class,
-             ClientService::class); 
+        ClientServiceInterface::class,
+            ClientService::class
+        ); 
 
         $this->app->bind(
             TestimonyServiceInterface::class,
-             TestimonyService::class);
+             TestimonyService::class
+        );
 
         $this->app->bind(
         ClientProveSocialInterface::class,
-            ClientProveSocialService::class);
+        ClientProveSocialService::class
+        );
+
+        $this->app->bind(
+        QuestionServiceInterface::class,
+        QuestionService::class
+        );
     }
 
     /**

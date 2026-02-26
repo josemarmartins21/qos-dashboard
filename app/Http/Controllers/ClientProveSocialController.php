@@ -173,13 +173,14 @@ class ClientProveSocialController extends Controller
     {
         $validator = Validator::make($data, [
                 'logo' => ['bail','required','max:2048'],
-                'url' => ['bail','required' ,'url',/* 'exists:client_prove_socials,url' */],
+                'url' => ['bail','required' ,'url','unique:client_prove_socials,url',/* 'exists:client_prove_socials,url' */],
                 "name" => ['bail','required', 'string', 'max:100', 'min:4'],
                 'client_id' => ['bail','required','min:1','numeric']
 
             ], [
                 'logo.required' => 'O :attribute é obrigatório',
                 'url.url' => 'O :attribute deve ser uma URL válida. Foi enviada :input',  
+                'url.unique' => 'O :attribute :input já está registada',
             ], [
                 'logo' => 'logotipo',
                 'url' => 'link',

@@ -3,16 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\services\questions\contracts\QuestionServiceInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Validator as ValidationValidator;
 
 class QuestionController extends Controller
 {
+
+public function __construct(
+    private QuestionServiceInterface $questionService
+)
+{
+    
+}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+       try {
+         $questions = $this->questionService->getAll();
+         
+         return response()->json([
+            'status' => true,
+            'data' => $questions
+         ]);
+       } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+       }
     }
 
     /**
@@ -28,7 +51,23 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $validator = $this->validate($request->all());
+    
+            if ($validator->fails()) {
+                return response()->json([
+                    'errors' => $validator->errors()
+                ], 400);
+            }
+    
+            $question = $this->questionService->save($request->all());
+            return response()->json($question, 201);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 400);
+        }
     }
 
     /**
@@ -36,7 +75,18 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        try {
+            $question = $this->questionService->get($question->id);
+            return response()->json([
+                'status' => true,
+                'data' => $question
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 404);
+        }
     }
 
     /**
@@ -52,7 +102,32 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        try {
+            $validator = $this->validate($request->all());
+    
+            if ($validator->fails()) {
+                return response()->json([
+                    'errors' => $validator->errors()
+                ], 400);
+            }
+    
+            $questionData =$this->questionService->update($question->id, $validator->validated())->toArray();
+
+            return response()->json([
+                'status' => true,
+                'message' => $questionData,
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 404);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -60,6 +135,36 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        try {
+            $this->questionService->delete($question->id);
+            return response()->json([
+                'status' => true,
+                'message' => 'Pergunta deletada com sucesso.'
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 404);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    private function validate($data = []): ValidationValidator {
+        $validator = Validator::make($data, [
+            'question' => ['bail','required','string','max:300'],
+            'response' => ['bail','required','string','max:300'],
+        ], [
+             'question.required' => 'A pergunta é obrigatória.',
+             'response.required' => 'A resposta é obrigatória.',
+        ], [
+            'question' => 'pergunta',
+            'response' => 'resposta',
+        ]);
+        return $validator;
     }
 }
