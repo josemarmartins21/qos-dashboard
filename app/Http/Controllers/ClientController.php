@@ -43,17 +43,15 @@ class ClientController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        try { 
+            try { 
             $validator = Validator::make($request->all(), [
                     'name' => ['required', 'string', 'max:100', 'min:4'],
                     'company_role' => ['required', 'string'],
                     'user_id' => ['nullable', 'integer', 'exists:users,id', 'min:1', 'numeric'],
                     'testimony' => ['required', 'string',],
+                    'type' => ['required', 'string',],
                     'is_active' => ['boolean', 'min:0', 'max:1',],
                 ],  [
                     'name.required' => 'O campo :attribute é obrigatório.',
@@ -73,7 +71,10 @@ class ClientController extends Controller
                 ], 400);
             }  
 
-            $client = $this->clientService->save($validator->validated());
+            $client = $request->only(['name', 'company_role', 'user_id']);
+            $relation = $request->only(['testimony', 'is_active', 'type']);
+            
+            $client = $this->clientService->save($client, $relation);
 
             return response()->json([
                 'status' => true,
@@ -87,7 +88,7 @@ class ClientController extends Controller
             ], 400);
         } 
     }
-
+    
     /**
      * Display the specified resource.
      */

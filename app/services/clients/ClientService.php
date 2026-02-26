@@ -2,17 +2,17 @@
 
 namespace App\services\clients;
 
+use App\factorys\TestimonySocialProveFactory;
 use App\Models\Client;
 use App\services\clients\contracts\ClientServiceInterface;
-use App\services\testimonys\contracts\TestimonyServiceInterface;
 
 class ClientService implements ClientServiceInterface {
 
     public function __construct(
-        private TestimonyServiceInterface $testimonyService,
+        private TestimonySocialProveFactory $testimonySocialFactory,
     )
     {
-        
+        $this->testimonySocialFactory = new TestimonySocialProveFactory;
     }
     /**
      * Lista todos clientes cadastrados.
@@ -31,22 +31,25 @@ class ClientService implements ClientServiceInterface {
      * 
      * @return array
      */
-    public function save($data = []): array
+    public function save($client = [], $relation = []): array | string
     {
-        
-        $client = array_slice($data, 0, 3);
+        try {
 
-        $createdClient = Client::create($client)->toArray();
-
-        if (count($createdClient) === 0) {
-            throw new \Exception("Erro ao criar cliente, tente novamente.");
+            $createdClient = Client::create($client)->toArray();
+    
+            $relation['client_id'] = $createdClient['id'];
+    
+            $service = $this->testimonySocialFactory->create($relation["type"]);
+    
+            $relationCreated = $service->save($relation);
+            
+            return array_merge($createdClient, $relationCreated);
+    
+        } catch (\UnhandledMatchError $e) {
+            return $e->getMessage();
+        } catch (\Exception $e) {
+            return $e->getMessage();
         }
-        
-        $data['client_id'] = $createdClient['id'];
-
-        $this->testimonyService->save($data);
-
-        return $data;
     }
 
     public function delete(int $id): bool
@@ -58,7 +61,11 @@ class ClientService implements ClientServiceInterface {
     public function update(int $id, $data = []): Client
     {
         $client = Client::findOrFail($id);
+
+        unset($data['client_id']);
+
         $client->update($data);
+
         return $client;
     }
     public function get(int $id): Client

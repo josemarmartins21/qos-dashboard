@@ -2,12 +2,12 @@
 
 namespace App\services\testimonys;
 
-
+use App\factorys\contracts\TestimonySocialProveInterface;
 use App\Models\Testimony;
 use App\services\testimonys\contracts\TestimonyServiceInterface;
 use Illuminate\Support\Facades\DB;
 
-class TestimonyService implements TestimonyServiceInterface   {
+class TestimonyService implements TestimonyServiceInterface, TestimonySocialProveInterface   {
 
     public function getWithClient(): array
     {
@@ -58,6 +58,10 @@ class TestimonyService implements TestimonyServiceInterface   {
 
     public function delete(int $id): bool
     {
+        if (Testimony::count()  < Testimony::getMin()) {
+            throw new \Exception("Não foi possível eliminar o depoimento, pois o número mínimo de depoimentos será ultrapassado.");
+        }
+
         $testimony = Testimony::findOrFail($id);
 
         $deleted = $testimony->delete();

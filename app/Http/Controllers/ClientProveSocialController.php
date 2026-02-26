@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClientProveSocial;
-use App\services\clientprovesocial\ClientProveSocialService;
+use App\services\clientprovesocial\contracts\ClientProveSocialInterface;
+use App\services\clients\contracts\ClientServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ClientProveSocialController extends Controller
 {
     public function __construct(
-        private ClientProveSocialService $clientProveSocialService,
+        private ClientServiceInterface $clientService,
+        private ClientProveSocialInterface $clientProveSocial,
     )
     {
         
@@ -20,7 +22,20 @@ class ClientProveSocialController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            
+            $clientsProveSocial = $this->clientProveSocial->getAll();
+            return response()->json([
+                'status' => true,
+                'data' => $clientsProveSocial,
+            ]);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
     }
 
     /**
@@ -36,25 +51,37 @@ class ClientProveSocialController extends Controller
      */
     public function store(Request $request)
     {
-        /** |image|mimes:jpeg,png,jpg,gif,svg */
-        $validator = Validator::make($request->all(), [
-            'name' => ['required|string|max:100'],
-            'logo' => 'required|max:2048',
-            'url' => 'required|url',
-            'is_active' => 'required|boolean|min:0|max:1',
-        ], [
-            'name.required' => 'O :attribute é obrigatório',
-            'logo.required' => 'O :attribute é obrigatório',
-            'url.url' => 'O :attribute deve ser uma URL válida. Foi enviada :input', 
-        ], [
-            'name' => 'nome',
-            'logo' => 'logotipo',
-            'url' => 'link',
-        ]);
+        try {
+           
+            $validator = $this->validateCreate($request->all());
 
-        
+            if ($validator->fails()) {
+                return response()->json(['status' => false, $validator->errors()], 400);
+            }
 
-        var_dump($validator->fails());
+            $client = $request->only(['name', 'user_id']);
+
+            $relation = $request->only([
+                'logo', 
+                'is_active', 
+                'type', 
+                'url'
+            ]);
+                
+            $result = $this->clientService->save($client, $relation);
+    
+
+            return response()->json([
+                'status' => true,
+                'data' => $result,
+            ], 201);
+
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
     }
 
     /**
@@ -62,7 +89,11 @@ class ClientProveSocialController extends Controller
      */
     public function show(ClientProveSocial $clientProveSocial)
     {
-        //
+        $clientProveSocial = $this->clientProveSocial->get($clientProveSocial->id);
+        return response()->json([
+            'status' => true,
+            'data' => $clientProveSocial,
+        ]);
     }
 
     /**
@@ -78,7 +109,39 @@ class ClientProveSocialController extends Controller
      */
     public function update(Request $request, ClientProveSocial $clientProveSocial)
     {
-        //
+        try {
+
+            $validator = $this->validateUpdate($request->all());
+
+            if ($validator->fails()) {
+                return response()->json(['status' => false, $validator->errors()], 400);
+            }
+
+            $client = $request->only([
+                'name',
+                'user_id',
+                'client_id',
+            ]);
+
+            $proveSocialClient = $request->only([
+                'logo', 
+                'url'
+            ]);
+
+            $client = $this->clientService->update($client['client_id'], $client);   
+
+            $result = $this->clientProveSocial->update($clientProveSocial->id, $proveSocialClient);
+
+            return response()->json([
+                'status' => true,
+                'data' => array_merge($client->toArray(), $result),
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
     }
 
     /**
@@ -86,6 +149,65 @@ class ClientProveSocialController extends Controller
      */
     public function destroy(ClientProveSocial $clientProveSocial)
     {
-        //
+        try {
+            $this->clientProveSocial->delete($clientProveSocial->id);
+            return response()->json([
+                'status' => true,
+                'message' => 'Cliente de prova social removido com sucesso',
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
+    }
+
+    /**
+     * Valida os dados de entrada para criação ou atualização de um cliente renomado.
+     * @param array $data
+     * 
+     * @return [type]
+     */
+    private function validateUpdate($data = [])
+    {
+        $validator = Validator::make($data, [
+                'logo' => ['bail','required','max:2048'],
+                'url' => ['bail','required' ,'url',/* 'exists:client_prove_socials,url' */],
+                "name" => ['bail','required', 'string', 'max:100', 'min:4'],
+                'client_id' => ['bail','required','min:1','numeric']
+
+            ], [
+                'logo.required' => 'O :attribute é obrigatório',
+                'url.url' => 'O :attribute deve ser uma URL válida. Foi enviada :input',  
+            ], [
+                'logo' => 'logotipo',
+                'url' => 'link',
+            ]);
+
+        return $validator;
+    }
+
+    private function validateCreate($data = []) {
+         /** |image|mimes:jpeg,png,jpg,gif,svg */
+        $validator = Validator::make($data, [
+                'name' => ['bail','required', 'string', 'max:100', 'min:4'],
+                'logo' => ['bail','required','max:2048'],
+                'url' => ['bail','required' ,'url',/* 'exists:client_prove_socials,url' */],
+                'is_active' => ['bail','required','boolean','min:0','max:1'],
+                'user_id' => ['bail','nullable'],
+                'type' => ['bail','required'],
+            ], [
+                'name.required' => 'O :attribute é obrigatório',
+                'logo.required' => 'O :attribute é obrigatório',
+                'url.url' => 'O :attribute deve ser uma URL válida. Foi enviada :input', 
+                'url.exists' => 'A url :input ja esta registada',   
+            ], [
+                'name' => 'nome',
+                'logo' => 'logotipo',
+                'url' => 'link',
+            ]);
+
+            return $validator;
     }
 }

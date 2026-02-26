@@ -13,10 +13,15 @@ class Testimony extends Model
     ];
 
     private const LIMIT = 10;
+    private const MIN = 4;
 
     public static function getLimit()
     {
         return self::LIMIT;
+    }
+    public static function getMin()
+    {
+        return self::MIN;
     }
 
     public function client()

@@ -1,0 +1,23 @@
+## Documentação Dashboard QoS Tel
+
+
+## Classe - ClientController 
+
+
+## ClienteController - ClientProveSocialController
+A classe `ClienteController` possui uma particularidade
+pois ela orquestrará a criação de novos registros de cliente junto de
+seus depoimentos, já a classe `ClientProveSocialController` 
+orquestrará a criação clientes com as suas caracteristicas que o tornam 
+renomado.
+
+## O uso do ClientService por outras classes de serviço
+
+A classe de serviço de cliente possuirá uma
+**Factory** que criará um serviço que salvará os dados da entidade concreta deste
+serviço e associar este registo a determinado cliente a ser salvo, esse serviço pode ser:
+**depoimento**, **cliente renomado**, etc.
+Assim permitirá o sistema decidir qual serviço deve ser usado
+abstraindo estes `ifs` dentro da **Factory**.
+
+
