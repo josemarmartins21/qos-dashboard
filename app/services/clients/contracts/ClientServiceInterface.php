@@ -9,5 +9,5 @@ interface ClientServiceInterface {
     public function getAll() : array;
     public function delete(int $id) : bool;
     public function get(int $id): Client;
-    public function update(int $id, array $client): Client;
+    public function update(array $client): Client;
 }

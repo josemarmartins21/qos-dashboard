@@ -43,6 +43,15 @@ class ClientController extends Controller
         //
     }
 
+    /**
+     * Este metodo criar um cliente com seu depoimento.
+     * Ele usa o serviço de cliente passa o tipo de serviço que
+     * este cliente vai estar a atrelado neste caso em especifico será apenas
+     * depoimento.
+     * @param Request $request
+     * 
+     * @return [type]
+     */
     public function store(Request $request)
     {
             try { 

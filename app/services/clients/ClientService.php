@@ -58,9 +58,9 @@ class ClientService implements ClientServiceInterface {
         return $client->delete();
     }
 
-    public function update(int $id, $data = []): Client
+    public function update($data = []): Client
     {
-        $client = Client::findOrFail($id);
+        $client = Client::findOrFail($data['client_id']);
 
         unset($data['client_id']);
 

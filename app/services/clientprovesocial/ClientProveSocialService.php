@@ -3,17 +3,18 @@
 namespace App\services\clientprovesocial;
 
 use App\factorys\contracts\TestimonySocialProveInterface;
-use App\services\clients\contracts\ClientServiceInterface;
+use App\factorys\ValidateIfCanActiveOrDisableFactory;
 use App\Models\ClientProveSocial;
 use App\services\clientprovesocial\contracts\ClientProveSocialInterface;
+use App\services\validators\contracts\ValidateIfCanActiveOrDisableInterface;
 use Illuminate\Support\Facades\DB;
 
 class ClientProveSocialService implements ClientProveSocialInterface, TestimonySocialProveInterface {
+    private ValidateIfCanActiveOrDisableInterface $validateAOrD;
 
-    public function __construct(
-        private ClientServiceInterface $clientService,
-    ) {
-
+    public function __construct()
+    {
+        $this->validateAOrD = ValidateIfCanActiveOrDisableFactory::create("prova social");
     }
     /**
      * Lista todos clientes de renome cadastrados.
@@ -51,49 +52,20 @@ class ClientProveSocialService implements ClientProveSocialInterface, TestimonyS
             throw new \Exception("O número máximo de clientes de prova social excedido");
         } 
 
+        $can_active = false;
+
+        if ($data['is_active'] == true) $can_active = $this->validateAOrD->validateIfCanActive();
+        
         return ClientProveSocial::create([
             'logo' => $data['logo'],
             'url' => $data['url'],
-            'is_active' => $data['is_active'],
+            'is_active' => $can_active,
             'client_id' => $data['client_id'],
         ])->toArray();
 
     }
     
-    /**
-     * Criar um novo cliente e seu depoimento
-     * caso haja menos de 11 depoimentos na base de dados.
-     * @param array $data
-     * 
-     * @return array
-     */
-   /*  public function save($data = []): array
-    {
-        
-        $client = array_slice($data, 0, 3);
 
-        $createdClient = Client::create($client)->toArray();
-
-        if (count($createdClient) === 0) {
-            throw new \Exception("Erro ao criar cliente, tente novamente.");
-        }
-        
-        $data['client_id'] = $createdClient['id'];
-
-        $this->testimonyService->save($data);
-
-        return $data;
-    }
-
-    
-    public function update(int $id, $data = []): Client
-    {
-        $client = Client::findOrFail($id);
-        $client->update($data);
-        return $client;
-        }
-        
-        */
 
     public function update(int $id, $data = []): array
     {
@@ -113,7 +85,7 @@ class ClientProveSocialService implements ClientProveSocialInterface, TestimonyS
     
     /**
      * Elimia os dados de um cliente renomado
-     * tanto na tabela de clientes com na
+     * tanto na tabela de clientes como na
      * tabela de prova social (clientes renomados).
      * @param int $id
      * 

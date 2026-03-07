@@ -11,13 +11,9 @@ use Illuminate\Validation\Validator as ValidationValidator;
 
 class QuestionController extends Controller
 {
-
-public function __construct(
-    private QuestionServiceInterface $questionService
-)
-{
-    
-}
+    public function __construct(
+        private QuestionServiceInterface $questionService
+    ){}
     /**
      * Display a listing of the resource.
      */
@@ -33,7 +29,7 @@ public function __construct(
        } catch (\Throwable $e) {
             return response()->json([
                 'status' => false,
-                'message' => $e->getMessage()
+                'message' => $e->getMessage() 
             ], 500);
        }
     }
@@ -60,8 +56,11 @@ public function __construct(
                 ], 400);
             }
     
-            $question = $this->questionService->save($request->all());
-            return response()->json($question, 201);
+            $question = $this->questionService->save($validator->safe()->all());
+            return response()->json([
+                'status' => true,
+                'data' => $question,
+            ], 201);
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => false,

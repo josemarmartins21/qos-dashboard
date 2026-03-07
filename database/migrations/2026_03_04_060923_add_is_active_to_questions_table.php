@@ -11,17 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('client_prove_socials', function (Blueprint $table) {
-            $table->id();
-            $table->string('logo');
-            $table->text('url')->unique();
+        Schema::table('questions', function (Blueprint $table) {
             $table->boolean('is_active')->default(0);
-
-            $table->foreignId('client_id')
-            ->constrained('clients')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-            $table->timestamps();
         });
     }
 
@@ -30,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('client_prove_socials');
+        Schema::table('questions', function (Blueprint $table) {
+            $table->dropColumn('is_active');
+        });
     }
 };

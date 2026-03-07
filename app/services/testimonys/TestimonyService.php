@@ -3,18 +3,25 @@
 namespace App\services\testimonys;
 
 use App\factorys\contracts\TestimonySocialProveInterface;
+use App\factorys\ValidateIfCanActiveOrDisableFactory;
 use App\Models\Testimony;
 use App\services\testimonys\contracts\TestimonyServiceInterface;
+use App\services\validators\contracts\ValidateIfCanActiveOrDisableInterface;
 use Illuminate\Support\Facades\DB;
 
 class TestimonyService implements TestimonyServiceInterface, TestimonySocialProveInterface   {
+    private ValidateIfCanActiveOrDisableInterface $validateAOrD;
+    
+    public function __construct()
+    {
+        $this->validateAOrD = ValidateIfCanActiveOrDisableFactory::create("depoimento");
+    }
 
-    public function getWithClient(): array
+    public function getAll(): array
     {
         $testimonies = DB::table('testimonies')
         ->join('clients', 'testimonies.client_id', '=', 'clients.id')
-        ->select('testimonies.*', 'clients.name as nome')
-        ->orderByDesc('testimonies.created_at')
+        ->select('testimonies.testimony', 'testimonies.is_active','clients.name as nome')
         ->get();
         
         return $testimonies->toArray();
@@ -22,7 +29,12 @@ class TestimonyService implements TestimonyServiceInterface, TestimonySocialProv
 
     public function get(int $id): array
     {
-        $testimony = Testimony::findOrFail($id);
+        $testimony = DB::table('clients', 'c')
+                        ->join('testimonies','c.id','=','testimonies.client_id')
+                        ->select('c.name','testimonies.testimony')
+                        ->where('testimonies.id',$id)
+                        ->get();
+
         return $testimony->toArray();
     }
 
@@ -39,9 +51,13 @@ class TestimonyService implements TestimonyServiceInterface, TestimonySocialProv
             throw new \Exception("Limite de depoimentos atingido.");
         }
 
+        $can_active = false;
+
+        if ($data['is_active'] == true) $can_active = $this->validateAOrD->validateIfCanActive();
+
         $testimony = Testimony::create([
             'testimony' => $data['testimony'],
-            'is_active' => $data['is_active'] ?? false,
+            'is_active' => $can_active,
             'client_id' => $data['client_id'],
         ])->toArray();
             

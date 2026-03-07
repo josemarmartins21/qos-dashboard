@@ -5,18 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\ClientProveSocial;
 use App\services\clientprovesocial\contracts\ClientProveSocialInterface;
 use App\services\clients\contracts\ClientServiceInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class ClientProveSocialController extends Controller
 {
+    private ClientProveSocialInterface $clientProveSocial;
     public function __construct(
         private ClientServiceInterface $clientService,
-        private ClientProveSocialInterface $clientProveSocial,
     )
-    {
-        
-    }
+    {}
     /**
      * Display a listing of the resource.
      */
@@ -48,6 +47,10 @@ class ClientProveSocialController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * 
+     * Cria um cliente renomado e utiliza o serviço
+     * de clientprovesocial passando o tipo de cliente
+     *  para salvar os dados do cliente renomado.
      */
     public function store(Request $request)
     {
@@ -89,11 +92,27 @@ class ClientProveSocialController extends Controller
      */
     public function show(ClientProveSocial $clientProveSocial)
     {
-        $clientProveSocial = $this->clientProveSocial->get($clientProveSocial->id);
-        return response()->json([
-            'status' => true,
-            'data' => $clientProveSocial,
-        ]);
+        try {
+
+            $clientProveSocial = $this->clientProveSocial->get($clientProveSocial->id);
+
+            return response()->json([
+                'status' => true,
+                'data' => $clientProveSocial,
+            ]);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 404);
+        
+        }catch (\Throwable $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage(),
+            ], 404);
+        }
     }
 
     /**
@@ -117,18 +136,18 @@ class ClientProveSocialController extends Controller
                 return response()->json(['status' => false, $validator->errors()], 400);
             }
 
-            $client = $request->only([
+            $client = $validator->safe([
                 'name',
                 'user_id',
                 'client_id',
             ]);
 
-            $proveSocialClient = $request->only([
+            $proveSocialClient = $validator->safe([
                 'logo', 
                 'url'
             ]);
 
-            $client = $this->clientService->update($client['client_id'], $client);   
+            $client = $this->clientService->update($client);   
 
             $result = $this->clientProveSocial->update($clientProveSocial->id, $proveSocialClient);
 
@@ -175,7 +194,7 @@ class ClientProveSocialController extends Controller
                 'logo' => ['bail','required','max:2048'],
                 'url' => ['bail','required' ,'url','unique:client_prove_socials,url',/* 'exists:client_prove_socials,url' */],
                 "name" => ['bail','required', 'string', 'max:100', 'min:4'],
-                'client_id' => ['bail','required','min:1','numeric']
+                'client_id' => ['bail','required','min:1','numeric'],
 
             ], [
                 'logo.required' => 'O :attribute é obrigatório',
@@ -194,7 +213,7 @@ class ClientProveSocialController extends Controller
         $validator = Validator::make($data, [
                 'name' => ['bail','required', 'string', 'max:100', 'min:4'],
                 'logo' => ['bail','required','max:2048'],
-                'url' => ['bail','required' ,'url',/* 'exists:client_prove_socials,url' */],
+                'url' => ['bail','required' ,'url',/* 'active_url' *//* 'exists:client_prove_socials,url' */],
                 'is_active' => ['bail','required','boolean','min:0','max:1'],
                 'user_id' => ['bail','nullable'],
                 'type' => ['bail','required'],
@@ -202,7 +221,6 @@ class ClientProveSocialController extends Controller
                 'name.required' => 'O :attribute é obrigatório',
                 'logo.required' => 'O :attribute é obrigatório',
                 'url.url' => 'O :attribute deve ser uma URL válida. Foi enviada :input', 
-                'url.exists' => 'A url :input ja esta registada',   
             ], [
                 'name' => 'nome',
                 'logo' => 'logotipo',

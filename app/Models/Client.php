@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Testimony;
+use App\Models\ClientProveSocial;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model

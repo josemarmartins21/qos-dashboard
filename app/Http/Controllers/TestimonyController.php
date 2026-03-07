@@ -20,7 +20,7 @@ class TestimonyController extends Controller
     public function index()
     {
         try {
-            $testimonies = $this->testimonyService->getWithClient();
+            $testimonies = $this->testimonyService->getAll();
             return response()->json([
                 'status' => true,
                 'data' => $testimonies,

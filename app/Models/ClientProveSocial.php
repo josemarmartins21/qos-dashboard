@@ -8,6 +8,8 @@ class ClientProveSocial extends Model
 {
     private const LIMIT = 10;
     private const MIN = 4;
+    private const MAX_ACTIVE = 5;
+    private const MIN_ACTIVE = 4;
 
     protected $fillable = [
         'logo',
@@ -29,6 +31,20 @@ class ClientProveSocial extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public static function getMinActive(): int
+    {
+        return self::MIN_ACTIVE;
+    }
+    public static function getMaxActive(): int
+    {
+        return self::MAX_ACTIVE;
+    }
+
+    public static function getQuantityActive(): int
+    {
+        return self::where('is_active',1)->count();
     }
 
 }

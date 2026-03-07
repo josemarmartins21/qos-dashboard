@@ -1,0 +1,10 @@
+# Implementações da `EnableDisableInterface`
+
+Estas classes têm como objectivo activar e desactivar
+postagens como **depoimentos**, **FAQ**, clientes de prova social
+da página da empresa.
+
+## As classes são:
+1. ActivateDisableTestimony
+2. ActivateDisableFAQ
+3. ActivateDisableProveSocial

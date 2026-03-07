@@ -7,11 +7,13 @@ use App\services\clientprovesocial\ClientProveSocialService;
 use App\services\testimonys\TestimonyService;
 
 class TestimonySocialProveFactory  {
-    public function create(string $type): TestimonySocialProveInterface
+    public static function create(string $type): TestimonySocialProveInterface
     {
-        $result = match ($type) {
-            "depoimento" => new TestimonyService,
-            "prova social" => new ClientProveSocialService(),
+        $result = match (strtolower($type)) {
+            strtolower("depoimento") => new TestimonyService(),
+            
+            strtolower("prova social"), 
+            strtolower("cliente renomado") => new ClientProveSocialService(),
         };
 
         return $result;
