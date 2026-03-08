@@ -41,6 +41,7 @@ class VisitorService implements VisitorServiceInterface {
             ]);
 
         $message['visitor_id'] = $visitorCreated->id;
+        
         $this->messageService->create($message);
 
         return Visitor::with('messages')->find($visitorCreated->id);

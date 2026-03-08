@@ -6,7 +6,14 @@ a partir das quais estes objectos são criados
 ## As classes de Factory
 
 1. TestimonySocialProveFactory
+***
     Serve para criar um depoimento ou cliente de
     renome ela foi criada com o propósito de deixar
     o serviço de clientes criar o cliente e depois atrelar
     a uma das duas classes....
+***
+2. ValidateIfCanActiveOrDisableFactory
+***
+    Esta classe cria diversos tipos de validadores
+    que validam se um resource deve ser ou não activo.
+***    

@@ -101,7 +101,7 @@ class VisitorController extends Controller
     private function validate($data = []): ValidationValidator {
         $validator = Validator::make($data, [
             'full_name' => ['bail','required','string',],
-            'email' => ['bail','required','string','lowercase',],
+            'email' => ['bail','required','string','lowercase','unique:visitors,email'],
             'phone' => ['bail','required','string','max:300','starts_with:9,2','ends_with:1,2,3,4,5,6,7,8,9,0','max:13','min:9'],
             'subject' => ['bail','required','string','max:255'],
             'body' => ['bail','required','string'],
@@ -109,6 +109,7 @@ class VisitorController extends Controller
              'full_name.required' => 'O campo :attribute é obrigatório.',
              'phone.ends_with' => 'O campo :attribute deve terminar com um número.',
              'phone.starts_with' => 'O campo :attribute deve começar com um número 9 ou 2, foi passado :input.',
+             'email.unique' => 'O :attribute já está sendo utilizado!'
         ], [
             'full_name' => 'nome completo',
             'subject' => 'assunto',
