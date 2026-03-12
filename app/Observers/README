@@ -1,0 +1,7 @@
+# Observers de envio de Email
+
+Este path contém Observers de envio de 
+email caso a classe a ser observada 
+percebe que tem nova mensagem na tabela de
+mensagens os Observers reagem e fazem o envio de 
+email consoante a entidade que cada está atrelado.

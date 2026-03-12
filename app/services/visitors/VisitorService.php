@@ -33,12 +33,12 @@ class VisitorService implements VisitorServiceInterface {
     public function create($visitor = [], $message = [])
     {
         $visitorCreated = Visitor::updateOrCreate(
-                [
-                    'phone' => $visitor['phone'],
-                ], [
-                        'email' => $visitor['email'],
-                        'full_name' => $visitor['full_name'],
-            ]);
+            [
+                'phone' => $visitor['phone'],
+            ], [
+                    'email' => $visitor['email'],
+                    'full_name' => $visitor['full_name'],
+        ]);
 
         $message['visitor_id'] = $visitorCreated->id;
         

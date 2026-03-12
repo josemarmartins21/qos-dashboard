@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Observers\contracts\IVisitorObservable;
+use App\Observers\VisitorObservable;
 use App\services\clientprovesocial\ClientProveSocialService;
 use App\services\clientprovesocial\contracts\ClientProveSocialInterface;
 use App\services\clients\contracts\ClientServiceInterface;
@@ -49,6 +51,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             MessageServiceInterface::class,
             MessageService::class,
+        );
+        $this->app->bind(
+            IVisitorObservable::class,
+            VisitorObservable::class,
         );
 
     }

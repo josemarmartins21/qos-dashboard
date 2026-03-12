@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\factorys\contracts\TestimonySocialProveInterface;
 use App\Models\Testimony;
 use App\services\testimonys\contracts\TestimonyServiceInterface;
 use Exception;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 class TestimonyController extends Controller
 {
     public function __construct(
-        private TestimonyServiceInterface $testimonyService,
+        private TestimonyServiceInterface | TestimonySocialProveInterface $testimonyService,
     )
     {
         

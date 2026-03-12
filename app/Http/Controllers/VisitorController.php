@@ -101,7 +101,7 @@ class VisitorController extends Controller
     private function validate($data = []): ValidationValidator {
         $validator = Validator::make($data, [
             'full_name' => ['bail','required','string',],
-            'email' => ['bail','required','string','lowercase','unique:visitors,email'],
+            'email' => ['bail','required','string','lowercase','unique:visitors,email','email'],
             'phone' => ['bail','required','string','max:300','starts_with:9,2','ends_with:1,2,3,4,5,6,7,8,9,0','max:13','min:9'],
             'subject' => ['bail','required','string','max:255'],
             'body' => ['bail','required','string'],

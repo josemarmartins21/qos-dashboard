@@ -57,6 +57,7 @@ class QuestionController extends Controller
             }
     
             $question = $this->questionService->save($validator->safe()->all());
+
             return response()->json([
                 'status' => true,
                 'data' => $question,
@@ -157,12 +158,14 @@ class QuestionController extends Controller
         $validator = Validator::make($data, [
             'question' => ['bail','required','string','max:300'],
             'response' => ['bail','required','string','max:300'],
+            'is_active' => ['bail','required','boolean','min:0','max:1'],
         ], [
              'question.required' => 'A pergunta é obrigatória.',
              'response.required' => 'A resposta é obrigatória.',
-        ], [
+        ] , [
             'question' => 'pergunta',
             'response' => 'resposta',
+            'is_active' => 'activo',
         ]);
         return $validator;
     }

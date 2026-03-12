@@ -201,8 +201,11 @@ class ClientProveSocialController extends Controller
                 'url.url' => 'O :attribute deve ser uma URL válida. Foi enviada :input',  
                 'url.unique' => 'O :attribute :input já está registada',
             ], [
+                'name' => 'nome',
                 'logo' => 'logotipo',
                 'url' => 'link',
+                'type' => 'tipo de postagem',
+                'is_active' => 'activo'
             ]);
 
         return $validator;
@@ -225,6 +228,8 @@ class ClientProveSocialController extends Controller
                 'name' => 'nome',
                 'logo' => 'logotipo',
                 'url' => 'link',
+                'type' => 'tipo de postagem',
+                'is_active' => 'activo'
             ]);
 
             return $validator;
