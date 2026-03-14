@@ -12,5 +12,7 @@
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur veniam vero iusto aspernatur velit ea, exercitationem repellendus debitis quibusdam. Exercitationem accusamus quidem officia doloribus voluptates quam, voluptatum eligendi voluptatibus fugiat?
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Obcaecati consequuntur amet iure in iste perspiciatis necessitatibus ullam earum autem qui consequatur illo, voluptatem dicta deleniti officiis quae accusantium? Voluptate, neque.
     </p>
+    <hr>
+    <h2>QoS Tel</h2>
 </body>
 </html>

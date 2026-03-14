@@ -2,8 +2,9 @@
 
 namespace App\Observers\contracts;
 
+use App\Models\Message;
 
 interface IEmailObservers 
 {
-    public function send(): void;
+    public function send(Message $message): void;
 }

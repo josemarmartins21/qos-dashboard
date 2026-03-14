@@ -7,15 +7,12 @@
     <title>QoS Tel</title>
 </head>
 <body>
-    <h1>{{ $visitor->full_name }}</h1>
-    <p> {{ $visitor->email }} </p>
-    
-{{--     <h2> {{ $message->subject }} </h2>
-    <p>
-        {{ $message->body }}
-    </p>
-
     <hr>
-    <p>Enviado {{ $message->created_at }} </p> --}}
+    <h2>Dados do visitante</h2>
+    <ul>
+        <li>Nome: {{ $visitor->full_name }} </li>
+        <li>Telefone: {{ $visitor->phone }} </li>
+        <li>Email: {{ $visitor->email }} </li>
+    </ul>
 </body>
 </html>
