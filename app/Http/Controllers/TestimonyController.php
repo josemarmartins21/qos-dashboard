@@ -21,11 +21,14 @@ class TestimonyController extends Controller
     public function index()
     {
         try {
+
             $testimonies = $this->testimonyService->getAll();
+
             return response()->json([
                 'status' => true,
                 'data' => $testimonies,
             ], 200);
+
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => false,
@@ -37,6 +40,7 @@ class TestimonyController extends Controller
     public function store(Request $request)
     {
         try {
+
             $validator = Validator::make($request->all(), [
                     'client_id' => ['required','integer', 'exists:clients,id', 'min:1', 'numeric'],
                     'testimony' => ['required', 'string',],
@@ -73,11 +77,14 @@ class TestimonyController extends Controller
     public function show(Testimony $testimony)
     {
         try {
+
             $testimony = $this->testimonyService->get($testimony->id);
+
             return response()->json([
                 'status' => true,
                 'data' => $testimony,
             ], 200);
+
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => false,
@@ -89,6 +96,7 @@ class TestimonyController extends Controller
     public function update(Request $request, Testimony $testimony)
     {
         try {
+
             $validator = Validator::make($request->all(), [
                     'client_id' => ['required', 'integer', 'exists:clients,id', 'min:1', 'numeric'],
                     'testimony' => ['required', 'string',],
@@ -124,7 +132,9 @@ class TestimonyController extends Controller
     public function destroy(Testimony $testimony)
     {
         try {
+            
             $deleted = $this->testimonyService->delete($testimony->id);
+            
             return response()
                     ->json([
                         'status' => $deleted,

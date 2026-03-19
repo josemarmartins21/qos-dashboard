@@ -24,6 +24,7 @@ class VisitorController extends Controller
                 'status' => true,
                 'visitors' => $visitors,
             ]);
+
         } catch (\Throwable $e) {
             return response()->json([
                 'status' => false,
@@ -42,6 +43,7 @@ class VisitorController extends Controller
                 'status' => true,
                 'visitor' => $visitor,
             ]);
+
         } catch (Exception $e) {
             return response()->json([
                     'status' => false,
@@ -54,6 +56,7 @@ class VisitorController extends Controller
     {
         
         try {
+
             $validator = $this->validate($request->all());
     
             if ($validator->fails()) {
@@ -63,6 +66,7 @@ class VisitorController extends Controller
                 ], 400);
     
             }
+
             $visitorData = $validator->safe(['full_name','email','phone',]);
             $message = $validator->safe(['body','subject',]);
     
@@ -84,6 +88,7 @@ class VisitorController extends Controller
     public function destroy(Visitor $visitor)
     {
         try {
+
             $deleted = $this->visitorService->delete($visitor->id);
 
             return response()->json([
@@ -99,6 +104,7 @@ class VisitorController extends Controller
     }
 
     private function validate($data = []): ValidationValidator {
+
         $validator = Validator::make($data, [
             'full_name' => ['bail','required','string',],
             'email' => ['bail','required','string','lowercase','unique:visitors,email','email'],
@@ -116,6 +122,7 @@ class VisitorController extends Controller
             'body' => 'corpo da mensagem',
             'phone' => 'telefone',
         ]);
+        
         return $validator;
     }
 }

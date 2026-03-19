@@ -20,7 +20,8 @@ class QuestionController extends Controller
     public function index()
     {
        try {
-         $questions = $this->questionService->getAll();
+
+        $questions = $this->questionService->getAll();
          
          return response()->json([
             'status' => true,
@@ -48,6 +49,7 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         try {
+
             $validator = $this->validate($request->all());
     
             if ($validator->fails()) {
@@ -76,7 +78,9 @@ class QuestionController extends Controller
     public function show(Question $question)
     {
         try {
+
             $question = $this->questionService->get($question->id);
+
             return response()->json([
                 'status' => true,
                 'data' => $question
@@ -103,6 +107,7 @@ class QuestionController extends Controller
     public function update(Request $request, Question $question)
     {
         try {
+
             $validator = $this->validate($request->all());
     
             if ($validator->fails()) {
@@ -136,7 +141,9 @@ class QuestionController extends Controller
     public function destroy(Question $question)
     {
         try {
+
             $this->questionService->delete($question->id);
+
             return response()->json([
                 'status' => true,
                 'message' => 'Pergunta deletada com sucesso.'
@@ -155,6 +162,7 @@ class QuestionController extends Controller
     }
 
     private function validate($data = []): ValidationValidator {
+
         $validator = Validator::make($data, [
             'question' => ['bail','required','string','max:300'],
             'response' => ['bail','required','string','max:300'],
@@ -167,6 +175,7 @@ class QuestionController extends Controller
             'response' => 'resposta',
             'is_active' => 'activo',
         ]);
+        
         return $validator;
     }
 }
