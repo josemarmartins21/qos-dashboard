@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\factorys\contracts\TestimonySocialProveInterface;
 use App\Observers\contracts\IVisitorObservable;
 use App\Observers\VisitorObservable;
 use App\services\clientprovesocial\ClientProveSocialService;
@@ -32,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(
             TestimonyServiceInterface::class,
-             TestimonyService::class
+            TestimonyService::class
         );
 
         $this->app->bind(

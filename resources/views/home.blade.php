@@ -4,20 +4,7 @@
 
 
 @section('content')
-    <section id="ficha">
-            <img src="{{ asset('imagens/guanabara-perfil.jpg') }}" alt="Josemar Martins" class="foto">
-            <h1>Josemar Martins</h1>
-            <div id="social">
-               <ul>
-                    <li><a href="#"> Home <i class="fa-solid fa-house"></i></a></li>
-                    <li><a href="#">Dashboard <i class="fa-solid fa-grip"></i></a></li>
-                    <li><a href="#">Depoimentos <i class="fa-brands fa-stack-exchange"></i></a></li>
-                    <li><a href="#">Perguntas Frequentes <i class="fa-solid fa-file-circle-question"></i></a></li>
-                    <li><a href="#">Clientes renomados <h3><i class="fa-solid fa-people-roof"></i> 5</h3></a></li>
-                    <li><a href="#">Mensagens <i class="fa-solid fa-message"></i></a></li>
-                </ul>
-            </div>
-        </section>
+
 
         <section id="principal">
             <h2>Resumo Rápido</h2>

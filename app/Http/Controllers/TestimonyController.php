@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\factorys\contracts\TestimonySocialProveInterface;
 use App\Models\Testimony;
 use App\services\testimonys\contracts\TestimonyServiceInterface;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use \Illuminate\Validation\Validator as Validate;
 
 class TestimonyController extends Controller
 {
     public function __construct(
-        private TestimonyServiceInterface | TestimonySocialProveInterface $testimonyService,
+        private TestimonyServiceInterface $testimonyService,
     )
     {
         
@@ -24,32 +24,23 @@ class TestimonyController extends Controller
 
             $testimonies = $this->testimonyService->getAll();
 
-            return response()->json([
-                'status' => true,
-                'data' => $testimonies,
-            ], 200);
+            return view('testimonies.index', compact('testimonies'));
 
         } catch (\Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 500);
+            return view('errors.500', ['menssage' => $e->getMessage()]);
         }
+    }
+
+    public function create()
+    {
+        return view('testimonies.create');
     }
 
     public function store(Request $request)
     {
         try {
 
-            $validator = Validator::make($request->all(), [
-                    'client_id' => ['required','integer', 'exists:clients,id', 'min:1', 'numeric'],
-                    'testimony' => ['required', 'string',],
-                    'is_active' => ['boolean', 'min:0', 'max:1',],
-                ],  [
-                    'testimony.required' => 'O :attribute é obrigatório.',
-                ], [
-                    'testimony' => 'depoimento',
-                ]);
+            $validator = $this->validate($request->all());
     
             if ($validator->fails()) {
                 return response()->json([
@@ -65,11 +56,10 @@ class TestimonyController extends Controller
                 'data' => $testimony,
             ], 201);
 
+            return redirect()->route('testimonies.show', ['testimony' => $testimony['id']]);
+
         } catch (\Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+            return redirect()->back()->withInput()->withErrors($validator->errors());
         }
         
     }
@@ -80,16 +70,10 @@ class TestimonyController extends Controller
 
             $testimony = $this->testimonyService->get($testimony->id);
 
-            return response()->json([
-                'status' => true,
-                'data' => $testimony,
-            ], 200);
+            return view('testimonies.show', compact('testimony'));
 
         } catch (\Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 404);
+            return view('errors.404');
         }
     }
 
@@ -97,16 +81,8 @@ class TestimonyController extends Controller
     {
         try {
 
-            $validator = Validator::make($request->all(), [
-                    'client_id' => ['required', 'integer', 'exists:clients,id', 'min:1', 'numeric'],
-                    'testimony' => ['required', 'string',],
-                    'is_active' => ['boolean', 'min:0', 'max:1',],
-                ],  [
-                    'testimony.required' => 'O :attribute é obrigatório.',
-                ], [
-                    'testimony' => 'depoimento',
-                ]);
-    
+            $validator = $this->validate($request->all());
+
             if ($validator->fails()) {
                 return response()->json([
                     'status' => false,
@@ -116,16 +92,10 @@ class TestimonyController extends Controller
 
             $updatedTestimony = $this->testimonyService->update($testimony->id, $validator->validated());
 
-            return response()->json([
-                'status' => $updatedTestimony,
-                'message' => 'depoimento atualizado com sucesso!',
-            ], 200);
+            return redirect()->route('testimonies.show', ['testimony' => $testimony['id']])->with('success', 'depoimento atualizado com sucesso!');
 
         } catch (\Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+            return view('errors.400');
         }
     }
 
@@ -133,19 +103,28 @@ class TestimonyController extends Controller
     {
         try {
             
-            $deleted = $this->testimonyService->delete($testimony->id);
-            
-            return response()
-                    ->json([
-                        'status' => $deleted,
-                        'message' => 'depoimento eliminado com sucesso!',
-                    ]);
+            $this->testimonyService->delete($testimony->id);
+
+            return redirect()->route('testimonies.index')->with('success', 'depoimento eliminado com sucesso!');
+
         } catch (Exception $e) {
-            return response()
-                    ->json([
-                        'status' => false,
-                        'message' => $e->getMessage()
-                    ]);
+            return view('errors.404');
         }
+    }
+
+    public function validate($data = []): Validate
+    {
+        $validator = Validator::make($data, [
+                        'client_id' => ['required', 'integer', 'exists:clients,id', 'min:1', 'numeric'],
+                        'testimony' => ['required', 'string',],
+                        'is_active' => ['boolean', 'min:0', 'max:1',],
+
+                        ],  [
+                            'testimony.required' => 'O :attribute é obrigatório.',
+                        ], [
+                            'testimony' => 'depoimento',
+                    ]);
+
+        return $validator;
     }
 }

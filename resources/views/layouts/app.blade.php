@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="estilos/style.css">
+    <link rel="stylesheet" href="/estilos/style.css">
     <link rel="shortcut icon" href="favicon.svg" type="image/svg">
     <script src="https://kit.fontawesome.com/8e770ce0b4.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
         <div id="logo-container">
-            <a href="#">
+            <a href="{{ route('home.index') }}">
                 <img src="{{ asset('imagens/qos-logo-sem-fundo.png') }}" alt="Logo da QoS Tel">
             </a>
         </div>
@@ -31,6 +31,20 @@
         </nav>
     </header>
     <main>
+        <section id="ficha">
+            <img src="{{ asset('imagens/guanabara-perfil.jpg') }}" alt="Josemar Martins" class="foto">
+            <h1>Josemar Martins</h1>
+            <div id="social">
+               <ul>
+                    <li><a href="{{ route('home.index') }}">Home <i class="fa-solid fa-house"></i></a></li>
+                    <li><a href="#">Dashboard <i class="fa-solid fa-grip"></i></a></li>
+                    <li><a href="{{ route('testimonies.index') }}">Depoimentos <i class="fa-brands fa-stack-exchange"></i></a></li>
+                    <li><a href="#">Perguntas Frequentes <i class="fa-solid fa-file-circle-question"></i></a></li>
+                    <li><a href="#">Clientes renomados <h3><i class="fa-solid fa-people-roof"></i> </h3></a></li>
+                    <li><a href="#">Mensagens <i class="fa-solid fa-message"></i></a></li>
+                </ul>
+            </div>
+        </section>
         @yield('content')
     </main> 
     <script src="scripts/script.js"></script>

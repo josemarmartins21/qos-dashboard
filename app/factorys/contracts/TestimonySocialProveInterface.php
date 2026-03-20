@@ -3,6 +3,7 @@
 namespace App\factorys\contracts;
 
 
-interface TestimonySocialProveInterface {
+interface TestimonySocialProveInterface 
+{
     public function save($data = []): array;
 }

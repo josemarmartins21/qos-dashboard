@@ -217,6 +217,164 @@ tfoot > tr td {
  #foot-header {
   text-align: left;
  }
+
+ /**======================= Depoimentos =============== */
+
+ #testimonies-container {
+  padding: 8px;
+}
+
+/*======== MAIN CONTENT ===========*/
+
+#testiomonies-index {
+
+  /* ============ HEADER ================== */
+  #testimony-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 30px;
+
+    form {
+      display: flex;
+      align-items: flex-end;
+
+      input {
+        border-radius: 5px;
+        outline: 1px solid rgba(0, 0, 0, 0.363);
+        border: none;
+        padding: 5px;
+      }
+    }
+
+    #btn-container {
+      display: flex;
+      align-items: flex-end;
+      gap: 15px;
+
+      a {
+        width: 100px;
+        display: inline-block;
+        text-decoration: none;
+        color: #fff;
+        font-weight: bold;
+        font-size: 12px;
+        text-transform: capitalize;
+        padding: 5px;
+        border-radius: 5px;
+        text-align: center;
+      }
+      a:active {transform: scale(.98);}
+
+
+      .pdf-btn {
+        background-color: red;
+      }
+
+      .mais-depoimentos {
+        background-color: var(--blue-primary);
+      }
+
+    }
+    
+    
+  }
+
+  /** ====== Cards de depoimento ============ **/
+  #testiomies {
+    display: flex;
+    flex-flow: column-reverse nowrap;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0;
+    
+    .testimony {
+      color: var(--texto);
+      flex: 0 1 220px;
+      width: 380px;
+      border-radius: 5px;
+      padding: 15px;
+      background-color: #fff;
+      box-shadow: var(--card-sombras);
+
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-between;
+
+      .info-testimony {
+        flex: 0 1 70%;
+
+        display: flex;
+        justify-content: center;
+        flex-flow: column nowrap;
+      }
+
+      .btn-testimony {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      
+        
+        /*==== Botões de AÇÃO ========*/
+        .actions-btn {
+          display: flex;
+          align-items: flex-end;
+          gap: 10px;
+
+          button.delete {
+            background-color: red;
+          }
+
+          a.edit {
+            background-color: green;
+          }
+        }
+
+        /*============================================*/
+
+        button.delete, a.edit, form.active > button {
+          display: inline-block;
+          width: 35px;
+          height: 35px;
+          padding: 5px;
+          color: #fff;
+          border: none;
+          border-radius: 6px;
+          text-align: center;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+          
+        }
+
+        button.delete:active, a.edit:active, form.active > button:active {transform: scale(.98);}
+
+        a.edit {
+          padding-left: 7px;
+          padding-right: 7px;
+        }
+
+        form.active {
+          button {
+            background-color: var(--blue-primary);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+/** ============== CREATE TESTIMONY ================== */
+#testimony-create {
+  padding: 10px;
+
+  .form-container {
+    border: 2px solid blue;
+  
+  }
+}
+
 @media screen and (min-width: 768px) {
   body {
     
@@ -298,6 +456,7 @@ tfoot > tr td {
             justify-content: flex-end;
             gap: 10px;
             align-items: center;
+            text-transform: capitalize;
         }
         a:active {
             transform: scale(.98);
@@ -366,7 +525,56 @@ tfoot > tr td {
       width: 100%;
     }
 
+/*** =========== DEPOIMENTOS ================ */
+
+#testimonies-container {
+  padding: 30px;
+
+  #testimony-header {
+    padding-bottom: 40px;
+
+    #btn-container {
+      a {
+        width: 120px;
+        transition: opacity .3s;
+        font-size: 15px;
+      }
+
+      a:hover {opacity: .8;}
     }
+  }
+  h2 {
+    font-size: 30px;
+    font-weight: bolder;
+  }
+
+  #testiomonies-index {
+    form {
+      flex: 0 1 500px;
+      
+      input {
+        width: 100%;
+        padding: 10px;
+      } 
+
+    }
+  
+      #testiomies {
+        justify-content: space-evenly;
+        flex-flow: row wrap;
+        gap: 20px;
+        
+        .testimony {
+          flex-basis: 31%;
+          height: 220px;
+        }
+      } 
+  }
+
+}
+
+
+}
 
   section#ficha {
     grid-column:  2 / 3;
@@ -378,7 +586,8 @@ tfoot > tr td {
   section#principal {
     grid-column: 3 / 4;
   }
+
   #message-container {
     grid-template-columns: 1fr 1fr;
  
-}
+  }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('client_prove_socials', function (Blueprint $table) {
             $table->id();
             $table->string('logo');
-            $table->text('url')->unique();
+            $table->string('url')->unique();
             $table->boolean('is_active')->default(0);
 
             $table->foreignId('client_id')
