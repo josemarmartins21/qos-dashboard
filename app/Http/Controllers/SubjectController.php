@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Subject;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+class SubjectController extends Controller
+{
+    public function index()
+    {
+        $subjects = Subject::all();
+        return view('subjects.index', compact('subjects'));
+    }
+
+    public function create()
+    {
+        return view('subjects.create');
+    }
+
+    public function edit()
+    {
+        return view('subjects.create');
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(),[
+                'subject' => 'required|string|max:50',
+            ], [], [
+                'subject' => 'assunto',
+            ]);
+
+            if ($validator->fails()) {
+                dd($validator->errors());
+                return redirect()->back()->withInput()
+                        ->withErrors($validator->errors());
+            }
+    
+            Subject::create($validator->validated());
+    
+            return redirect()->route('subjects.index');
+            
+        } catch (\Throwable $e) {
+            dd($e->getMessage());
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+        }
+    }
+
+    public function update()
+    {
+        
+    }
+
+    public function destroy()
+    {
+        
+    }
+}

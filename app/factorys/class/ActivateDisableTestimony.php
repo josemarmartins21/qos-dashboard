@@ -8,7 +8,8 @@ use App\Models\Testimony;
 use App\services\validators\contracts\ValidateIfCanActiveOrDisableInterface;
 use InvalidArgumentException;
 
-class ActivateDisableTestimony implements ActivateDisableInterface {
+class ActivateDisableTestimony implements ActivateDisableInterface 
+{
     private ValidateIfCanActiveOrDisableInterface $validateAOrD;
 
     public function __construct()
@@ -17,7 +18,7 @@ class ActivateDisableTestimony implements ActivateDisableInterface {
     }
     public function active(int $id): bool
     {        
-        $testimony = Testimony::where('id', $id)->where('is_active',false)->exists();
+        $testimony = Testimony::where('id', $id)->where('is_active', false)->exists();
     
         if ($testimony === false) throw new \Exception("Este testemunho já se encontra activo");
 

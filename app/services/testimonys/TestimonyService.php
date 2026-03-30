@@ -21,8 +21,35 @@ class TestimonyService implements TestimonyServiceInterface, TestimonySocialProv
     {
         $testimonies = DB::table('testimonies')
         ->join('clients', 'testimonies.client_id', '=', 'clients.id')
-        ->select('testimonies.testimony', 'testimonies.is_active','clients.name as nome')
+        ->select(
+                'testimonies.id',
+                'clients.company_role as cargo',
+                'testimonies.testimony', 
+                'testimonies.is_active',
+                'clients.name as nome',
+                'testimonies.created_at as data_criacao',
+            )
         ->get();
+        
+        return $testimonies->toArray();
+    }
+
+    public function getBySearch(string $searched): array
+    {
+        $attributes = [
+            'testimonies.id',
+            'clients.company_role as cargo',
+            'testimonies.testimony', 
+            'testimonies.is_active',
+            'clients.name as nome',
+            'testimonies.created_at as data_criacao',
+        ];
+
+        $testimonies = DB::table('testimonies')
+                    ->join('clients', 'testimonies.client_id', '=', 'clients.id')
+                    ->select($attributes)
+                    ->where('clients.name', 'Like', '%' . $searched . '%')
+                    ->get();
         
         return $testimonies->toArray();
     }
@@ -31,8 +58,13 @@ class TestimonyService implements TestimonyServiceInterface, TestimonySocialProv
     {
         $testimony = DB::table('clients', 'c')
                         ->join('testimonies','c.id','=','testimonies.client_id')
-                        ->select('c.name','testimonies.testimony')
-                        ->where('testimonies.id',$id)
+                        ->select(
+                            'c.name as nome',
+                            'testimonies.testimony as depoimento',
+                            'c.company_role as cargo',
+                            'testimonies.created_at as data_criacao',
+                        )
+                        ->where('testimonies.id', $id)
                         ->get();
 
         return $testimony->toArray();
@@ -74,7 +106,7 @@ class TestimonyService implements TestimonyServiceInterface, TestimonySocialProv
 
     public function delete(int $id): bool
     {
-        if (Testimony::count()  < Testimony::getMin()) {
+        if (Testimony::count()  < Testimony::getMinActive()) {
             throw new \Exception("Não foi possível eliminar o depoimento, pois o número mínimo de depoimentos será ultrapassado.");
         }
 

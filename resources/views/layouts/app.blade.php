@@ -11,7 +11,7 @@
 <body>
     <header>
         <div id="logo-container">
-            <a href="{{ route('home.index') }}">
+            <a href="{{ route('home') }}">
                 <img src="{{ asset('imagens/qos-logo-sem-fundo.png') }}" alt="Logo da QoS Tel">
             </a>
         </div>
@@ -32,21 +32,33 @@
     </header>
     <main>
         <section id="ficha">
-            <img src="{{ asset('imagens/guanabara-perfil.jpg') }}" alt="Josemar Martins" class="foto">
+            <img src="{{ asset('imagens/guanabara-perfil.jpeg') }}" alt="Josemar Martins" class="foto">
             <h1>Josemar Martins</h1>
             <div id="social">
                <ul>
-                    <li><a href="{{ route('home.index') }}">Home <i class="fa-solid fa-house"></i></a></li>
-                    <li><a href="#">Dashboard <i class="fa-solid fa-grip"></i></a></li>
-                    <li><a href="{{ route('testimonies.index') }}">Depoimentos <i class="fa-brands fa-stack-exchange"></i></a></li>
-                    <li><a href="#">Perguntas Frequentes <i class="fa-solid fa-file-circle-question"></i></a></li>
-                    <li><a href="#">Clientes renomados <h3><i class="fa-solid fa-people-roof"></i> </h3></a></li>
-                    <li><a href="#">Mensagens <i class="fa-solid fa-message"></i></a></li>
+                    <li>
+                        <a href="{{ route('home') }}">Home <i class="fa-solid fa-house"></i></a>
+                    </li>
+                    <li>
+                        <a href="#">Dashboard <i class="fa-solid fa-grip"></i></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('testimonies.index') }}">Depoimentos <i class="fa-brands fa-stack-exchange"></i></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('questions.index') }}">Perguntas Frequentes <i class="fa-solid fa-file-circle-question"></i></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('client_prove_socials.index') }}">Clientes renomados <h3><i class="fa-solid fa-people-roof"></i> </h3></a>
+                    </li>
+                    <li>
+                        <a href="{{ route('visitors.index') }}">Mensagens <i class="fa-solid fa-message"></i></a>
+                    </li>
                 </ul>
             </div>
         </section>
         @yield('content')
     </main> 
-    <script src="scripts/script.js"></script>
+    <script src="/scripts/script.js"></script>
 </body>
 </html>

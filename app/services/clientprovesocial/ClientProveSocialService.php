@@ -26,12 +26,33 @@ class ClientProveSocialService implements ClientProveSocialInterface, TestimonyS
                         'clients.*', 
                         'client_prove_socials.logo as imagem',
                         'client_prove_socials.url', 
-                        'client_prove_socials.is_active'
+                        'client_prove_socials.is_active',
+                        'client_prove_socials.id as prove_social_id',
                     ];
 
         $proveSocial = DB::table('client_prove_socials')
                         ->join('clients', 'clients.id', '=', 'client_prove_socials.client_id')
                         ->select($attributes)
+                        ->get()
+                        ->toArray();
+
+        return $proveSocial;
+    }
+
+    public function getBySearch(string $searched): array
+    {
+        $attributes = [ 
+                        'clients.*', 
+                        'client_prove_socials.logo as imagem',
+                        'client_prove_socials.url', 
+                        'client_prove_socials.is_active',
+                        'client_prove_socials.id as prove_social_id',
+                    ];
+
+        $proveSocial = DB::table('client_prove_socials')
+                        ->join('clients', 'clients.id', '=', 'client_prove_socials.client_id')
+                        ->select($attributes)
+                        ->where('clients.company_role', 'Like', '%'. $searched . '%')
                         ->get()
                         ->toArray();
 
@@ -69,8 +90,11 @@ class ClientProveSocialService implements ClientProveSocialInterface, TestimonyS
 
     public function update(int $id, $data = []): array
     {
+    
         $client = ClientProveSocial::findOrFail($id);
+
         $client->update($data);
+        
         return $client->toArray();
     }
         
@@ -99,6 +123,5 @@ class ClientProveSocialService implements ClientProveSocialInterface, TestimonyS
         
         $client = ClientProveSocial::findOrFail($id)->client()->first();
         return $client->delete();
-    }
-    
+    } 
 }

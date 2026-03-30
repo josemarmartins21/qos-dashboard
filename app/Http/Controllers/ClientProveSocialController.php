@@ -2,38 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\client_prove_social\ClientProveSocialRequest;
+use App\Http\Requests\client_prove_social\ClientProveSocialUpdateRequest;
 use App\Models\ClientProveSocial;
 use App\services\clientprovesocial\contracts\ClientProveSocialInterface;
 use App\services\clients\contracts\ClientServiceInterface;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\ImageTrait;
 
 class ClientProveSocialController extends Controller
 {
-    private ClientProveSocialInterface $clientProveSocial;
+    use ImageTrait;
+
     public function __construct(
         private ClientServiceInterface $clientService,
+        private ClientProveSocialInterface $clientProveSocial,
     )
-    {}
+    {
+        
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            
-            $clientsProveSocial = $this->clientProveSocial->getAll();
-            return response()->json([
-                'status' => true,
-                'data' => $clientsProveSocial,
-            ]);
+            if ($request->searched) {
+                $clientsProveSocials = $this->clientProveSocial->getBySearch($request->searched);
+            } else {
+                $clientsProveSocials = $this->clientProveSocial->getAll();
+            }
+
+            return view('prove_social.index', compact('clientsProveSocials'));
 
         } catch (\Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 404);
+            dd($e->getMessage());
+            /* return view('erros.404'); */
         }
     }
 
@@ -42,7 +46,8 @@ class ClientProveSocialController extends Controller
      */
     public function create()
     {
-        //
+        $clients = $this->clientService->getAll();
+        return view('prove_social.create', compact('clients'));
     }
 
     /**
@@ -52,66 +57,35 @@ class ClientProveSocialController extends Controller
      * de clientprovesocial passando o tipo de cliente
      *  para salvar os dados do cliente renomado.
      */
-    public function store(Request $request)
+    public function store(ClientProveSocialRequest $request)
     {
         try {
-           
-            $validator = $this->validateCreate($request->all());
-
-            if ($validator->fails()) {
-                return response()->json(['status' => false, $validator->errors()], 400);
-            }
-
-            $client = $request->only(['name', 'user_id']);
-
-            $relation = $request->only([
-                'logo', 
-                'is_active', 
-                'type', 
-                'url'
+            
+            $request->validated();
+                
+            $client = $request->safe([
+                'client_name',
+                'user_id',
+                'company_role',
             ]);
                 
-            $result = $this->clientService->save($client, $relation);
-    
-
-            return response()->json([
-                'status' => true,
-                'data' => $result,
-            ], 201);
-
-        } catch (\Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 400);
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(ClientProveSocial $clientProveSocial)
-    {
-        try {
-
-            $clientProveSocial = $this->clientProveSocial->get($clientProveSocial->id);
-
-            return response()->json([
-                'status' => true,
-                'data' => $clientProveSocial,
+            $relation = $request->safe([
+                'logo', 
+                'is_active', 
+                'url',
+                'type',
             ]);
 
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 404);
-        
-        }catch (\Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 404);
+            $relation['logo'] = $this->save($request, ClientProveSocial::getPathImages());
+                
+            $this->clientService->save($client, $relation);
+    
+            return redirect()
+                    ->route('client_prove_socials.index')
+                    ->with('success','Cliente criado com sucesso!');
+
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error',$e->getMessage());
         }
     }
 
@@ -120,46 +94,44 @@ class ClientProveSocialController extends Controller
      */
     public function edit(ClientProveSocial $clientProveSocial)
     {
-        //
+        // dd($clientProveSocial->client);
+        return view('prove_social.edit', compact('clientProveSocial'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ClientProveSocial $clientProveSocial)
+    public function update(
+        ClientProveSocialUpdateRequest $request, 
+        ClientProveSocial $clientProveSocial,
+    )
     {
         try {
 
-            $validator = $this->validateUpdate($request->all());
+            $request->validated();
 
-            if ($validator->fails()) {
-                return response()->json(['status' => false, $validator->errors()], 400);
-            }
-
-            $client = $validator->safe([
+            $client = $request->safe([
                 'name',
-                'user_id',
+                'company_role',
                 'client_id',
             ]);
 
-            $proveSocialClient = $validator->safe([
+            $proveSocialClient = $request->safe([
                 'logo', 
-                'url'
+                'url',
             ]);
 
-            $client = $this->clientService->update($client);   
+            if (array_key_exists('logo', $proveSocialClient)) {
+                $proveSocialClient['logo'] = $this->save($request, ClientProveSocial::getPathImages());
+            }
 
-            $result = $this->clientProveSocial->update($clientProveSocial->id, $proveSocialClient);
+            $this->clientService->update($client);   
 
-            return response()->json([
-                'status' => true,
-                'data' => array_merge($client->toArray(), $result),
-            ]);
+            $this->clientProveSocial->update($clientProveSocial->id, $proveSocialClient);
+            
+            return redirect()->route('client_prove_socials.index');
         } catch (\Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -170,68 +142,11 @@ class ClientProveSocialController extends Controller
     {
         try {
             $this->clientProveSocial->delete($clientProveSocial->id);
-            return response()->json([
-                'status' => true,
-                'message' => 'Cliente de prova social removido com sucesso',
-            ]);
+
+            return redirect()->route('client_prove_socials.index');
+            
         } catch (\Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+            return redirect()->back()->with('error', $e->getMessage());
         }
-    }
-
-    /**
-     * Valida os dados de entrada para criação ou atualização de um cliente renomado.
-     * @param array $data
-     * 
-     * @return [type]
-     */
-    private function validateUpdate($data = [])
-    {
-        $validator = Validator::make($data, [
-                'logo' => ['bail','required','max:2048'],
-                'url' => ['bail','required' ,'url','unique:client_prove_socials,url',/* 'exists:client_prove_socials,url' */],
-                "name" => ['bail','required', 'string', 'max:100', 'min:4'],
-                'client_id' => ['bail','required','min:1','numeric'],
-
-            ], [
-                'logo.required' => 'O :attribute é obrigatório',
-                'url.url' => 'O :attribute deve ser uma URL válida. Foi enviada :input',  
-                'url.unique' => 'O :attribute :input já está registada',
-            ], [
-                'name' => 'nome',
-                'logo' => 'logotipo',
-                'url' => 'link',
-                'type' => 'tipo de postagem',
-                'is_active' => 'activo'
-            ]);
-
-        return $validator;
-    }
-
-    private function validateCreate($data = []) {
-         /** |image|mimes:jpeg,png,jpg,gif,svg */
-        $validator = Validator::make($data, [
-                'name' => ['bail','required', 'string', 'max:100', 'min:4'],
-                'logo' => ['bail','required','max:2048'],
-                'url' => ['bail','required' ,'url',/* 'active_url' *//* 'exists:client_prove_socials,url' */],
-                'is_active' => ['bail','required','boolean','min:0','max:1'],
-                'user_id' => ['bail','nullable'],
-                'type' => ['bail','required'],
-            ], [
-                'name.required' => 'O :attribute é obrigatório',
-                'logo.required' => 'O :attribute é obrigatório',
-                'url.url' => 'O :attribute deve ser uma URL válida. Foi enviada :input', 
-            ], [
-                'name' => 'nome',
-                'logo' => 'logotipo',
-                'url' => 'link',
-                'type' => 'tipo de postagem',
-                'is_active' => 'activo'
-            ]);
-
-            return $validator;
     }
 }

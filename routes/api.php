@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 /* Route::post('/testimonys', [TestimonyController::class, 'store'])->name('testimonys.store'); */
 
-Route::resource('testimonys', TestimonyController::class);
+/*Route::resource('testimonys', TestimonyController::class);
 Route::resource('clients', ClientController::class);
-Route::resource('client_prove_socials', ClientProveSocialController::class);
+//Route::resource('client_prove_socials', ClientProveSocialController::class);
 
 
 Route::resource('questions', QuestionController::class);

@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+/*
+
+    Paleta
+    Cor-principal - #014034
+    Cor-de-destaque - #F2522E
+    cor tercearia - #F27E63
+    cor de cards - #F2F2F2
+
+*/
+
+:root {
+    --font: 'Mulish', Arial;
+    --Cor-principal: #014034;
+    --Cor-de-destaque: #F2522E;
+    --cor-tercearia: #F27E63;
+    --cor-de-cards: #F2F2F2;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--Cor-principal);
+    color: var(--cor-de-cards);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font);
+}
+
+main {
+    max-width: 800px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3.5em;
+    font-weight: bolder;
+}
+
+p {
+    font-weight: bold;
+    font-size: 20px;
+}

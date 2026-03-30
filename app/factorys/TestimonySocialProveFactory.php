@@ -13,7 +13,7 @@ class TestimonySocialProveFactory  {
             strtolower("depoimento") => new TestimonyService(),
             
             strtolower("prova social"), 
-            strtolower("cliente renomado") => new ClientProveSocialService(),
+            strtolower("cliente renomado") => new ClientProveSocialService,
         };
 
         return $result;

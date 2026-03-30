@@ -1,42 +1,43 @@
 @extends('layouts.app')
 
-@section('title', 'Criar depoimento')
+@section('title', 'Adicionar depoimento')
     
 @section('content')
-    <div id="testimony-create">
+    <div id="form-container">
         <x-form-container>
-            <h2>Adicionar Depoimento</h2>
+            <x-slot:title>Novo Depoimento</x-slot>
 
-            <form action="" method="post">
+            <form action="{{ route('testimonies.store') }}" method="post">
+                
+                @csrf
+
                 <div class="form-group">
-                    <select name="full_name" id="">
-                        <select name="" id=""></select>
+                    <label for="client_id">Cliente</label>
+                    <select name="client_id" id="client_id">
+                        <option value=""  selected>Selecione o Cliente</option>
+                        @foreach ($clients as $client)
+                            <option value="{{ $client['id'] }}"> {{ $client['name'] }} </option>
+                        @endforeach
                     </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="company_role">Cargo do Cliente</label>
-                    <input type="text" name="company_role" id="company_role">
-                </div>
-
-                <div class="form-group">
-                    <label for="company_role">Cargo do Cliente</label>
-                    <input type="text" name="company_role" id="company_role">
                 </div>
 
                 <div class="form-group">
                     <label for="testimony">Depoimento</label>
-                    <textarea name="testimony" id="testimony" cols="30" rows="10"></textarea>
+                    <textarea name="testimony" id="testimony" cols="30" rows="7">
+                        {{ old('testimony') }}
+                    </textarea>
                 </div>
 
-                <div class="form-grou">
+                <div class="form-group">
                     <label for="is_active">Estado</label>
-                    <select name="" id="">
+                    <select name="is_active" id="is_active">
                         <option value="" selected>Selecione um Estado</option>
-                        <option value="">Activo</option>
-                        <option value="">Desactivado</option>
+                        <option value="1">Activado</option>
+                        <option value="0">Desactivado</option>
                     </select>
                 </div>
+
+                <input type="submit" value="Adicionar" class="btn-primary">
             </form>
         </x-form-container>   
     </div>

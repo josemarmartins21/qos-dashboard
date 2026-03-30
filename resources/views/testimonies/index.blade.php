@@ -1,116 +1,118 @@
+@use('Illuminate\Support\Str')
+
 @extends('layouts.app')
 
 @section('title', 'Depoimentos')
     
 @section('content')
-    <div id="testimonies-container">
+
+<div id="container">
+<x-alert />
+
         <h2>Depoimentos</h2>
 
         {{-- Form de pesquisa --}}
-        <div id="testiomonies-index">
-            <div id="testimony-header">
-                <form action="" method="get">
-                    <input type="search" name="" id="" placeholder="Digite o nome de um cl.....">
+        <x-index_container class="testiomonies-index">
+            <x-slot:header_index>
+                <form action="{{ route('testimonies.index') }}" method="get">
+                    
+                    @csrf
+
+                    <input type="search" name="searched" id="" placeholder="Digite o nome de um cliente" autofocus>
                 </form>
 
                 <div id="btn-container">
-                    <a href="#" class="pdf-btn"><i class="fa-solid fa-file-pdf"></i> Gerar PDF</a>
-                    <a href="{{ route('testimonies.create') }}" class="mais-depoimentos"><i class="fa-solid fa-plus"></i> Adicionar</a>
+                    <a href="#" class="pdf-btn">
+                        <i class="fa-solid fa-file-pdf"></i> Gerar PDF
+                    </a>
+                    
+                    <a href="{{ route('testimonies.create') }}" class="mais-depoimentos">
+                        <i class="fa-solid fa-plus"></i> Adicionar
+                    </a>
                 </div>
-            </div>
+            </x-slot:header_index>
 
             {{-- Cards de depoimentos --}}
-            <div id="testiomies">
+            <x-slot:container_cards>
 
-                {{-- Card de depoimentos --}}
-                <div class="testimony">
-                    <div class="info-testimony">
-                        <h3>Josimar Martins 1</h3>
+                @forelse ($testimonies as $testimony)
+                    {{-- Card de depoimentos --}}
+                    <x-card>
+                        <x-slot:top_card>
+                            <a href="{{ route('testimonies.show', ['testimony' => $testimony->id]) }}">{{ $testimony->nome }}</a>
 
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
+                            <span>{{ $testimony->cargo }}</span>
 
-                    <div class="btn-testimony">
-                        <form action="" class="active">
-                            <button type="submit"><i class="fa-solid fa-eye"></i></button>
-                        </form>
+                            <p class="card-paragrafo">
+                                {{ Str::limit($testimony->testimony, 110, '...') }}
+                            </p>
+                        </x-slot:top_card>
 
-                        <div class="actions-btn">
-                            <a href="#" class="edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <form action="" method="post">
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                {{-- Fim do Card de depoimento --}}
-                {{-- Card de depoimentos --}}
-                <div class="testimony">
-                    <div class="info-testimony">
-                        <h3>Josimar Martins 1</h3>
+                        <x-slot:btn_actions>
+                            @if ($testimony->is_active === 0)
+                                <form action="{{ route('active') }}" method="POST" class="active">
+                                    
+                                    @csrf
+                                    
+                                    @method("PUT")
+                                    
+                                    <input type="hidden" name="type" value="depoimento">
 
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
+                                    <input type="hidden" name="id" id="id" value="{{ $testimony->id }}">
+                                    
+                                    <button class="disable" type="submit" title="Activar">
+                                        <i class="fa-solid fa-eye-slash disable"></i>
+                                    </button>
+                                    
+                                </form>
+                            @else
+                                    <form action="{{ route('disable')}}" method="POST" class="active">
+                                        @csrf
+                                        
+                                        @method("PUT")
 
-                    <div class="btn-testimony">
-                        <form action="" class="active">
-                            <button type="submit"><i class="fa-solid fa-eye"></i></button>
-                        </form>
+                                        <input type="hidden" name="id" id="id" value="{{ $testimony->id }}">
+                                        
+                                        <input type="hidden" name="type" value="depoimento">
 
-                        <div class="actions-btn">
-                            <a href="#" class="edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <form action="" method="post">
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                {{-- Fim do Card de depoimento --}}
-                {{-- Card de depoimentos --}}
-                <div class="testimony">
-                    <div class="info-testimony">
-                        <h3>Josimar Martins 1</h3>
+                                        <button type="submit" title="Desactivar">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    
+                                    </form>
+                            @endif
 
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
+                            <div class="actions-btn">
+                                
+                                <a href="{{ route('testimonies.edit', ['testimony' => $testimony->id]) }}" class="edit">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                
+                                <form action="{{ route('testimonies.destroy', ['testimony' => $testimony->id]) }}" method="post">
 
-                    <div class="btn-testimony">
-                        <form action="" class="active">
-                            <button type="submit"><i class="fa-solid fa-eye-slash"></i></button>
-                        </form>
+                                    @csrf
 
-                        <div class="actions-btn">
-                            <a href="#" class="edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <form action="" method="post">
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                {{-- Fim do Card de depoimento --}}
-                {{-- Card de depoimentos --}}
-                <div class="testimony">
-                    <div class="info-testimony">
-                        <h3>Josimar Martins 1</h3>
+                                    @method('Delete')
 
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                    </div>
+                                    <button class="delete" id="delete">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </x-slot:btn_actions>
+                    </x-card>
+                    {{-- Fim do Card de depoimento --}}
+                    
+                @empty
+                    <x-image-container>
+                       <img src="{{ asset('images/void.png') }}" alt="Imagem de documentos em branco">
 
-                    <div class="btn-testimony">
-                        <form action="" class="active">
-                            <button type="submit"><i class="fa-solid fa-eye-slash"></i></button>
-                        </form>
-
-                        <div class="actions-btn">
-                            <a href="#" class="edit"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <form action="" method="post">
-                                <button class="delete"><i class="fa-solid fa-trash"></i></button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                {{-- Fim do Card de depoimento --}}
-            </div>
-        </div>
-    </div>
+                       <x-slot:btn_back>
+                            <a href="{{ route('testimonies.index') }}">Voltar</a>
+                       </x-slot:btn_back>
+                   </x-image-container>
+                @endforelse
+            </x-slot:container_cards>
+    </x-index_container>
+</div>
 @endsection

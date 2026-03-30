@@ -17,4 +17,9 @@ class Message extends Model
     {
         return $this->belongsTo(Visitor::class);
     }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }

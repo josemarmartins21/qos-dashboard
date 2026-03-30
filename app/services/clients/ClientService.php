@@ -20,8 +20,11 @@ class ClientService implements ClientServiceInterface {
      */
     public function getAll(): array
     {
-        $clients = Client::paginate(5)->toArray();
-        return $clients;
+        $clients = Client::select('id', 'name')
+                    ->orderBy('name')
+                    ->get();
+                    
+        return $clients->toArray();
     }
     
     /**
@@ -35,14 +38,17 @@ class ClientService implements ClientServiceInterface {
     {
         try {
 
-            $createdClient = Client::create($client)->toArray();
+            $createdClient = Client::create([
+                'name' => $client['client_name'],
+                'company_role' => $client['company_role'],
+            ])->toArray();
     
             $relation['client_id'] = $createdClient['id'];
     
             $service = $this->testimonySocialFactory->create($relation["type"]);
     
             $relationCreated = $service->save($relation);
-            
+
             return array_merge($createdClient, $relationCreated);
     
         } catch (\UnhandledMatchError $e) {
@@ -68,6 +74,7 @@ class ClientService implements ClientServiceInterface {
 
         return $client;
     }
+
     public function get(int $id): Client
     {
         return Client::findOrFail($id);

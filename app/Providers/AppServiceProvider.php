@@ -32,6 +32,12 @@ class AppServiceProvider extends ServiceProvider
         ); 
 
         $this->app->bind(
+            ClientProveSocialInterface::class,
+            ClientProveSocialService::class
+        );
+
+
+        $this->app->bind(
             TestimonyServiceInterface::class,
             TestimonyService::class
         );

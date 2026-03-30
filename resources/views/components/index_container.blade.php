@@ -1,0 +1,9 @@
+<div class="index">
+    <div id="index-header">
+        {{ $header_index }}
+    </div>
+
+    <div id="cards">
+        {{ $container_cards }}
+    </div>
+</div>

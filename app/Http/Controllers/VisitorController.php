@@ -20,12 +20,10 @@ class VisitorController extends Controller
         try {
             $visitors = $this->visitorService->getAll();
 
-            return response()->json([
-                'status' => true,
-                'visitors' => $visitors,
-            ]);
+            return view('visitors.index', compact('visitors'));
 
         } catch (\Throwable $e) {
+            dd($e->getMessage());
             return response()->json([
                 'status' => false,
                 'message' => $e->getMessage(),
@@ -60,24 +58,20 @@ class VisitorController extends Controller
             $validator = $this->validate($request->all());
     
             if ($validator->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'messages' => $validator->errors(),
-                ], 400);
+                dd($validator->errors());
+                return redirect()->back()->withInput()->withErrors($validator->errors());
     
             }
 
             $visitorData = $validator->safe(['full_name','email','phone',]);
             $message = $validator->safe(['body','subject',]);
     
-            $visitor = $this->visitorService->create($visitorData, $message);
+            $this->visitorService->create($visitorData, $message);
     
-            return response()->json([
-                'status' => true,
-                'visitor' => $visitor,
-            ], 201);
+            return redirect()->route('test');
 
         } catch (\Throwable $e) {
+            dd($e->getMessage());
             return response()->json([
                 'status' => false,
                 'message' => $e->getMessage(),

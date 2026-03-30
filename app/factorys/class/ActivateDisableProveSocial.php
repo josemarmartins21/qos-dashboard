@@ -18,9 +18,9 @@ class ActivateDisableProveSocial implements ActivateDisableInterface {
     public function active(int $id): bool
     {
 
-        $question = ClientProveSocial::where('id', $id)->where('is_active',false)->exists();
+        $question = ClientProveSocial::where('id', $id)->where('is_active', false)->exists();
     
-        if ($question === false) throw new \Exception("O registo de cliente renomado já se encontra activa");
+        if ($question === false) throw new \Exception("O registo de cliente renomado já se encontra activo");
 
         if ($this->validateAOrD->validateIfCanActive() === false) throw new InvalidArgumentException("Número máximo de registo de cliente renomado activo foi atingido");    
 
@@ -33,9 +33,9 @@ class ActivateDisableProveSocial implements ActivateDisableInterface {
 
     public function disable(int $id): bool
     {
-        $question = ClientProveSocial::where('id', $id)->where('is_active',true)->exists();
+        $question = ClientProveSocial::where('id', $id)->where('is_active', true)->exists();
         
-        if ($question === false) throw new \Exception("A pergunta frequente já se encontra desactivada");
+        if ($question === false) throw new \Exception("O registo de cliente renomado já se encontra desactivado");
         
         if ($this->validateAOrD->validateIfCanDisable() === false) throw new InvalidArgumentException("Número mínimo de registo de cliente renomado  activo foi atingido");  
 

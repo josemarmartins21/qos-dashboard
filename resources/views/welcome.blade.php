@@ -14,6 +14,7 @@
 <body>
     <h1>Teste Mensagem</h1>
     <form action="{{ route('visitors.store') }}" method="post">
+        @csrf
             <div>
                 <label for="full_name">Nome</label>
                 <input type="text" name="full_name" value="{{ old('full_name', 'Josemar Martins') }}" >
@@ -28,7 +29,11 @@
             </div>
             <div>
                 <label for="subject">Assunto</label>
-                <input type="text" name="subject" value="{{ old('subject', 'teste ') }}" >
+                <select name="subject" id="">
+                    @foreach ($subjects as $subject)
+                        <option value="{{ $subject->id }}"> {{ $subject->subject }} </option>
+                    @endforeach
+                </select>
             </div>
 
             <div>

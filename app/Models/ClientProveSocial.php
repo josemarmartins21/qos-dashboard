@@ -33,6 +33,11 @@ class ClientProveSocial extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public static function getPathImages(): string
+    {
+        return 'images/logos_client/';
+    }
+
     public static function getMinActive(): int
     {
         return self::MIN_ACTIVE;
@@ -44,7 +49,7 @@ class ClientProveSocial extends Model
 
     public static function getQuantityActive(): int
     {
-        return self::where('is_active',1)->count();
+        return self::where('is_active', 1)->count();
     }
 
 }

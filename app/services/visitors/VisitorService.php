@@ -6,6 +6,8 @@ use App\Models\Visitor;
 use App\services\messages\contracts\MessageServiceInterface;
 use App\services\visitors\contracts\VisitorServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class VisitorService implements VisitorServiceInterface {
     public function __construct(
@@ -15,9 +17,18 @@ class VisitorService implements VisitorServiceInterface {
      * Retorna todos os visitantes com suas mensagens.
      * @return Collection
      */
-    public function getAll(): Collection 
+    public function getAll(): LengthAwarePaginator 
     {
-        $visitors = Visitor::with('messages')->get();
+        $visitors = DB::table('visitors')->join(
+            'messages', 
+            'messages.visitor_id', '=', 'visitors.id'
+        )->select(
+                'messages.id as message_id', 
+                'visitors.full_name as nome',
+                'visitors.phone as tel',
+                'visitors.email',
+        )->orderByDesc('messages.created_at')->paginate(5);
+
         return $visitors;
     }
 

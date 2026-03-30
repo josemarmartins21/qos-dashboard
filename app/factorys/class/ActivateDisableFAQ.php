@@ -17,7 +17,7 @@ class ActivateDisableFAQ implements ActivateDisableInterface {
     }
     public function active(int $id): bool
     {
-        $question = Question::where('id', $id)->where('is_active',false)->exists();
+        $question = Question::where('id', $id)->where('is_active', false)->exists();
     
         if ($question === false) throw new \Exception("A pergunta frequente já se encontra activa");
 

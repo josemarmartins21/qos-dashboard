@@ -26,30 +26,20 @@ class ActivateDisableController extends Controller
             $validator = $this->validate($request->all());
 
             if ($validator->fails()) {
-                return response()
-                        ->json([
-                            'status' => false,
-                            'messages' => $validator->errors(),
-                        ]);
+                return redirect()->back()->withErrors($validator->errors());
             }
 
             $type = $validator->safe(['type']);
+            
             $resourceId = $validator->safe(['id']);
             $activateOrDisable = $this->activateDisableFactory->create($type['type']); 
 
-            $activated = $activateOrDisable->active($resourceId['id']);
+            $activateOrDisable->active($resourceId['id']);
 
-            return response()->json([
-                'status' => $activated,
-                'message' => ucfirst($type['type'])  . " foi activado(a) com sucesso",
-            ]);
-          
+            return redirect()->back()->with('success', 'Testemunuho desactivado com sucesso');
 
         } catch (\Throwable $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ]);
+            return redirect()->back()->with('error', $e->getMessage());
         }
 
     }
@@ -60,37 +50,25 @@ class ActivateDisableController extends Controller
             $validator = $this->validate($request->all());
     
             if ($validator->fails()) {
-                return response()
-                        ->json(['status' => false,'messages' => $validator->errors()]);
+                return redirect()->back()->withErrors($validator->errors());
             }
     
             $type = $validator->safe(['type']);
             
             $resourceId = $validator->safe(['id']);
+
             $activateOrDisable = $this->activateDisableFactory->create($type['type']); 
     
-            $activated = $activateOrDisable->disable($resourceId['id']);
+            $activateOrDisable->disable($resourceId['id']);
     
-            return response()->json([
-                'status' => $activated,
-                'message' => ucfirst($type['type']) . " desctivada(a) com sucesso",
-            ]);
+            return redirect()->back()->with('success', 'Testemunuho activado com sucesso');
 
         } catch (UnhandledMatchError $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+            return redirect()->back()->with('error', $e->getMessage());
         } catch (InvalidArgumentException $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 403);
+            return redirect()->back()->with('error', $e->getMessage());
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+            return redirect()->back()->with('error', $e->getMessage());
         }
         
     }
