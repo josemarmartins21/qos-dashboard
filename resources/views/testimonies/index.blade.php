@@ -22,10 +22,6 @@
                 </form>
 
                 <div id="btn-container">
-                    <a href="#" class="pdf-btn">
-                        <i class="fa-solid fa-file-pdf"></i> Gerar PDF
-                    </a>
-                    
                     <a href="{{ route('testimonies.create') }}" class="mais-depoimentos">
                         <i class="fa-solid fa-plus"></i> Adicionar
                     </a>
@@ -49,38 +45,40 @@
                         </x-slot:top_card>
 
                         <x-slot:btn_actions>
-                            @if ($testimony->is_active === 0)
-                                <form action="{{ route('active') }}" method="POST" class="active">
-                                    
-                                    @csrf
-                                    
-                                    @method("PUT")
-                                    
-                                    <input type="hidden" name="type" value="depoimento">
-
-                                    <input type="hidden" name="id" id="id" value="{{ $testimony->id }}">
-                                    
-                                    <button class="disable" type="submit" title="Activar">
-                                        <i class="fa-solid fa-eye-slash disable"></i>
-                                    </button>
-                                    
-                                </form>
-                            @else
-                                    <form action="{{ route('disable')}}" method="POST" class="active">
+                            @can ('adm') 
+                                @if ($testimony->is_active === 0)
+                                    <form action="{{ route('active') }}" method="POST" class="active">
+                                        
                                         @csrf
                                         
                                         @method("PUT")
-
-                                        <input type="hidden" name="id" id="id" value="{{ $testimony->id }}">
                                         
                                         <input type="hidden" name="type" value="depoimento">
-
-                                        <button type="submit" title="Desactivar">
-                                            <i class="fa-solid fa-eye"></i>
+    
+                                        <input type="hidden" name="id" id="id" value="{{ $testimony->id }}">
+                                        
+                                        <button class="disable" type="submit" title="Activar">
+                                            <i class="fa-solid fa-eye-slash disable"></i>
                                         </button>
-                                    
+                                        
                                     </form>
-                            @endif
+                                @else
+                                        <form action="{{ route('disable')}}" method="POST" class="active">
+                                            @csrf
+                                            
+                                            @method("PUT")
+    
+                                            <input type="hidden" name="id" id="id" value="{{ $testimony->id }}">
+                                            
+                                            <input type="hidden" name="type" value="depoimento">
+    
+                                            <button type="submit" title="Desactivar">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </button>
+                                        
+                                        </form>
+                                @endif
+                            @endcan
 
                             <div class="actions-btn">
                                 
@@ -94,7 +92,7 @@
 
                                     @method('Delete')
 
-                                    <button class="delete" id="delete">
+                                    <button class="delete" id="delete" onclick="return confirm('Tem cereteza que pretende eliminar este depoimento?')">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </form>

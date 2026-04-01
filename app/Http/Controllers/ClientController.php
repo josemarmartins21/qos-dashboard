@@ -106,8 +106,7 @@ class ClientController extends Controller
         try {
             $client = $this->clientService->get($client->id);
 
-            return response()
-                    ->json([
+            return response()->json([
                         'status' => true,
                         'data' => $client->toArray(), 
                     ]);

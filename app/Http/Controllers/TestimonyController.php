@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\DateHelper;
 use App\Http\Requests\testimonies\TestimonyRequest;
 use App\Http\Requests\testimonies\TestimonyUpdateRequest;
 use App\Models\Testimony;
@@ -67,12 +68,8 @@ class TestimonyController extends Controller
         try {
 
             $testimony = $this->testimonyService->get($testimony->id)[0];
-            
-            Carbon::setLocale('pt_BR');
 
-            $created_at = Carbon::parse($testimony->data_criacao);
-            
-            $created_at = $created_at->diffForHumans();
+            $created_at = DateHelper::diffForHumans($testimony->data_criacao);
 
             return view('testimonies.show', compact('testimony', 'created_at'));
 

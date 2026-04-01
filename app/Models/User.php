@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
     ];
 
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -59,5 +60,33 @@ class User extends Authenticatable
     public function subjects()
     {
         return $this->hasMany(Subject::class);
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
+    public function hasPermission(string $permission): bool
+    {
+        return $this->permissions()->where('name', $permission)->exists();
+    }
+
+    public function assignPermission(string $permission): void 
+    {
+        $permission = $this->permissions()->where('name', $permission)->firstOrCreate([
+            'name' => $permission,
+        ]);
+
+        $this->permissions()->attach($permission);
+    }
+
+    public function removePermission(string $permission): void
+    {
+        $permission = $this->permissions()->where('name', $permission)->first();
+
+        if ($permission) {
+            $this->permissions()->detach($permission);
+        }
     }
 }

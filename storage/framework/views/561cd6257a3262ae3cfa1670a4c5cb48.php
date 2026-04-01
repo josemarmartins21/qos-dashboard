@@ -1,3 +1,4 @@
+<?php use \Illuminate\Support\Facades\Auth; ?>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="/estilos/style.css">
     <link rel="shortcut icon" href="favicon.svg" type="image/svg">
     <script src="https://kit.fontawesome.com/8e770ce0b4.js" crossorigin="anonymous"></script>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/app.js']); ?>
 </head>
 <body>
     <header>
@@ -33,8 +35,8 @@
     <main>
         <section id="ficha">
             <img src="<?php echo e(asset('imagens/guanabara-perfil.jpeg')); ?>" alt="Josemar Martins" class="foto">
-            <h1>Josemar Martins</h1>
-            <div id="social">
+            <h1><?php echo e(Auth::user()->name); ?></h1>
+            <div id="pages-container">
                <ul>
                     <li>
                         <a href="<?php echo e(route('home')); ?>">Home <i class="fa-solid fa-house"></i></a>
@@ -53,6 +55,23 @@
                     </li>
                     <li>
                         <a href="<?php echo e(route('visitors.index')); ?>">Mensagens <i class="fa-solid fa-message"></i></a>
+                    </li>
+                    
+                    <li>
+                        <a href="<?php echo e(route('register')); ?>">Usuários <i class="fa-solid fa-user-group"></i></a>
+                    </li>
+
+                    <li>
+                        <form action="<?php echo e(route('logout')); ?>" method="post">
+                            
+                            <?php echo csrf_field(); ?>
+                            
+                            <div id="btn-logout-container">
+                                <button type="submit" onclick="return confirm('Tem cereteza que pretende terminar a sessão?')">
+                                    <i class="fa-solid fa-right-from-bracket"></i> Sair
+                                </button>
+                            </div>
+                        </form>
                     </li>
                 </ul>
             </div>

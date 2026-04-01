@@ -8,7 +8,7 @@
         <x-form-container>
             <x-slot:title>Editar Assunto</x-slot>
 
-            <form action="{{ route('subjects.update') }}" method="post">
+            <form action="{{ route('subjects.update', ['subject' => $subject['id']]) }}" method="post">
                 
                 @csrf
 
@@ -16,7 +16,7 @@
 
                 <div class="form-group">
                     <label for="subject">Assunto</label>
-                    <input type="text" name="subject" id="subject" placeholder="Digite o assunto" value="{{ old('subject', $subject->subject) }}">
+                    <input type="text" name="subject" id="subject" placeholder="Digite o assunto" value="{{ old('subject', $subject['subject']) }}">
                 </div>
 
                 <input type="submit" value="Atualizar" class="btn-primary"> 

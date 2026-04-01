@@ -13,9 +13,7 @@ class HomeController extends Controller
     public function __construct(
         private VisitorServiceInterface $visitorService,
     )
-    {
-        
-    }
+    { }
     /**
      * Handle the incoming request.
      */

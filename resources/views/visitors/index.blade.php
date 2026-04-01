@@ -22,12 +22,8 @@
                 </form>
 
                 <div id="btn-container">
-                    <a href="{{ route('subjects.index') }}" class="pdf-btn">
-                        <i class="fa-solid fa-file-pdf"></i> Assuntos
-                    </a>
-                    
-                    <a href="{{ route('questions.create') }}" class="mais-depoimentos">
-                        <i class="fa-solid fa-plus"></i> Adicionar
+                    <a href="{{ route('subjects.index') }}" class="mais-depoimentos">
+                        <i class="fa-solid fa-plus"></i> Assuntos
                     </a>
                 </div>
             </x-slot:header_index>

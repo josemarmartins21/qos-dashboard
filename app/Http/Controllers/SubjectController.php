@@ -19,19 +19,15 @@ class SubjectController extends Controller
         return view('subjects.create');
     }
 
-    public function edit()
+    public function edit(Subject $subject)
     {
-        return view('subjects.create');
+        return view('subjects.edit', compact('subject'));
     }
 
     public function store(Request $request)
     {
         try {
-            $validator = Validator::make($request->all(),[
-                'subject' => 'required|string|max:50',
-            ], [], [
-                'subject' => 'assunto',
-            ]);
+            $validator = $this->validate($request);
 
             if ($validator->fails()) {
                 dd($validator->errors());
@@ -49,13 +45,44 @@ class SubjectController extends Controller
         }
     }
 
-    public function update()
+    public function update(Subject $subject, Request $request)
     {
-        
+        try {
+
+            $validator = $this->validate($request);
+    
+            if ($validator->fails()) {
+                dd($validator->errors());
+                return redirect()->back()->withInput()
+                        ->withErrors($validator->errors());
+            }
+
+            $newSubject = $validator->safe(['subject']); 
+
+            $subject->update([
+                'subject' => $newSubject['subject'],
+            ]);
+    
+            return redirect()->route('subjects.index');
+            
+        } catch (\Throwable $e) {
+            dd($e->getMessage());
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
+        }
     }
 
-    public function destroy()
+    public function destroy(Subject $subject)
     {
-        
+        $subject->delete();
+        return redirect()->route('subjects.index');
+    }
+
+    private function validate(Request $request)
+    {
+        return Validator::make($request->all(),[
+            'subject' => 'required|string|max:50',
+        ], [], [
+            'subject' => 'assunto',
+        ]);
     }
 }

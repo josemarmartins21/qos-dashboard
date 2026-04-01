@@ -50,10 +50,6 @@
                 </form>
 
                 <div id="btn-container">
-                    <a href="#" class="pdf-btn">
-                        <i class="fa-solid fa-file-pdf"></i> Gerar PDF
-                    </a>
-                    
                     <a href="<?php echo e(route('testimonies.create')); ?>" class="mais-depoimentos">
                         <i class="fa-solid fa-plus"></i> Adicionar
                     </a>
@@ -87,37 +83,39 @@
                          <?php $__env->endSlot(); ?>
 
                          <?php $__env->slot('btn_actions', null, []); ?> 
-                            <?php if($testimony->is_active === 0): ?>
-                                <form action="<?php echo e(route('active')); ?>" method="POST" class="active">
-                                    
-                                    <?php echo csrf_field(); ?>
-                                    
-                                    <?php echo method_field("PUT"); ?>
-                                    
-                                    <input type="hidden" name="type" value="depoimento">
-
-                                    <input type="hidden" name="id" id="id" value="<?php echo e($testimony->id); ?>">
-                                    
-                                    <button class="disable" type="submit" title="Activar">
-                                        <i class="fa-solid fa-eye-slash disable"></i>
-                                    </button>
-                                    
-                                </form>
-                            <?php else: ?>
-                                    <form action="<?php echo e(route('disable')); ?>" method="POST" class="active">
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('adm')): ?> 
+                                <?php if($testimony->is_active === 0): ?>
+                                    <form action="<?php echo e(route('active')); ?>" method="POST" class="active">
+                                        
                                         <?php echo csrf_field(); ?>
                                         
                                         <?php echo method_field("PUT"); ?>
-
-                                        <input type="hidden" name="id" id="id" value="<?php echo e($testimony->id); ?>">
                                         
                                         <input type="hidden" name="type" value="depoimento">
-
-                                        <button type="submit" title="Desactivar">
-                                            <i class="fa-solid fa-eye"></i>
+    
+                                        <input type="hidden" name="id" id="id" value="<?php echo e($testimony->id); ?>">
+                                        
+                                        <button class="disable" type="submit" title="Activar">
+                                            <i class="fa-solid fa-eye-slash disable"></i>
                                         </button>
-                                    
+                                        
                                     </form>
+                                <?php else: ?>
+                                        <form action="<?php echo e(route('disable')); ?>" method="POST" class="active">
+                                            <?php echo csrf_field(); ?>
+                                            
+                                            <?php echo method_field("PUT"); ?>
+    
+                                            <input type="hidden" name="id" id="id" value="<?php echo e($testimony->id); ?>">
+                                            
+                                            <input type="hidden" name="type" value="depoimento">
+    
+                                            <button type="submit" title="Desactivar">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </button>
+                                        
+                                        </form>
+                                <?php endif; ?>
                             <?php endif; ?>
 
                             <div class="actions-btn">
@@ -132,7 +130,7 @@
 
                                     <?php echo method_field('Delete'); ?>
 
-                                    <button class="delete" id="delete">
+                                    <button class="delete" id="delete" onclick="return confirm('Tem cereteza que pretende eliminar este depoimento?')">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </form>

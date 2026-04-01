@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\factorys\contracts\TestimonySocialProveInterface;
+use App\Models\User;
 use App\Observers\contracts\IVisitorObservable;
 use App\Observers\VisitorObservable;
 use App\services\clientprovesocial\ClientProveSocialService;
@@ -17,6 +18,7 @@ use App\services\testimonys\contracts\TestimonyServiceInterface;
 use App\services\testimonys\TestimonyService;
 use App\services\visitors\contracts\VisitorServiceInterface;
 use App\services\visitors\VisitorService;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -71,6 +73,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('adm', function (User $user) {
+            return $user->hasPermission('adm');
+        });
+
+        Gate::define('default', function (User $user) {
+            return $user->hasPermission('default');
+        });
     }
 }

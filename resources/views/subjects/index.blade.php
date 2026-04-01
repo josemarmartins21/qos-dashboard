@@ -19,10 +19,6 @@
                 </form>
     
                 <div id="btn-container">
-                    <a href="#" class="pdf-btn">
-                        <i class="fa-solid fa-file-pdf"></i> Gerar PDF
-                    </a>
-    
                     <a href="{{ route('subjects.create') }}" class="mais-depoimentos">
                         <i class="fa-solid fa-plus"></i> Adicionar
                     </a>
@@ -46,9 +42,20 @@
                                     <td>
                                         {{ $subject['subject'] }}
                                     </td>
-                                    <td>
-                                        <a href="#">Editar</a>
-                                        <a href="#">Apagar</a>
+                                    <td class="actions-column">
+                                        <a href="{{ route('subjects.edit', ['subject' => $subject['id']]) }}" class="edit-column">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                 
+                                        <form action="{{ route('subjects.destroy', ['subject' => $subject['id']]) }}" method="post">
+                                            @csrf
+
+                                            @method('Delete')
+                                            
+                                            <button class="delete" id="delete" onclick="return confirm('Tem cereteza que pretende eliminar este assunto?')">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

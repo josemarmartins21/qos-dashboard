@@ -21,10 +21,6 @@
                 </form>
 
                 <div id="btn-container">
-                    <a href="#" class="pdf-btn">
-                        <i class="fa-solid fa-file-pdf"></i> Gerar PDF
-                    </a>
-                    
                     <a href="{{ route('client_prove_socials.create') }}" class="mais-depoimentos">
                         <i class="fa-solid fa-plus"></i> Adicionar
                     </a>
@@ -55,38 +51,40 @@
                          </x-slot:top_card>
  
                          <x-slot:btn_actions >
-                            @if ($clientsProveSocial->is_active === 0)
-                                <form action="{{ route('active') }}" method="POST" class="active">
+                            @can ('adm') 
+                                @if ($clientsProveSocial->is_active === 0)
+                                    <form action="{{ route('active') }}" method="POST" class="active">
+                                        
+                                        @csrf
+                                        
+                                        @method("PUT")
+                                        
+                                        <input type="hidden" name="type" value="prova social">
+    
+                                        <input type="hidden" name="id" id="id" value="{{ $clientsProveSocial->prove_social_id }}">
+                                        
+                                        <button class="disable" type="submit" title="Activar">
+                                            <i class="fa-solid fa-eye-slash disable"></i>
+                                        </button>
+                                        
+                                    </form>
+                                @else
+                                    <form action="{{ route('disable')}}" method="POST" class="active">
+                                        @csrf
+                                        
+                                        @method("PUT")
+    
+                                        <input type="hidden" name="id" id="id" value="{{ $clientsProveSocial->prove_social_id }}">
+                                        
+                                        <input type="hidden" name="type" value="prova social">
+    
+                                        <button type="submit" title="Desactivar">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
                                     
-                                    @csrf
-                                    
-                                    @method("PUT")
-                                    
-                                    <input type="hidden" name="type" value="prova social">
-
-                                    <input type="hidden" name="id" id="id" value="{{ $clientsProveSocial->prove_social_id }}">
-                                    
-                                    <button class="disable" type="submit" title="Activar">
-                                        <i class="fa-solid fa-eye-slash disable"></i>
-                                    </button>
-                                    
-                                </form>
-                            @else
-                                <form action="{{ route('disable')}}" method="POST" class="active">
-                                    @csrf
-                                    
-                                    @method("PUT")
-
-                                    <input type="hidden" name="id" id="id" value="{{ $clientsProveSocial->prove_social_id }}">
-                                    
-                                    <input type="hidden" name="type" value="prova social">
-
-                                    <button type="submit" title="Desactivar">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
-                                
-                                </form>
-                            @endif
+                                    </form>
+                                @endif
+                            @endcan
  
  
  
@@ -101,8 +99,8 @@
 
                                     @method('Delete')
                                     
-                                    <button class="delete" id="delete">
-                                         <i class="fa-solid fa-trash"></i>
+                                    <button class="delete" id="delete" onclick="return confirm('Tem cereteza que pretende eliminar este cliente renomado?')">
+                                        <i class="fa-solid fa-trash"></i>
                                      </button>
                                  </form>
                              </div>

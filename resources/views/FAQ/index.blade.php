@@ -43,38 +43,41 @@
                          </x-slot:top_card>
  
                          <x-slot:btn_actions >
-                            @if ($question['is_active'] === 0)
-                                <form action="{{ route('active') }}" method="POST" class="active">
+                            @can ('adm') 
+                                @if ($question['is_active'] === 0)
+                                    <form action="{{ route('active') }}" method="POST" class="active">
+                                        
+                                        @csrf
+                                        
+                                        @method("PUT")
+                                        
+                                        <input type="hidden" name="type" value="pergunta frequente">
+    
+                                        <input type="hidden" name="id" id="id" value="{{ $question['id'] }}">
+                                        
+                                        <button class="disable" type="submit" title="Activar">
+                                            <i class="fa-solid fa-eye-slash disable"></i>
+                                        </button>
+                                        
+                                    </form>
+                                @else 
+                                    <form action="{{ route('disable')}}" method="POST" class="active">
+                                        
+                                        @csrf
+                                        
+                                        @method("PUT")
+    
+                                        <input type="hidden" name="id" id="id" value="{{ $question['id'] }}">
+                                        
+                                        <input type="hidden" name="type" value="pergunta frequente">
+    
+                                        <button type="submit" title="Desactivar">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
                                     
-                                    @csrf
-                                    
-                                    @method("PUT")
-                                    
-                                    <input type="hidden" name="type" value="pergunta frequente">
-
-                                    <input type="hidden" name="id" id="id" value="{{ $question['id'] }}">
-                                    
-                                    <button class="disable" type="submit" title="Activar">
-                                        <i class="fa-solid fa-eye-slash disable"></i>
-                                    </button>
-                                    
-                                </form>
-                            @else 
-                                <form action="{{ route('disable')}}" method="POST" class="active">
-                                    @csrf
-                                    
-                                    @method("PUT")
-
-                                    <input type="hidden" name="id" id="id" value="{{ $question['id'] }}">
-                                    
-                                    <input type="hidden" name="type" value="pergunta frequente">
-
-                                    <button type="submit" title="Desactivar">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
-                                
-                                </form>
-                            @endif
+                                    </form>
+                                @endif
+                            @endcan
                                    
                              <div class="actions-btn">
                                  
@@ -87,7 +90,7 @@
 
                                     @method('Delete')
                                     
-                                    <button class="delete" id="delete">
+                                    <button class="delete" id="delete" onclick="return confirm('Tem cereteza que pretende eliminar esta pergunta frequente?')">
                                          <i class="fa-solid fa-trash"></i>
                                      </button>
                                  </form>

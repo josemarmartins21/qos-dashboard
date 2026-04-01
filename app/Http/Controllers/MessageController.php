@@ -11,4 +11,10 @@ class MessageController extends Controller
     {
         return view('messages.show', compact('message'));
     }
+
+    public function destroy(Message $message)
+    {
+        $message->delete();
+        return redirect()->back();
+    }
 }

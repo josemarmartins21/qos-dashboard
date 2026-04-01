@@ -28,4 +28,6 @@ Route::resource('visitors', VisitorController::class);
 
 Route::put('/activate', [ActivateDisableController::class, 'activate']);
 Route::put('/disable', [ActivateDisableController::class, 'disable']);
-/* Route::post('/clientes-depoimentos', ClientTestimonyController::class); */
+/* Route::post('/clientes-depoimentos', ClientTestimonyController::class); 
+
+*/

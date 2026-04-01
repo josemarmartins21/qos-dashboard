@@ -1,10 +1,12 @@
+@use('App\Models\Visitor')
+@use('Illuminate\Support\Facades\Auth')
+
 @extends('layouts.app')
 
 @section('title', 'Página Inicial')
 
 
 @section('content')
-@use('App\Models\Visitor')
 <section id="principal">
     <h2>Resumo Rápido</h2>
     <article id="overview-container">
@@ -47,38 +49,59 @@
     </article> <!-- Fim article overview -->
 
 
-    <article id="mensagens-table">
-        <h2>Últimas mensagens</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($visitors as $visitor) 
-                    <tr>
-                        <td>{{ $loop->index + 1 }}</td>
-                        <td>
-                            <a href="{{ route('messages.show', ['message' => $visitor->message_id]) }}">
-                                {{ $visitor->nome }}
-                            </a>
-                        </td>
-                        <td>{{ $visitor->tel }}</td>
-                        <td>{{ $visitor->email }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="3" id="foot-header">Total</th>
-                    <td>{{ Visitor::count() }}</td>
-                </tr>
-            </tfoot>
-        </table>
-    </article>
+    @if (count($visitors) > 0)
+                <x-table>
+                    <x-slot:title>Visitantes</x-slot:title>
+                    <x-slot:thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Ações</th>
+                        </tr>
+                    </x-slot:thead>
+                    <x-slot:tbody>
+                        @foreach ($visitors as $visitor) 
+                            <tr>
+                                <td>{{ $loop->index + 1 }}</td>
+                                <td>{{ $visitor->nome }}</td>
+                                <td>{{ $visitor->tel }}</td>
+                                <td>{{ $visitor->email }}</td>
+                                <td>
+                                    <a href="{{ route('messages.show', ['message' => $visitor->message_id]) }}" class="base-btn ler" id="delete-btn-table">
+                                        <i class="fa-brands fa-readme"></i> Ler mensagem
+                                    </a>
+
+                                    <form action="{{ route('messages.destroy', ['message' => $visitor->message_id]) }}" method="POST" id="form-table">
+
+                                        @csrf
+
+                                        @method('DELETE')
+
+                                        <button type="submit" class="base-btn apagar" >
+                                            <i class="fa-solid fa-trash"></i> Apagar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach    
+                    </x-slot:tbody>
+                    <x-slot:tfoot>
+                        <tr>
+                        <th colspan="4" id="foot-header">Total</th>
+                        <td>{{ Visitor::count() }}</td>
+                    </tr>    
+                    </x-slot:tfoot>  
+                </x-table>
+                @else 
+                    <x-image-container>
+                        <img src="{{ asset('images/void.png') }}" alt="Imagem de documentos em branco">
+    
+                        <x-slot:btn_back>
+                                <h2>Sem Mensagens</h2>
+                        </x-slot:btn_back>
+                    </x-image-container>
+                @endif    
 </section>
 @endsection

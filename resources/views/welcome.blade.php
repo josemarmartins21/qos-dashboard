@@ -1,3 +1,4 @@
+@use('Illuminate\Support\Facades\Auth')
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -13,7 +14,8 @@
 </style>
 <body>
     <h1>Teste Mensagem</h1>
-    <form action="{{ route('visitors.store') }}" method="post">
+    
+    {{-- <form action="{{ route('visitors.store') }}" method="post">
         @csrf
             <div>
                 <label for="full_name">Nome</label>
@@ -45,6 +47,6 @@
             <button>
                 enviar
             </button>
-    </form>
+    </form> --}}
 </body>
 </html>

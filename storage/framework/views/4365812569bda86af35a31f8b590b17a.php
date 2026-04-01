@@ -94,37 +94,39 @@
                           <?php $__env->endSlot(); ?>
  
                           <?php $__env->slot('btn_actions', null, []); ?> 
-                            <?php if($clientsProveSocial->is_active === 0): ?>
-                                <form action="<?php echo e(route('active')); ?>" method="POST" class="active">
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('adm')): ?> 
+                                <?php if($clientsProveSocial->is_active === 0): ?>
+                                    <form action="<?php echo e(route('active')); ?>" method="POST" class="active">
+                                        
+                                        <?php echo csrf_field(); ?>
+                                        
+                                        <?php echo method_field("PUT"); ?>
+                                        
+                                        <input type="hidden" name="type" value="prova social">
+    
+                                        <input type="hidden" name="id" id="id" value="<?php echo e($clientsProveSocial->prove_social_id); ?>">
+                                        
+                                        <button class="disable" type="submit" title="Activar">
+                                            <i class="fa-solid fa-eye-slash disable"></i>
+                                        </button>
+                                        
+                                    </form>
+                                <?php else: ?>
+                                    <form action="<?php echo e(route('disable')); ?>" method="POST" class="active">
+                                        <?php echo csrf_field(); ?>
+                                        
+                                        <?php echo method_field("PUT"); ?>
+    
+                                        <input type="hidden" name="id" id="id" value="<?php echo e($clientsProveSocial->prove_social_id); ?>">
+                                        
+                                        <input type="hidden" name="type" value="prova social">
+    
+                                        <button type="submit" title="Desactivar">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
                                     
-                                    <?php echo csrf_field(); ?>
-                                    
-                                    <?php echo method_field("PUT"); ?>
-                                    
-                                    <input type="hidden" name="type" value="prova social">
-
-                                    <input type="hidden" name="id" id="id" value="<?php echo e($clientsProveSocial->prove_social_id); ?>">
-                                    
-                                    <button class="disable" type="submit" title="Activar">
-                                        <i class="fa-solid fa-eye-slash disable"></i>
-                                    </button>
-                                    
-                                </form>
-                            <?php else: ?>
-                                <form action="<?php echo e(route('disable')); ?>" method="POST" class="active">
-                                    <?php echo csrf_field(); ?>
-                                    
-                                    <?php echo method_field("PUT"); ?>
-
-                                    <input type="hidden" name="id" id="id" value="<?php echo e($clientsProveSocial->prove_social_id); ?>">
-                                    
-                                    <input type="hidden" name="type" value="prova social">
-
-                                    <button type="submit" title="Desactivar">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
-                                
-                                </form>
+                                    </form>
+                                <?php endif; ?>
                             <?php endif; ?>
  
  
@@ -140,7 +142,7 @@
 
                                     <?php echo method_field('Delete'); ?>
                                     
-                                    <button class="delete" id="delete">
+                                    <button class="delete" id="delete" onclick="return confirm('Tem cereteza que pretende eliminar este cliente renomado?')">
                                          <i class="fa-solid fa-trash"></i>
                                      </button>
                                  </form>

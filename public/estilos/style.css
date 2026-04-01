@@ -23,7 +23,7 @@ input::placeholder {
 }
 
 .base-btn {
-  width: 100px;
+  width: 130px;
   display: inline-block;
   text-decoration: none;
   color: #fff;
@@ -36,30 +36,74 @@ input::placeholder {
   transition: .3s;
 }
 
-a.ler {background-color: var(--blue-primary);}
+a.ler {background-color: var(--blue-primary); padding: 6px 5px;}
 a.ler:hover {opacity: 1;}
 
 #form-table {
-  display: inline-block;
+  display: inline-block;  
   
   button.apagar {
     background-color: red;
     padding: 10px 10px;
     cursor: pointer;
-    
+    border: none;
+    margin-left: 10px;
+    opacity: .8 !important;
   }
-
+  
   button.apagar:hover {opacity: 1;}
 }
 
-/*== BODERS AO CLICAR  ==*/
-.borda-cinza {border: 3px solid gray;}
+
 body {
   margin: 0;
   padding: 0;
   line-height: 1.5em;
   color: var(--texto);
   background-color: var(--fundo-principal) !important;
+}
+
+td.actions-column {
+  form {
+    display: inline-block;
+    margin-left: 10px;  
+     button {
+      background-color: red;
+      display: inline-block;
+      width: 35px;
+      height: 35px;
+      padding: 5px;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+        i {
+          color: #fff;
+          font-size: 16px;
+        }
+
+    }
+  }
+  a, button {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  a {
+    background-color: green;
+    text-decoration: none;
+  }
 }
 
 /* ===================== Menu ========================= */
@@ -191,7 +235,7 @@ article h2 {
 #mensagens-table {
   background-color: #fff;
   width: 95%;
-  margin: auto;
+  margin: auto !important;
   border-radius: 10px;
   padding: 10px;
   padding-bottom: 10px;
@@ -593,6 +637,32 @@ tfoot > tr td {
 
 .ver-resposta:hover {text-decoration: none !important;}
 
+
+/** MENSAGENS **/
+#message-container {
+  max-width: 768px;
+  div.barra {
+    background-color: var(--destaque);
+    width: 20%;
+    height: 10px;
+    margin: 15px 0;
+  }
+
+  p.body {
+      font-weight: 600;
+      font-size: 18px;
+      font-family: 'Times New Roman', Times, serif;
+      line-height: 1.5em;
+      margin-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 2.6em;
+    padding-bottom: 12px;
+    line-height: 1em;
+  }
+}
+
 @media screen and (min-width: 768px) {
   body {
     
@@ -618,17 +688,33 @@ tfoot > tr td {
     display: block !important;
     grid-column: 1 / 2 !important;
     background-color: var(--fundo-card);
-    margin: 30px 0 30px 20px;
-    padding: 40px 30px 40px 30px;
-    border-radius: 8px;
+    margin: 0;
+    padding: 5px 30px 25px 30px;
     grid-column: 2;
-    
   }
 
-  div#social {
+  div#pages-container {
     padding: 0 !important;
       ul {
         padding: 0 !important;
+        
+      }
+
+      ul:last-child {
+        li {
+          width: 100%;
+          margin-top: 10px;
+          #btn-logout-container {
+              button {
+                background-color: transparent;
+                border: none;
+                font-size: 36px;
+                cursor: pointer;
+                font-weight: bolder;
+                color: var(--blue-primary);
+            }
+          }
+        }
       }
   }
 
@@ -641,8 +727,7 @@ tfoot > tr td {
     border: 5px solid var(--fundo-card);
     outline: 5px solid var(--destaque);
     display: block;
-    margin: auto;
-    margin-bottom: 15px;
+    margin: 15px auto;
   }
 
   section#ficha h1 {
@@ -650,7 +735,7 @@ tfoot > tr td {
     margin: 15px 0;
     font-size: 1.2em;
     text-align: center;
-    
+    text-transform: capitalize;
   }
 
   ul {
@@ -866,5 +951,10 @@ tfoot > tr td {
 
 }
 
+/** MESSAGES **/
+  div.barra {
+    width: 10% !important;
+    height: 8px !important;
+  }
 }
 
