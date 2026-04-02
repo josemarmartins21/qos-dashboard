@@ -17,11 +17,11 @@
                     
                     @csrf
                     
-                    <input type="search" name="searched" id="searched" placeholder="Digite o nome de um cliente renomado" autofocus>
+                    <input type="search" name="searched" id="searched" placeholder="Digite o nome de um cliente renomado" title="Pesquisar" autofocus>
                 </form>
 
                 <div id="btn-container">
-                    <a href="{{ route('client_prove_socials.create') }}" class="mais-depoimentos">
+                    <a href="{{ route('client_prove_socials.create') }}" class="mais-depoimentos" title="Adicionar">
                         <i class="fa-solid fa-plus"></i> Adicionar
                     </a>
                 </div>
@@ -90,7 +90,7 @@
  
                              <div class="actions-btn">
                                  
-                                 <a href="{{ route('client_prove_socials.edit', ['client_prove_social' => $clientsProveSocial->prove_social_id]) }}" class="edit">
+                                 <a href="{{ route('client_prove_socials.edit', ['client_prove_social' => $clientsProveSocial->prove_social_id]) }}" class="edit" title="Editar">
                                      <i class="fa-solid fa-pen-to-square"></i>
                                  </a>
                                  
@@ -99,7 +99,7 @@
 
                                     @method('Delete')
                                     
-                                    <button class="delete" id="delete" onclick="return confirm('Tem cereteza que pretende eliminar este cliente renomado?')">
+                                    <button class="delete" id="delete" onclick="return confirm('Tem cereteza que pretende eliminar este cliente renomado?')" title="Apagar">
                                         <i class="fa-solid fa-trash"></i>
                                      </button>
                                  </form>

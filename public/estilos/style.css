@@ -18,6 +18,7 @@
   }
   
 /* GENERALS */
+
 input::placeholder {
   font-size: 18px;
 }
@@ -54,7 +55,9 @@ a.ler:hover {opacity: 1;}
   button.apagar:hover {opacity: 1;}
 }
 
-
+.current-date {
+display: none;
+}
 body {
   margin: 0;
   padding: 0;
@@ -293,7 +296,7 @@ tfoot > tr td {
   align-items: center;
 
   img {
-    max-width: 400px;
+    max-width: 385px;
   }
 
   #btn-back {
@@ -621,6 +624,11 @@ tfoot > tr td {
   flex: 0 1 90px;
 }
 
+h2.question {
+  line-height:  1em;
+  font-size: 1.7em !important;
+}
+
 .ver-resposta {
   display: block;
   background-color: var(--blue-primary);
@@ -672,6 +680,19 @@ tfoot > tr td {
 
   div#menu-hamburguer {
     display: none !important;
+  }
+
+  .current-date {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    p {
+      color: #fff;
+      font-weight: bold;
+      font-size: 20px;
+      text-transform: capitalize;
+
+    }
   }
 
   main {

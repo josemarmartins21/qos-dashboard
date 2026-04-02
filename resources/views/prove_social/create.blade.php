@@ -11,28 +11,32 @@
                 
                 @csrf
 
+                {{-- Dr. da Empresa --}}
                 <div class="form-group">
                     <label for="client_name">Dr. da Empresa</label>
-                    <input type="text" name="client_name" id="client_name" placeholder="Digite o nome do cliente *">
+                    <input type="text" name="client_name" id="client_name" placeholder="Digite o nome do cliente *" value="{{ old('client_name') }}">
                 </div>
 
+                {{-- Nome da Empresa --}}
                 <div class="form-group">
                     <label for="company_role">Empresa</label>
-                    <input type="text" name="company_role" id="company_role" placeholder="Digite o nome da empresa *">
+                    <input type="text" name="company_role" id="company_role" placeholder="Digite o nome da empresa *" value="{{ old('company_role') }}">
                 </div>
 
                 <input type="hidden" name="type" value="cliente renomado">
 
+                {{-- Link da Página Ou Site da Empresa --}}
                 <div class="form-group">
                     <label for="testimony">Link do site ou da página da empresa</label>
-                    <input type="text" name="url" id="url" placeholder="htttps:\\.....">
+                    <input type="text" name="url" id="url" placeholder="htttps:\\....." value="{{ old('url') }}">
                 </div>
 
+                {{-- Imagem do Logotipo da Empresa --}}
                 <div class="form-group">
-                    <label for="logo">Logo da empresa</label>
-                    <input type="file" name="logo" id="logo">
+                    <label for="image">Logo da empresa</label>
+                    <input type="file" name="image" id="image" value="{{ old('image') }}">
                 </div>
-
+                
                 <div class="form-group">
                     <label for="is_active">Estado</label>
                     <select name="is_active" id="is_active">

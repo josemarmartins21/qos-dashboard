@@ -117,12 +117,12 @@ class ClientProveSocialController extends Controller
             ]);
 
             $proveSocialClient = $request->safe([
-                'logo', 
+                'image', 
                 'url',
             ]);
 
-            if (array_key_exists('logo', $proveSocialClient)) {
-                $proveSocialClient['logo'] = $this->save($request, ClientProveSocial::getPathImages());
+            if (array_key_exists('image', $proveSocialClient)) {
+                $proveSocialClient['image'] = $this->save($request, ClientProveSocial::getPathImages());
             }
 
             $this->clientService->update($client);   

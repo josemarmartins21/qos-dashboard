@@ -23,7 +23,7 @@ class ClientProveSocialUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'logo' => ['bail','nullable','max:2048','image'],
+            'image' => ['bail','nullable','max:2048','image'],
             'url' => ['bail','required' ,'url',/* 'unique:client_prove_socials,url', */],
             'name' => ['bail','required', 'string', 'max:100', 'min:4'],
             'company_role' => ['bail','required', 'string', 'max:100', 'min:4'],

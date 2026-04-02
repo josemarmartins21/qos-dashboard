@@ -74,7 +74,7 @@
                         <img src="{{ asset('images/void.png') }}" alt="Imagem de documentos em branco">
     
                         <x-slot:btn_back>
-                                <a href="{{ route('visitors.index') }}">Voltar</a>
+                                <h2>Sem Mensagens</h2>
                         </x-slot:btn_back>
                     </x-image-container>
                 @endif               

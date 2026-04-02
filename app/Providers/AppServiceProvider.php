@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\factorys\contracts\TestimonySocialProveInterface;
 use App\Models\User;
 use App\Observers\contracts\IVisitorObservable;
 use App\Observers\VisitorObservable;
@@ -20,6 +19,7 @@ use App\services\visitors\contracts\VisitorServiceInterface;
 use App\services\visitors\VisitorService;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -73,6 +73,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Carbon::setLocale('pt_BR');
+        
         Gate::define('adm', function (User $user) {
             return $user->hasPermission('adm');
         });

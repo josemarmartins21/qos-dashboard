@@ -8,7 +8,7 @@ use App\factorys\class\ActivateDisableTestimony;
 use App\factorys\contracts\ActivateDisableInterface;
 
 class ActivateDisableFatory {
-    public function create(string $type): ActivateDisableInterface
+    public static function create(string $type): ActivateDisableInterface
     {
         $activateOrDisable = match (strtolower($type)) {
             strtolower("pergunta frequente" ) => new ActivateDisableFAQ,

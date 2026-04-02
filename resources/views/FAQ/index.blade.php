@@ -19,11 +19,7 @@
                     <input type="search" name="searched" id="searched" placeholder="Busque uma pergunta" autofocus>
                 </form>
 
-                <div id="btn-container">
-                    <a href="#" class="pdf-btn">
-                        <i class="fa-solid fa-file-pdf"></i> Gerar PDF
-                    </a>
-                    
+                <div id="btn-container">   
                     <a href="{{ route('questions.create') }}" class="mais-depoimentos">
                         <i class="fa-solid fa-plus"></i> Adicionar
                     </a>

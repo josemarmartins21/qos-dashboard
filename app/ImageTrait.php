@@ -5,7 +5,6 @@ namespace App;
 use DateTime;
 use Illuminate\Http\Request;
 
-use function Symfony\Component\Clock\now;
 
 trait ImageTrait
 {
@@ -14,11 +13,11 @@ trait ImageTrait
         string $path, 
     ) : string
     {
-        if (!($request->file('logo')->isValid() AND $request->hasFile('logo'))) {
+        if (!($request->file('image')->isValid() AND $request->hasFile('image'))) {
             throw new \Exception("Fotografia Inválida!");    
         }
 
-        $imageRequest = $request->file('logo');
+        $imageRequest = $request->file('image');
 
         $extension = $imageRequest->extension();
 

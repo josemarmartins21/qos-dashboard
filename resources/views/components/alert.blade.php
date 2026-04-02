@@ -14,6 +14,8 @@
 
 <div id="errors">
     @if ($errors->any())
-        <p>{{ $errors->first() }}</p>
+        @foreach ($errors->all() as $error)
+            <p>{{ $error }}</p>
+        @endforeach
     @endif
 </div>

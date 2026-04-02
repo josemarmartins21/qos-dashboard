@@ -4,6 +4,7 @@
 namespace App\Helpers;
 
 
-class StringHelper {
+class StringHelper 
+{
     
 }

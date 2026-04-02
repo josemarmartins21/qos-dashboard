@@ -1,4 +1,5 @@
 @use('Illuminate\Support\Facades\Auth')
+@use('App\Helpers\DateHelper')
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -31,6 +32,9 @@
                 <li><a href="#">Lorem ipsum dolor sit.</a></li>
             </ul>
         </nav>
+        <div class="current-date">
+             <p>{{ DateHelper::currentExtendedDate() }}</p> 
+        </div>
     </header>
     <main>
         <section id="ficha">

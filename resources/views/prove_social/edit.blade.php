@@ -14,6 +14,7 @@
 
                 @method('PUT')
 
+                {{-- Image Preview --}}
                 <div class="image-preview">
                     <img 
                     src="{{ '/images/logos_client/' . $clientProveSocial->logo }}" 
@@ -23,25 +24,30 @@
                 {{-- ID do cliente --}}
                 <input type="hidden" name="client_id" value="{{ $clientProveSocial->client->id }}">
 
+                {{-- Dr. da Empresa --}}
                 <div class="form-group">
                     <label for="name">Dr. da Empresa</label>
                     <input type="text" name="name" id="name" placeholder="Digite o nome do cliente" value="{{ old('name',$clientProveSocial->client->name) }}">
                 </div>
 
+                {{-- Nome da Empresa --}}
                 <div class="form-group">
                     <label for="company_role">Empresa</label>
                     <input type="text" name="company_role" id="company_role" placeholder="Digite o nome da empresa" value="{{ old('company_role',$clientProveSocial->client->company_role) }}">
                 </div>
 
+                {{-- Link da Página Ou Site da Empresa --}}
                 <div class="form-group">
                     <label for="url">Link do site ou da página da empresa</label>
                     <input type="text" name="url" id="url" placeholder="https://......" value="{{ old('url',$clientProveSocial->url) }}">
                 </div>
-                
+
+                {{-- Imagem do Logotipo da Empresa --}}
                 <div class="form-group">
-                    <label for="logo">Site ou página da empresa</label>
-                    <input type="file" name="logo" id="logo" value="{{ old('logo', $clientProveSocial->logo) }}">
+                    <label for="image">Site ou página da empresa</label>
+                    <input type="file" name="image" id="image" value="{{ old('logo', $clientProveSocial->logo) }}">
                 </div>
+                
                 <input type="submit" value="Atualizar" class="btn-primary"> 
             </form>
         </x-form-container>  
