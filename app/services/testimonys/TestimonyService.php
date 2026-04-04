@@ -17,25 +17,10 @@ class TestimonyService implements TestimonyServiceInterface, TestimonySocialProv
         $this->validateAOrD = ValidateIfCanActiveOrDisableFactory::create("depoimento");
     }
 
-    public function getAll(): array
+    public function getAll(?string $searched = '')
     {
-        $testimonies = DB::table('testimonies')
-        ->join('clients', 'testimonies.client_id', '=', 'clients.id')
-        ->select(
-                'testimonies.id',
-                'clients.company_role as cargo',
-                'testimonies.testimony', 
-                'testimonies.is_active',
-                'clients.name as nome',
-                'testimonies.created_at as data_criacao',
-            )
-        ->get();
-        
-        return $testimonies->toArray();
-    }
+        $testimonies = [];
 
-    public function getBySearch(string $searched): array
-    {
         $attributes = [
             'testimonies.id',
             'clients.company_role as cargo',
@@ -45,13 +30,25 @@ class TestimonyService implements TestimonyServiceInterface, TestimonySocialProv
             'testimonies.created_at as data_criacao',
         ];
 
+        if (! $searched) {
+            $testimonies = DB::table('testimonies')
+            ->join('clients', 'testimonies.client_id', '=', 'clients.id')
+            ->select($attributes)
+            ->paginate(5);
+
+            return $testimonies;
+        }
+
         $testimonies = DB::table('testimonies')
-                    ->join('clients', 'testimonies.client_id', '=', 'clients.id')
-                    ->select($attributes)
-                    ->where('clients.name', 'Like', '%' . $searched . '%')
-                    ->get();
+                ->join('clients', 'testimonies.client_id', '=', 'clients.id')
+                ->select($attributes)
+                ->where('clients.name', 'Like', '%' . $searched . '%')
+                ->paginate(5);
+    
+        return $testimonies;
+
+
         
-        return $testimonies->toArray();
     }
 
     public function get(int $id): array

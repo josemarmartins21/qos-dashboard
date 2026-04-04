@@ -8,11 +8,9 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TestimonyController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorController;
 use App\Models\Subject;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 
@@ -49,6 +47,10 @@ Route::middleware('auth')->group(function () {
     
     // Messages
     Route::resource('messages', MessageController::class)->only(['show', 'destroy']);
+
+    // Users
+    Route::resource('users', UserController::class);
+    
     // Activar ou Desabilitar Recurso
     Route::put('/activate', [ActivateDisableController::class, 'activate'])->name('active');
     Route::put('/disable', [ActivateDisableController::class, 'disable'])->name('disable');

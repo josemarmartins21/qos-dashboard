@@ -60,11 +60,11 @@
                     <li>
                         <a href="{{ route('visitors.index') }}">Mensagens <i class="fa-solid fa-message"></i></a>
                     </li>
-                    
-                    <li>
-                        <a href="{{ route('register') }}">Usuários <i class="fa-solid fa-user-group"></i></a>
-                    </li>
-
+                    @can('adm')
+                        <li>
+                            <a href="{{ route('users.index') }}">Usuários <i class="fa-solid fa-user-group"></i></a>
+                        </li>
+                    @endcan
                     <li>
                         <form action="{{ route('logout') }}" method="post">
                             

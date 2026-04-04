@@ -60,11 +60,11 @@
                     <li>
                         <a href="<?php echo e(route('visitors.index')); ?>">Mensagens <i class="fa-solid fa-message"></i></a>
                     </li>
-                    
-                    <li>
-                        <a href="<?php echo e(route('register')); ?>">Usuários <i class="fa-solid fa-user-group"></i></a>
-                    </li>
-
+                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('adm')): ?>
+                        <li>
+                            <a href="<?php echo e(route('users.index')); ?>">Usuários <i class="fa-solid fa-user-group"></i></a>
+                        </li>
+                    <?php endif; ?>
                     <li>
                         <form action="<?php echo e(route('logout')); ?>" method="post">
                             

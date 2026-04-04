@@ -31,7 +31,7 @@
             {{-- Cards de depoimentos --}}
             <x-slot:container_cards>
 
-                @forelse ($testimonies as $testimony)
+                @forelse ($testimonies->toArray()['data'] as $testimony)
                     {{-- Card de depoimentos --}}
                     <x-card>
                         <x-slot:top_card>
@@ -111,6 +111,7 @@
                    </x-image-container>
                 @endforelse
             </x-slot:container_cards>
+            {{ $testimonies->links() }}
     </x-index_container>
 </div>
 @endsection

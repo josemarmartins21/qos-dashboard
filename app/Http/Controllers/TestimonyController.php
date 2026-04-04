@@ -25,15 +25,10 @@ class TestimonyController extends Controller
     public function index(Request $request)
     {
         try {
-            if (! $request->searched) {
-                $testimonies = $this->testimonyService->getAll();
-                return view('testimonies.index', compact('testimonies'));
-            } else {
-                $testimonies = $this->testimonyService->getBySearch($request->searched);
-                return view('testimonies.index', compact('testimonies'));
-            }
 
-
+            $testimonies = $this->testimonyService->getAll();
+            return view('testimonies.index', compact('testimonies'));
+            
         } catch (\Throwable $e) {
             dd($e->getMessage());
             return view('errors.500', ['menssage' => $e->getMessage()]);

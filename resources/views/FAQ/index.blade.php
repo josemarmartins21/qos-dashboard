@@ -12,13 +12,6 @@
         {{-- Form de pesquisa --}}
         <x-index_container>
             <x-slot:header_index>
-                <form action="{{ route('questions.index') }}" method="get">
-                    
-                    @csrf
-                    
-                    <input type="search" name="searched" id="searched" placeholder="Busque uma pergunta" autofocus>
-                </form>
-
                 <div id="btn-container">   
                     <a href="{{ route('questions.create') }}" class="mais-depoimentos">
                         <i class="fa-solid fa-plus"></i> Adicionar
@@ -29,7 +22,7 @@
             {{-- Cards de depoimentos --}}
             <x-slot:container_cards>
 
-                   @forelse ($questions as $question) 
+                   @forelse ($questions->toArray()['data'] as $question) 
                      <x-card>
  
                          <x-slot:top_card>
@@ -101,8 +94,9 @@
                             <a href="{{ route('questions.index') }}">Voltar</a>
                        </x-slot:btn_back>
                    </x-image-container>
-                   @endforelse                
+                   @endforelse 
             </x-slot:container_cards>
-    </x-index_container>
+        </x-index_container>
+        {{ $questions->links('vendor.pagination.tailwind') }}               
 </div>
 @endsection

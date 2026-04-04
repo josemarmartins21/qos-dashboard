@@ -6,4 +6,5 @@
     <div id="cards">
         {{ $container_cards }}
     </div>
+    {{ $slot }}
 </div>

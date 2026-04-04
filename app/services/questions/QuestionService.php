@@ -15,9 +15,9 @@ class QuestionService implements QuestionServiceInterface {
         $this->validateAOrD = ValidateIfCanActiveOrDisableFactory::create("faq");
     }
 
-    public function getAll(): array {
-        $questions = Question::latest()->get()->toArray();
-        return $questions;
+    public function getAll() {
+        $questions = Question::latest()->paginate(5);
+        return $questions;  
     }
 
     public function save($data = []): array

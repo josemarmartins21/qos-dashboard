@@ -15,6 +15,8 @@ use App\services\questions\contracts\QuestionServiceInterface;
 use App\services\questions\QuestionService;
 use App\services\testimonys\contracts\TestimonyServiceInterface;
 use App\services\testimonys\TestimonyService;
+use App\services\users\contracts\UserServiceInterface;
+use App\services\users\UserService;
 use App\services\visitors\contracts\VisitorServiceInterface;
 use App\services\visitors\VisitorService;
 use Illuminate\Support\Facades\Gate;
@@ -61,9 +63,15 @@ class AppServiceProvider extends ServiceProvider
             MessageServiceInterface::class,
             MessageService::class,
         );
+        
         $this->app->bind(
             IVisitorObservable::class,
             VisitorObservable::class,
+        );
+
+        $this->app->bind(
+            UserServiceInterface::class,
+            UserService::class,
         );
 
     }
@@ -73,8 +81,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Carbon::setLocale('pt_BR');
-        
         Gate::define('adm', function (User $user) {
             return $user->hasPermission('adm');
         });

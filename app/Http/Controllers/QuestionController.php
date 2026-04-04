@@ -21,8 +21,9 @@ class QuestionController extends Controller
        try {
 
         $questions = $this->questionService->getAll();
-         
+        
         return view('FAQ.index', compact('questions'));
+        
        } catch (\Throwable $e) {
             return redirect()->back()->withInput()->with('error', $e->getMessage());
        }
