@@ -69,6 +69,7 @@ body {
   line-height: 1.5em;
   color: var(--texto);
   background-color: var(--fundo-principal) !important;
+  min-height: 100vh;
 }
 
 td.actions-column {
@@ -169,6 +170,7 @@ section#ficha {
 }
 /*==================== SECÇÃO PRINCIPAL  ==========================*/
 main {
+  height: 100% !important;
   display: block;
   margin-top: 20px;
 

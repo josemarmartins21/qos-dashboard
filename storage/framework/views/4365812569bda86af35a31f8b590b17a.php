@@ -45,7 +45,7 @@
                     
                     <?php echo csrf_field(); ?>
                     
-                    <input type="search" name="searched" id="searched" placeholder="Digite o nome de um cliente renomado" title="Pesquisar" autofocus>
+                    <input type="search" name="search" id="search" placeholder="Busque" title="Pesquisar" autofocus>
                 </form>
 
                 <div id="btn-container">
@@ -58,7 +58,7 @@
             
              <?php $__env->slot('container_cards', null, []); ?> 
 
-                   <?php $__empty_1 = true; $__currentLoopData = $clientsProveSocials; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $clientsProveSocial): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?> 
+                   <?php $__empty_1 = true; $__currentLoopData = $clientsProveSocials->toArray()['data']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $clientsProveSocial): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?> 
                      <?php if (isset($component)) { $__componentOriginal53747ceb358d30c0105769f8471417f6 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal53747ceb358d30c0105769f8471417f6 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.card','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -181,7 +181,9 @@
 <?php unset($__componentOriginald89414b43ac0016d9b63ffd55ac5aa59); ?>
 <?php endif; ?>
                    <?php endif; ?>                
-             <?php $__env->endSlot(); ?>
+                 <?php $__env->endSlot(); ?>
+                <?php echo e($clientsProveSocials->links()); ?>
+
      <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal8dcebddd58fd2230969fc69369d9a523)): ?>

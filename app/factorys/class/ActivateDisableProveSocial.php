@@ -9,41 +9,41 @@ use App\services\validators\contracts\ValidateIfCanActiveOrDisableInterface;
 use InvalidArgumentException;
 
 class ActivateDisableProveSocial implements ActivateDisableInterface {
-    private ValidateIfCanActiveOrDisableInterface $validateAOrD;
+    private ValidateIfCanActiveOrDisableInterface $activator;
 
     public function __construct()
     {
-        $this->validateAOrD = ValidateIfCanActiveOrDisableFactory::create("prova social");
+        $this->activator = ValidateIfCanActiveOrDisableFactory::create("prova social");
     }
     public function active(int $id): bool
     {
 
-        $question = ClientProveSocial::where('id', $id)->where('is_active', false)->exists();
+        $proveSocial = ClientProveSocial::where('id', $id)->where('is_active', false)->exists();
     
-        if ($question === false) throw new \Exception("O registo de cliente renomado já se encontra activo");
+        if ($proveSocial === false) throw new \Exception("O registo de cliente renomado já se encontra activo");
 
-        if ($this->validateAOrD->validateIfCanActive() === false) throw new InvalidArgumentException("Número máximo de registo de cliente renomado activo foi atingido");    
+        if ($this->activator->validateIfCanActive() === false) throw new InvalidArgumentException("Número máximo de registo de cliente renomado activo foi atingido");    
 
-        $question = ClientProveSocial::findOrFail($id)->update([
+        $proveSocial = ClientProveSocial::findOrFail($id)->update([
             'is_active' => true,
         ]);
 
-        return $question;
+        return $proveSocial;
     }
 
     public function disable(int $id): bool
     {
-        $question = ClientProveSocial::where('id', $id)->where('is_active', true)->exists();
+        $proveSocial = ClientProveSocial::where('id', $id)->where('is_active', true)->exists();
         
-        if ($question === false) throw new \Exception("O registo de cliente renomado já se encontra desactivado");
+        if ($proveSocial === false) throw new \Exception("O registo de cliente renomado já se encontra desactivado");
         
-        if ($this->validateAOrD->validateIfCanDisable() === false) throw new InvalidArgumentException("Número mínimo de registo de cliente renomado  activo foi atingido");  
+        if ($this->activator->validateIfCanDisable() === false) throw new InvalidArgumentException("Número mínimo de registo de cliente renomado  activo foi atingido");  
 
-        $question = ClientProveSocial::findOrFail($id)->update([
+        $proveSocial = ClientProveSocial::findOrFail($id)->update([
             'is_active' => false,
         ]);
         
-        return $question;
+        return $proveSocial;
     }
 
 }

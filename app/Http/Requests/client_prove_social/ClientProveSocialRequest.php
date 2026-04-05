@@ -24,7 +24,7 @@ class ClientProveSocialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['bail','required','max:2048'],
+            'image' => ['bail','required','max:2048', 'image','file'],
             'url' => ['bail','required' ,'url','unique:client_prove_socials,url',/* 'exists:client_prove_socials,url' */],
             'client_name' => ['bail','required', 'string', 'max:100', 'min:4'],
             'company_role' => ['bail','required', 'string', 'max:100', 'min:4'],
@@ -36,7 +36,7 @@ class ClientProveSocialRequest extends FormRequest
     public function attributes()
     {
         return [
-            'logo' => 'logotipo',
+            'image' => 'logotipo',
             'url' => 'link',
             'is_active' => 'estado',
             'client_name' => 'nome do cliente',

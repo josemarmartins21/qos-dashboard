@@ -60,6 +60,9 @@
                     <li>
                         <a href="<?php echo e(route('visitors.index')); ?>">Mensagens <i class="fa-solid fa-message"></i></a>
                     </li>
+                    <li>
+                        <a href="<?php echo e(route('company_infos.index')); ?>">Informações da Empresa <i class="fa-solid fa-message"></i></a>
+                    </li>
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('adm')): ?>
                         <li>
                             <a href="<?php echo e(route('users.index')); ?>">Usuários <i class="fa-solid fa-user-group"></i></a>

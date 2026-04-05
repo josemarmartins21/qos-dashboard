@@ -34,7 +34,7 @@ class TestimonyService implements TestimonyServiceInterface, TestimonySocialProv
             $testimonies = DB::table('testimonies')
             ->join('clients', 'testimonies.client_id', '=', 'clients.id')
             ->select($attributes)
-            ->paginate(5);
+            ->paginate(6);
 
             return $testimonies;
         }
@@ -43,7 +43,7 @@ class TestimonyService implements TestimonyServiceInterface, TestimonySocialProv
                 ->join('clients', 'testimonies.client_id', '=', 'clients.id')
                 ->select($attributes)
                 ->where('clients.name', 'Like', '%' . $searched . '%')
-                ->paginate(5);
+                ->paginate(6);
     
         return $testimonies;
 

@@ -17,7 +17,7 @@
                     
                     @csrf
                     
-                    <input type="search" name="searched" id="searched" placeholder="Digite o nome de um cliente renomado" title="Pesquisar" autofocus>
+                    <input type="search" name="search" id="search" placeholder="Busque" title="Pesquisar" autofocus>
                 </form>
 
                 <div id="btn-container">
@@ -30,7 +30,7 @@
             {{-- Cards de depoimentos --}}
             <x-slot:container_cards>
 
-                   @forelse ($clientsProveSocials as $clientsProveSocial) 
+                   @forelse ($clientsProveSocials->toArray()['data'] as $clientsProveSocial) 
                      <x-card>
  
                          <x-slot:top_card>
@@ -115,7 +115,8 @@
                        </x-slot:btn_back>
                    </x-image-container>
                    @endforelse                
-            </x-slot:container_cards>
+                </x-slot:container_cards>
+                {{ $clientsProveSocials->links() }}
     </x-index_container>
 </div>
 @endsection

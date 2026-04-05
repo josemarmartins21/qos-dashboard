@@ -1,22 +1,6 @@
-var deleteBtnTable = document.getElementById('delete-btn-table')
-
-var b = document.body
-
-b.addEventListener('click', removeBorder)
-
-function removeBorder() {
-  if (deleteBtnTable.classList.contains('borda-cinza')) {
-    deleteBtnTable.classList.remove('borda-cinza')
-  }
+function showAlert(message) {
+  alert(message)
 }
 
-deleteBtnTable.addEventListener('click', putBorder)
-
-function putBorder() 
-{
-  if (! deleteBtnTable.classList.contains('borda-cinza')) {
-    deleteBtnTable.classList.add('borda-cinza')
-  }
-}
 
 

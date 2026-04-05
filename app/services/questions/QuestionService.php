@@ -16,7 +16,7 @@ class QuestionService implements QuestionServiceInterface {
     }
 
     public function getAll() {
-        $questions = Question::latest()->paginate(5);
+        $questions = Question::latest()->paginate(6);
         return $questions;  
     }
 

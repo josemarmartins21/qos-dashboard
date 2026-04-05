@@ -3,28 +3,39 @@
 namespace App;
 
 use DateTime;
-use Illuminate\Http\Request;
-
+use InvalidArgumentException;
 
 trait ImageTrait
 {
-    public function save(
-        Request $request, 
-        string $path, 
-    ) : string
+    private string $name;
+
+    /**
+     * Gera um nome para imagem que será salvo 
+     * na BD.
+     */
+    public function generateName($requestImage) : void
     {
-        if (!($request->file('image')->isValid() AND $request->hasFile('image'))) {
-            throw new \Exception("Fotografia Inválida!");    
+
+        if (! $this->validate($requestImage)) throw new InvalidArgumentException("Imagem Inválida!");
+    
+        $extension = $requestImage->extension();
+
+        $this->name = md5($requestImage->getClientOriginalName() . new DateTime()->getTimestamp()) . "." . $extension;
+    }
+
+    public function getImageName(): string 
+    {
+        return $this->name;
+    }
+
+    /**
+     * Valida se a imagem é válida.
+    */
+    private function validate($requestImage): bool
+    {
+        if (! $requestImage->isValid()) {
+            return false;
         }
-
-        $imageRequest = $request->file('image');
-
-        $extension = $imageRequest->extension();
-
-        $imageNewName = md5($imageRequest->getClientOriginalName() . new DateTime()->getTimestamp()) . "." . $extension;
-
-        $imageRequest->move(public_path($path), $imageNewName);
-
-        return $imageNewName;
+        return true;
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ActivateDisableController;
 use App\Http\Controllers\ClientProveSocialController;
+use App\Http\Controllers\CompanyInfoController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
@@ -31,6 +32,10 @@ Route::middleware('auth')->group(function () {
     
     // Depoimentos
     Route::resource('testimonies', TestimonyController::class);
+    
+    
+    // Informações da empresa
+    Route::resource('company_infos', CompanyInfoController::class);
     
     // Clientes Renomados
     Route::resource('client_prove_socials', ClientProveSocialController::class);

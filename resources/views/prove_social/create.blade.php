@@ -4,6 +4,7 @@
     
 @section('content')
     <div id="form-container">
+        <x-alert />
         <x-form-container>
             <x-slot:title>Novo Cliente Renomado</x-slot>
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Visitor;
+use App\Models\Subject;
 
 class Message extends Model
 {

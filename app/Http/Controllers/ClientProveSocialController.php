@@ -10,6 +10,7 @@ use App\services\clients\contracts\ClientServiceInterface;
 use Illuminate\Http\Request;
 use App\ImageTrait;
 
+
 class ClientProveSocialController extends Controller
 {
     use ImageTrait;
@@ -27,17 +28,13 @@ class ClientProveSocialController extends Controller
     public function index(Request $request)
     {
         try {
-            if ($request->searched) {
-                $clientsProveSocials = $this->clientProveSocial->getBySearch($request->searched);
-            } else {
-                $clientsProveSocials = $this->clientProveSocial->getAll();
-            }
+
+            $clientsProveSocials = $this->clientProveSocial->getAll($request->search);
 
             return view('prove_social.index', compact('clientsProveSocials'));
 
         } catch (\Throwable $e) {
-            dd($e->getMessage());
-            /* return view('erros.404'); */
+            return view('erros.404');
         }
     }
 
@@ -60,7 +57,6 @@ class ClientProveSocialController extends Controller
     public function store(ClientProveSocialRequest $request)
     {
         try {
-            
             $request->validated();
                 
             $client = $request->safe([
@@ -70,22 +66,24 @@ class ClientProveSocialController extends Controller
             ]);
                 
             $relation = $request->safe([
-                'logo', 
+                'image', 
                 'is_active', 
                 'url',
                 'type',
             ]);
 
-            $relation['logo'] = $this->save($request, ClientProveSocial::getPathImages());
-                
+            $this->generateName($request->file('image'));
+            $relation['image'] = $this->getImageName();
+         
+            $request->file('image')->move(public_path(ClientProveSocial::getPathImages()), $relation['image']);
+            
             $this->clientService->save($client, $relation);
-    
-            return redirect()
-                    ->route('client_prove_socials.index')
-                    ->with('success','Cliente criado com sucesso!');
+
+            return redirect()->route('client_prove_socials.index');
 
         } catch (\Throwable $e) {
-            return redirect()->back()->with('error',$e->getMessage());
+            dd($e->getMessage());
+            return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
     }
 
@@ -122,7 +120,10 @@ class ClientProveSocialController extends Controller
             ]);
 
             if (array_key_exists('image', $proveSocialClient)) {
-                $proveSocialClient['image'] = $this->save($request, ClientProveSocial::getPathImages());
+                $this->generateName($request->file('image'));
+                $proveSocialClient['image'] = $this->getImageName();
+
+                $request->file('image')->move(ClientProveSocial::getPathImages(), $proveSocialClient['image']);
             }
 
             $this->clientService->update($client);   

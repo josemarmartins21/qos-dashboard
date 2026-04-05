@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\CompanyInfo;
 
 class User extends Authenticatable
 {
@@ -65,6 +66,11 @@ class User extends Authenticatable
     public function permissions()
     {
         return $this->belongsToMany(Permission::class);
+    }
+
+    public function companyInfos()
+    {
+        return $this->hasMany(CompanyInfo::class);
     }
 
     public function hasPermission(string $permission): bool
