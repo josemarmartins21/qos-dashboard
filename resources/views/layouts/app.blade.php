@@ -61,7 +61,7 @@
                         <a href="{{ route('visitors.index') }}">Mensagens <i class="fa-solid fa-message"></i></a>
                     </li>
                     <li>
-                        <a href="{{ route('company_infos.index') }}">Informações da Empresa <i class="fa-solid fa-message"></i></a>
+                        <a href="{{ route('company_infos.index') }}">Informações da Empresa <i class="fa-solid fa-building"></i></a>
                     </li>
                     @can('adm')
                         <li>
