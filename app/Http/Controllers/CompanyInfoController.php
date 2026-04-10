@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\factorys\company_info\InputValidatorFactory;
 use App\Models\CompanyInfo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\company_info\StoreCompanyInfoRequest;
-use App\Http\Requests\company_info\UpdateCompanyInfoRequest;
+use App\ImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class CompanyInfoController extends Controller
 {
+    use ImageTrait;
     /**
      * Display a listing of the resource.
      */
@@ -64,23 +66,42 @@ class CompanyInfoController extends Controller
      */
     public function edit(CompanyInfo $companyInfo)
     {
-        return view('company_info.edit', compact('companyInfo'));
+        $company_infos = CompanyInfo::all('key'); 
+
+        return view('company_info.edit', compact('companyInfo', 'company_infos'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCompanyInfoRequest $request, CompanyInfo $companyInfo)
+    public function update(Request $request, CompanyInfo $companyInfo)
     {
-        $validated = $request->validated();
+        try {
 
-        $companyInfo->update([
-            'key' => $validated['key'],
-            'value' => $validated['value'],
-            'user_id' => $request->user()->id,
-        ]);
+            $input = InputValidatorFactory::create($companyInfo->key);
+    
+            $validator = $input->validate($request);
+    
+            if ($validator->fails()) {
+                dd($validator->errors());
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+    
+            $validated = $validator->validated();
 
-        return redirect()->route('company_infos.index');
+            $this->checkIfIsImage($request, $validated);
+
+            $companyInfo->update([
+                'key' => $validated['key'],
+                'value' => $validated['value'],
+                'user_id' => $request->user()->id,
+            ]);
+    
+            return redirect()->route('company_infos.index');
+
+        } catch (\Throwable $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -118,5 +139,26 @@ class CompanyInfoController extends Controller
         ->paginate(5);
 
         return $companyInfos;
+    }
+
+     /**
+     *  Checa se o que foi enviado é uma imagem
+     *  e gera um nome válido para ser Salvo na BD.
+     */
+    private function checkIfIsImage(Request $request, &$validated = []): void
+    {
+        if ($request->hasFile('value')) {
+
+            $requestImage = $request->file('value');
+            $this->generateName($requestImage);
+
+            $validated['value'] = $this->getImageName();
+            $requestImage->move(public_path('images/company_images/'), $validated['value']);
+
+            return;
+        }
+
+        throw new \Exception("Imagem inválida!");
+        
     }
 }

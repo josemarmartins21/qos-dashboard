@@ -21,16 +21,11 @@
 
 
         <div id="menu-hamburguer">
-            <i class="fa-solid fa-bars"></i>
+            <i class="fa-solid fa-bars" id="menu"></i>
         </div>
 
-        <nav id="menu">
-            <ul>
-                <li><a href="#">Lorem ipsum dolor sit.</a></li>
-                <li><a href="#">Lorem ipsum dolor sit.</a></li>
-                <li><a href="#">Lorem ipsum dolor sit.</a></li>
-                <li><a href="#">Lorem ipsum dolor sit.</a></li>
-            </ul>
+        <nav id="menu-container" class="esconder">
+           <?php echo $__env->make('components.nav_dashboard', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
         </nav>
         <div class="current-date">
              <p><?php echo e(DateHelper::currentExtendedDate()); ?></p> 
@@ -41,50 +36,11 @@
             <img src="<?php echo e(asset('imagens/guanabara-perfil.jpeg')); ?>" alt="Josemar Martins" class="foto">
             <h1><?php echo e(Auth::user()->name); ?></h1>
             <div id="pages-container">
-               <ul>
-                    <li>
-                        <a href="<?php echo e(route('home')); ?>">Home <i class="fa-solid fa-house"></i></a>
-                    </li>
-                    <li>
-                        <a href="#">Dashboard <i class="fa-solid fa-grip"></i></a>
-                    </li>
-                    <li>
-                        <a href="<?php echo e(route('testimonies.index')); ?>">Depoimentos <i class="fa-brands fa-stack-exchange"></i></a>
-                    </li>
-                    <li>
-                        <a href="<?php echo e(route('questions.index')); ?>">Perguntas Frequentes <i class="fa-solid fa-file-circle-question"></i></a>
-                    </li>
-                    <li>
-                        <a href="<?php echo e(route('client_prove_socials.index')); ?>">Clientes renomados <h3><i class="fa-solid fa-people-roof"></i> </h3></a>
-                    </li>
-                    <li>
-                        <a href="<?php echo e(route('visitors.index')); ?>">Mensagens <i class="fa-solid fa-message"></i></a>
-                    </li>
-                    <li>
-                        <a href="<?php echo e(route('company_infos.index')); ?>">Informações da Empresa <i class="fa-solid fa-building"></i></a>
-                    </li>
-                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('adm')): ?>
-                        <li>
-                            <a href="<?php echo e(route('users.index')); ?>">Usuários <i class="fa-solid fa-user-group"></i></a>
-                        </li>
-                    <?php endif; ?>
-                    <li>
-                        <form action="<?php echo e(route('logout')); ?>" method="post">
-                            
-                            <?php echo csrf_field(); ?>
-                            
-                            <div id="btn-logout-container">
-                                <button type="submit" onclick="return confirm('Tem cereteza que pretende terminar a sessão?')">
-                                    <i class="fa-solid fa-right-from-bracket"></i> Sair
-                                </button>
-                            </div>
-                        </form>
-                    </li>
-                </ul>
+               <?php echo $__env->make('components.nav_dashboard', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
             </div>
         </section>
         <?php echo $__env->yieldContent('content'); ?>
     </main> 
-    <script src="/scripts/script.js"></script>
+    <script src="<?php echo e(asset('scripts/script.js')); ?>"></script>
 </body>
 </html><?php /**PATH C:\Users\josimarmartins21\Documents\GitHub\qos-dashboard\resources\views/layouts/app.blade.php ENDPATH**/ ?>

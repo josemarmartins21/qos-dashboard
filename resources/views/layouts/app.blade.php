@@ -21,16 +21,11 @@
 
 
         <div id="menu-hamburguer">
-            <i class="fa-solid fa-bars"></i>
+            <i class="fa-solid fa-bars" id="menu"></i>
         </div>
 
-        <nav id="menu">
-            <ul>
-                <li><a href="#">Lorem ipsum dolor sit.</a></li>
-                <li><a href="#">Lorem ipsum dolor sit.</a></li>
-                <li><a href="#">Lorem ipsum dolor sit.</a></li>
-                <li><a href="#">Lorem ipsum dolor sit.</a></li>
-            </ul>
+        <nav id="menu-container" class="esconder">
+           @include('components.nav_dashboard')
         </nav>
         <div class="current-date">
              <p>{{ DateHelper::currentExtendedDate() }}</p> 
@@ -41,50 +36,11 @@
             <img src="{{ asset('imagens/guanabara-perfil.jpeg') }}" alt="Josemar Martins" class="foto">
             <h1>{{ Auth::user()->name }}</h1>
             <div id="pages-container">
-               <ul>
-                    <li>
-                        <a href="{{ route('home') }}">Home <i class="fa-solid fa-house"></i></a>
-                    </li>
-                    <li>
-                        <a href="#">Dashboard <i class="fa-solid fa-grip"></i></a>
-                    </li>
-                    <li>
-                        <a href="{{ route('testimonies.index') }}">Depoimentos <i class="fa-brands fa-stack-exchange"></i></a>
-                    </li>
-                    <li>
-                        <a href="{{ route('questions.index') }}">Perguntas Frequentes <i class="fa-solid fa-file-circle-question"></i></a>
-                    </li>
-                    <li>
-                        <a href="{{ route('client_prove_socials.index') }}">Clientes renomados <h3><i class="fa-solid fa-people-roof"></i> </h3></a>
-                    </li>
-                    <li>
-                        <a href="{{ route('visitors.index') }}">Mensagens <i class="fa-solid fa-message"></i></a>
-                    </li>
-                    <li>
-                        <a href="{{ route('company_infos.index') }}">Informações da Empresa <i class="fa-solid fa-building"></i></a>
-                    </li>
-                    @can('adm')
-                        <li>
-                            <a href="{{ route('users.index') }}">Usuários <i class="fa-solid fa-user-group"></i></a>
-                        </li>
-                    @endcan
-                    <li>
-                        <form action="{{ route('logout') }}" method="post">
-                            
-                            @csrf
-                            
-                            <div id="btn-logout-container">
-                                <button type="submit" onclick="return confirm('Tem cereteza que pretende terminar a sessão?')">
-                                    <i class="fa-solid fa-right-from-bracket"></i> Sair
-                                </button>
-                            </div>
-                        </form>
-                    </li>
-                </ul>
+               @include('components.nav_dashboard')
             </div>
         </section>
         @yield('content')
     </main> 
-    <script src="/scripts/script.js"></script>
+    <script src="{{ asset('scripts/script.js') }}"></script>
 </body>
 </html>

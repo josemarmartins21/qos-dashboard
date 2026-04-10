@@ -1,5 +1,6 @@
 @use('Illuminate\Support\Str')
 @use('App\Models\CompanyInfo')
+@use('App\enums\company_infos\CompanyInfoEnum')
 
 @extends('layouts.app')
 
@@ -43,9 +44,19 @@
                                     <td>
                                         {{ $companyInfo['key'] }}
                                     </td>
-                                    <td title="{{ $companyInfo['value'] }}">
-                                        {{ Str::limit($companyInfo['value'], 50, '...') }}
-                                    </td>
+                                    @if (
+                                            $companyInfo['key'] === CompanyInfoEnum::HeroImage->value 
+                                            
+                                            || $companyInfo['key'] === CompanyInfoEnum::Logotipo->value 
+                                        )
+                                            <td>
+                                                <img src="{{ asset('images/company_images/' . $companyInfo['value']) }}" alt="{{ $companyInfo['key'] }}" width="110px">
+                                            </td>
+                                    @else
+                                            <td title="{{ $companyInfo['value'] }}">
+                                                {{ Str::limit($companyInfo['value'], 50, '...') }}
+                                            </td>
+                                    @endif
                                     <td class="actions-column">
                                         <a href="{{ route('company_infos.edit', ['company_info' => $companyInfo['id']]) }}" class="edit-column">
                                             <i class="fa-solid fa-pen-to-square"></i>
