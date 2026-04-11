@@ -788,7 +788,12 @@ h2.question {
     margin-top: 0px !important;
   }
 
-  .borda {background-color: black; }
+  .active_link {
+    background-color: var(--blue-primary);
+    
+  
+  }
+
   header {
     position: static !important;
     width: 100% !important;
@@ -901,6 +906,8 @@ h2.question {
             gap: 10px;
             align-items: center;
             text-transform: capitalize;
+            transition: background-color 0.3s, color 0.3s;
+            transition-timing-function: ease;
         }
         a:active {
             transform: scale(.98);

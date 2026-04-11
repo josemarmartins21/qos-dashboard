@@ -1,55 +1,32 @@
 <ul>
-    <x-link_menu :borda="route('home') === 'http://127.0.0.1:8000'" :name="'Home'" href="{{ route('home') }}" >
-        
+    <x-link_menu :active_link="request()->routeIs('home')"  href="{{ route('home') }}" :name="'Home'" :icon="'fa-solid fa-house'">
+    </x-link_menu>
+    <x-link_menu :active_link="request()->routeIs('testimonies.index')" :name="'Depoimentos'" :icon="'fa-brands fa-stack-exchange'" href="{{ route('testimonies.index') }}">
     </x-link_menu>
     
-    <x-link_menu :borda="route('home') === '#'" href="#" :name="'Dashboard'">
-        
-    </x-link_menu>
-    
-    <x-link_menu :borda="route('testimonies.index') === 'http://127.0.0.1:8000'" href="{{ route('testimonies.index') }}" :name="'Depoimentos'">
-        
-    </x-link_menu>
-    
-    <x-link_menu :borda="route('questions.index') === 'http://127.0.0.1:8000'" href="{{ route('questions.index') }}" :name="'Perguntas Frequentes'">
+    <x-link_menu 
+    :active_link="request()->routeIs('questions.index')" 
+    href="{{ route('questions.index') }}" 
+    :name="'Perguntas Frequentes'"
+    :icon="'fa-solid fa-file-circle-question'"
+    >
         
     </x-link_menu>
   
-    <x-link_menu :borda="route('questions.index') === 'http://127.0.0.1:8000'" href="{{ route('questions.index') }}" :name="'Clientes renomados'">
+    <x-link_menu :active_link="request()->routeIs('client_prove_socials.index')" href="{{ route('client_prove_socials.index') }}" :name="'Clientes renomados'" :icon="'fa-solid fa-people-roof'">
+    </x-link_menu>
+
+    <x-link_menu :active_link="request()->routeIs('visitors.index')" href="{{ route('visitors.index') }}" :name="'Mensagens de Visitantes'" :icon="'fa-solid fa-paper-plane'">
         
     </x-link_menu>
 
-    <x-link_menu :borda="route('visitors.index') === 'http://127.0.0.1:8000'" href="{{ route('visitors.index') }}" :name="'Visitantes'">
+    <x-link_menu :active_link="request()->routeIs('company_infos.index')" href="{{ route('company_infos.index') }}" :name="'Informações da Empresa'" :icon="'fa-solid fa-building'">
         
     </x-link_menu>
 
-    <x-link_menu :borda="route('company_infos.index') === 'http://127.0.0.1:8000'" href="{{ route('company_infos.index') }}" :name="'Informações da Empresa'">
-        
-    </x-link_menu>
-
-
-   {{--  <li>
-        <a >Depoimentos <i class="fa-brands fa-stack-exchange"></i></a>
-    </li> --}}
-  {{--   <li>
-        <a href="{{ route('questions.index') }}"> <i class="fa-solid fa-file-circle-question"></i></a>
-    </li> --}}
-  {{--   <li>
-        <a >Clientes renomados <h3><i class="fa-solid fa-people-roof"></i> </h3></a>
-    </li> --}}
-{{--     <li>
-        <a href="{{ route('visitors.index') }}">Mensagens <i class="fa-solid fa-message"></i></a>
-    </li> --}}
-{{--     <li>
-        <a href="{{ route('company_infos.index') }}">Informações da Empresa <i class="fa-solid fa-building"></i></a>
-    </li> --}}
     @can('adm')
-        <x-link_menu :borda="route('users.index') === 'http://127.0.0.1:8000'" href="{{ route('users.index') }}" :name="'Gerir Usuários'">
-        
+        <x-link_menu :active_link="request()->routeIs('users.index')" href="{{ route('users.index') }}" :name="'Gerir Usuários'" :icon="'fa-solid fa-users'">
         </x-link_menu>
-        {{-- <li>
-            <a href="{{ route('users.index') }}">Usuários <i class="fa-solid fa-user-group"></i></a>
-        </li> --}}
     @endcan
     <li>
         <form action="{{ route('logout') }}" method="post">

@@ -35,26 +35,26 @@ Route::middleware('auth')->group(function () {
     
     
     // Informações da empresa
-    Route::resource('company_infos', CompanyInfoController::class);
+    Route::resource('company_infos', CompanyInfoController::class)->except(['show']);
     
     // Clientes Renomados
     Route::resource('client_prove_socials', ClientProveSocialController::class);
     
     
     // Visitors - Visitantes
-    Route::resource('visitors', VisitorController::class);
+    Route::resource('visitors', VisitorController::class)->except(['create', 'edit', 'update']);
     
     // FAQ Perguntas frequentes
     Route::resource('questions', QuestionController::class);
     
     // Assuntos / Subjects
-    Route::resource('subjects', SubjectController::class);
+    Route::resource('subjects', SubjectController::class)->except(['show']);
     
     // Messages
     Route::resource('messages', MessageController::class)->only(['show', 'destroy']);
 
     // Users
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->only(['index', 'show', 'edit', 'update', 'destroy']);
     
     // Activar ou Desabilitar Recurso
     Route::put('/activate', [ActivateDisableController::class, 'activate'])->name('active');

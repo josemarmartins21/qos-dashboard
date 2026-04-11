@@ -54,14 +54,6 @@ class CompanyInfoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(CompanyInfo $companyInfo)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(CompanyInfo $companyInfo)
