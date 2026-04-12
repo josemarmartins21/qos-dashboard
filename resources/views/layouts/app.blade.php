@@ -41,6 +41,7 @@
         </section>
         @yield('content')
     </main> 
+    <x-float_btn />
     <script src="{{ asset('scripts/script.js') }}"></script>
 </body>
 </html>

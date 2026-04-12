@@ -41,6 +41,26 @@
         </section>
         <?php echo $__env->yieldContent('content'); ?>
     </main> 
+    <?php if (isset($component)) { $__componentOriginala303ba71f7baa3d3b968ad65bf4004d2 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginala303ba71f7baa3d3b968ad65bf4004d2 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.float_btn','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('float_btn'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginala303ba71f7baa3d3b968ad65bf4004d2)): ?>
+<?php $attributes = $__attributesOriginala303ba71f7baa3d3b968ad65bf4004d2; ?>
+<?php unset($__attributesOriginala303ba71f7baa3d3b968ad65bf4004d2); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginala303ba71f7baa3d3b968ad65bf4004d2)): ?>
+<?php $component = $__componentOriginala303ba71f7baa3d3b968ad65bf4004d2; ?>
+<?php unset($__componentOriginala303ba71f7baa3d3b968ad65bf4004d2); ?>
+<?php endif; ?>
     <script src="<?php echo e(asset('scripts/script.js')); ?>"></script>
 </body>
 </html><?php /**PATH C:\Users\josimarmartins21\Documents\GitHub\qos-dashboard\resources\views/layouts/app.blade.php ENDPATH**/ ?>

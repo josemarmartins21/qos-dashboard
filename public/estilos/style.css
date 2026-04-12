@@ -19,6 +19,43 @@
   
 /* GENERALS */
 
+
+a.float-btn {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px;
+    padding-top: 15px;
+    color: white;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    font-size: 1.5em;
+    z-index: 1000;
+    text-decoration: none;
+    opacity: .7;
+    transition: opacity .5s ease-out;
+}
+
+a.suporte {
+  bottom: 87px !important;
+  background-color: green;
+}
+
+a.site {
+  background-color: var(--destaque);
+}
+
+a.float-btn:hover {
+  opacity: 1;
+}
+
+a.float-btn:active {
+  transform: scale(.98);
+}
+
+
+
 input::placeholder {
   font-size: 18px;
 }
@@ -798,6 +835,7 @@ h2.question {
   header {
     position: static !important;
     width: 100% !important;
+    box-shadow: none !important;
   }
   section#ficha {
     height: 100% !important;

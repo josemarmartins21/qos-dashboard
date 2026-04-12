@@ -54,7 +54,7 @@
                         <option value="" selected>Selecione o nível de acesso</option>
 
                         @foreach ($levels as $level)
-                            <option value="{{ $level->name }}">
+                            <option value="{{ $level->name }}" {{ $user->permissions->first()->name == $level->name ? 'selected' : '' }}>
                                 {{ $level->name }}
                             </option>
                         @endforeach

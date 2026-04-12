@@ -15,7 +15,7 @@ use App\Http\Controllers\web_page\IndexController;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [IndexController::class, 'index'])->name('index');
  
 Route::prefix('dashboard')->middleware('auth')->group(function () {
     

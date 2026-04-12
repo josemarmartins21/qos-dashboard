@@ -7,6 +7,11 @@
     --cor-destaque: #038C7F;
     --card-sombras: 0 1px 3px rgba(0, 0, 0, 0.463);
     --font-family: 'Mulish', sans-serif;
+
+     --cor-de-destaque: #225473;
+    --cor-secundaria: #1C4859;
+    --cor-tercearia: #A6A6A6;
+    --cor-footer: #0D0D0D;
 }
 
 /* General */
@@ -144,7 +149,7 @@ header a {
     transition-timing-function: ease;
 }
 
-a#whatsapp-btn {
+a.float-btn {
     display: block;
     position: fixed;
     bottom: 20px;
@@ -161,11 +166,11 @@ a#whatsapp-btn {
     transition: opacity .5s ease-out;
 }
 
-a#whatsapp-btn:hover {
+a.float-btn:hover {
     opacity: 1;
 }
 
-a#whatsapp-btn:active {
+a.float-btn:active {
     transform: scale(.98);
 }
 
@@ -581,7 +586,9 @@ section#localizacao iframe {
     height: auto;
 }
 
-footer {
+
+
+/* footer {
     background-color: #0D0D0D;
     padding: 10px 5px;
     display: flex;
@@ -589,7 +596,7 @@ footer {
     flex-flow: column nowrap;
     align-items: center;
     color: white;
-    /* MOD: melhora o espaçamento geral do rodapé */
+
     padding: 30px 5px;
 }
 
@@ -625,6 +632,119 @@ footer i:hover {
 
 footer p:last-child > a:hover {
     text-decoration: underline;
+} */
+
+/* Footer do site */
+
+div.informacoes {
+    display: flex;
+    align-items: center;
+    flex-flow: row wrap;
+    background-color: var(--cor-de-destaque);
+    color: white;
+    padding: 10px;
+}
+
+
+.logo-foot > img {
+    width: 200px;    
+}
+
+.infor {
+    margin: 15px 0px;
+}
+
+.infor > h3 {
+    font-weight: 900;
+}
+
+.infor > p {
+    margin: 1em 0px;
+    line-height: 1.4em;
+}
+
+.infor > p.barra {
+    height: 4px;
+    width: 40%;
+    margin: 1.4em 0px;
+    background-color: var(--cor-tercearia);
+}
+
+.infor {
+    flex: 1;
+}
+
+.infor > ul {
+    list-style-position: inside;
+    list-style: none;
+}
+
+.infor > ul > li {
+    line-height: 1.5em;
+}
+
+.infor > ul > li {
+    line-height: 1.9em;
+}
+
+
+div.foot {
+    background-color: var(--cor-tercearia);
+}
+
+div.foot  > p {
+    color: black;
+    font-size: .95em;
+    text-align: center;
+    padding: 13px 0px;
+}
+
+div.informacoes {
+    background-color: var(--cor-footer);
+    color: white;
+    padding: 10px;
+}
+
+.logo-foot > img {
+    width: 170px;    
+}
+
+.infor {
+    margin: 15px 0px;
+}
+
+.infor > h3 {
+    font-weight: 900;
+}
+
+.infor > p {
+    margin: 1em 0px;
+    line-height: 1.4em;
+}
+
+.infor > p.barra {
+    height: 4px;
+    width: 40%;
+    margin: 1.4em 0px;
+    background-color: var(--cor-tercearia);
+}
+
+
+
+.infor > ul > li {
+    line-height: 1.9em;
+}
+
+
+div.foot {
+    background-color: var(--cor-tercearia);
+}
+
+div.foot  > p {
+    color: black;
+    font-size: .95em;
+    text-align: center;
+    padding: 13px 0px;
 }
 
 @media screen and (max-width: 600px) {
@@ -755,18 +875,6 @@ footer p:last-child > a:hover {
         box-shadow: none;
      }
 
-    /* Planos de internet */
- 
-/*     #planos-de-internet {
-        MOD: usa min-height para não cortar conteúdo 
-        min-height: 322px;
-    }
-
-    #planos-de-internet > article {
-        padding: 0;
-    } */
-
-    /* Depoimentos de clientes */
     section#depoimento-de-clientes {
         padding: 5px;
     }
@@ -885,5 +993,14 @@ footer p:last-child > a:hover {
     }
     
     .logo-empresa:hover {cursor: none;}
+
+    div.informacoes {
+        display: block !important;
+    }
+
+    .infor > h3.firm-name {
+        display: none;
+    }
+
 
 }

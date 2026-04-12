@@ -61,7 +61,7 @@
                     </h3>
                     <a href="#sobre">Saiba Mais</a>
                 </section>
-                <a href="https://wa.me/244{{ $companyInfos['whatsapp']->value }}?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20internet." id="whatsapp-btn">
+                <a href="https://wa.me/244{{ $companyInfos['whatsapp']->value }}?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20internet." class="float-btn">
                     <i class="fa-brands fa-whatsapp"></i>
                 </a>
             </div>
@@ -139,7 +139,54 @@
         </section>
     </main>
     <!-- Rodapé -->
-    <footer>
+     <footer>
+        <div class="informacoes">
+            
+            <div class="infor">
+                {{-- <h3 class="firm-name">QoS Tel</h3>
+                <p class="barra"></p> --}}
+                <div class="logo-foot">
+                    <img 
+                        src="{{ asset('images/company_images/' . $companyInfos['logotipo']->value) }}" alt="logo da qos_tel"
+                    >
+                </div>
+
+
+
+            </div>
+            <div class="infor">
+                <h3>Contactos</h3>
+                <p class="barra"></p>
+                <p>Em caso de dúvidas ou sugestões, <br>contacte-nos.</p>
+                <p>Endereço e Telefones</p>
+            </div>
+            <div class="infor">
+                <h3>Comunicação</h3>
+                <p class="barra"></p>
+                <p>Comunicados, discursos e eventos</p>
+                <ul>
+                    <li>Agenda OPD</li>
+                    <li>Texto</li>
+                    <li>Eventos</li>
+                    <li>Galeria de imagens</li>
+                </ul>
+            </div>
+            <div class="infor">
+                <h3>Redes Sociais</h3>
+                <p class="barra"></p>
+                <p>
+                    Para facilitar o contacto e disseminação das informações, a ordem dos [nome associação] de Angola
+                </p>
+                <p>
+                    Siga nossas redes sociais e mantenha-se informado(a)
+                </p>
+            </div>
+        </div>
+        <div class="foot">
+            <p>&copy;QoS Tel - {{ date('Y') }} Todos os direitos reservados</p>
+        </div>
+    </footer>
+    {{-- <footer>
        <div id="redes-sociais">
             <ul>
                 <a href="https://www.facebook.com/profile.php?id=100092364702262" target="_blank">
@@ -155,7 +202,7 @@
         <p id="dev">Desenvolvido por: <a href="https://josemarmartins21.github.io/portifolio" target="_blank">Josemar Martins</a></p>
         <p>&copy;<span id="ano"></span> Todos os direitos reservados a QoS Tel</p>
         <p><a href="{{ route('home') }}">Zona Restrita</a></p>
-    </footer>
+    </footer> --}}
     <script src="{{ asset('scripts/index.js') }}"></script>
 </body>
 </html>
