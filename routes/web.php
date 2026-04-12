@@ -11,22 +11,18 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TestimonyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorController;
+use App\Http\Controllers\web_page\IndexController;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Route;
 
-
-/* Route::get('/home', function () {
-        return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard'); */
-
-
-    
-Route::middleware('auth')->group(function () {
+Route::get('/', [IndexController::class, 'index']);
+ 
+Route::prefix('dashboard')->middleware('auth')->group(function () {
     
     Route::get('/', HomeController::class)->name('home');
     
     Route::get('/test', function() {
-        $subjects = Subject::all();
+        $subjects = Subject::all(); 
         return view('welcome', compact('subjects'))->name('test');
     });
     

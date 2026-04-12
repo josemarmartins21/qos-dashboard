@@ -79,7 +79,7 @@
 
                                         @method('DELETE')
 
-                                        <button type="submit" class="base-btn apagar" >
+                                        <button type="submit" class="base-btn apagar" onclick="return confirm('Tem a certeza que deseja eliminar?')">
                                             <i class="fa-solid fa-trash"></i> Apagar
                                         </button>
                                     </form>

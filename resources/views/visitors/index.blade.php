@@ -56,7 +56,9 @@
                                     <form action="" method="" id="form-table">
                                         {{-- @csrf('Delete') --}}
 
-                                        <button {{-- type="submit" --}} class="base-btn apagar" >Apagar</button>
+                                        <button {{-- type="submit" --}} class="base-btn apagar" onclick="return confirm('Tem a certeza que deseja eliminar?')">
+                                            Apagar
+                                        </button>
                                     </form>
                                 </td>
                             </tr>

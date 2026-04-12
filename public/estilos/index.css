@@ -1,0 +1,889 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Special+Gothic:wght@400..700&display=swap');
+
+:root {
+    --cor-principal: #0D3973;
+    --cor-botoes: #049DBF;
+    --footer: #0D0D0D;
+    --cor-destaque: #038C7F;
+    --card-sombras: 0 1px 3px rgba(0, 0, 0, 0.463);
+    --font-family: 'Mulish', sans-serif;
+}
+
+/* General */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+body, html {
+    min-height: 100vh;
+    position: relative;
+    transition: height .3s width .3s;
+    transition-timing-function: ease;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+p {
+    line-height: 1.8em;
+}
+
+h2, h1 {
+    text-transform: capitalize;
+}
+
+h2 {
+    font-size: 1.8em;
+}
+
+/* Hero */
+#background {
+    min-height: 90vh;
+    /* MOD: garante que a imagem de fundo do hero cubra o bloco inteiro e fique centrada */
+    background: black;
+    background-position: center top !important; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 100px;
+}
+
+.fundo-preto {
+    background-color: rgba(0, 0, 0, 0.322);
+    min-height: 100vh;
+   
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.4);
+    box-shadow: 1px 1px 14px rgba(0, 0, 0, 0.329);
+    display: flex;
+    justify-content: space-between;
+    /* MOD: adiciona respiro horizontal consistente no cabeçalho */
+    padding: 10px 6vw 0 6vw;
+}
+
+menu {
+    align-self: center;
+}
+
+/* MOD: controla espaçamento entre itens do menu sem depender de margens individuais */
+header ul {
+    display: flex;
+    gap: 18px;
+}
+
+header ul li {
+    display: inline-block;
+    a:hover {text-decoration: underline;}
+}
+
+header a {
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    /* MOD: remove margem horizontal fixa para o gap do flex controlar o espaçamento */
+    margin: 0;
+}
+
+.hamburguer-container {
+    display: none;
+    color: #fff;
+    font-size: 1.5em;
+}
+
+#cta {
+    display: none;
+}
+
+#hero {
+    height: 65vh;
+    color: white;
+    display: flex;
+    /* MOD: limita a largura do bloco para melhorar legibilidade em telas grandes */
+    width: min(1100px, 92vw);
+    gap: 10px;
+    margin: auto;
+    justify-content: center;
+    align-items: start;
+    flex-flow: column nowrap;
+
+}
+
+#hero h1 {
+    /* MOD: aumenta levemente o destaque do título principal */
+    font-size: 2.4em;
+}
+
+#hero h3 {
+    /* MOD: usa medida baseada em caracteres para legibilidade do texto */
+    width: min(52ch, 90vw);
+    line-height: 1.5em;
+}
+
+#hero a {
+    color: white;
+    text-decoration: none;
+    background-color: var(--cor-botoes);
+    font-weight: bold;
+    width: 150px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    transition-timing-function: ease;
+    transition: background-color .3s; 
+}
+
+#hero a:active {transform: scale(.98);} 
+
+#hero a:hover {
+    background-color: orangered;
+    transition-timing-function: ease;
+}
+
+a#whatsapp-btn {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px;
+    background-color: #2bb714;
+    color: white;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    font-size: 1.5em;
+    z-index: 1000;
+    text-decoration: none;
+    opacity: .7;
+    transition: opacity .5s ease-out;
+}
+
+a#whatsapp-btn:hover {
+    opacity: 1;
+}
+
+a#whatsapp-btn:active {
+    transform: scale(.98);
+}
+
+
+/* Nossos diferenciais */
+
+section#diferenciais {
+    margin-bottom: 250px;
+    margin-top: 170px;
+    
+}
+
+section#diferenciais h2 {
+    text-align: center;
+    margin: 0 0 40px 0;
+    font-weight: 700;
+}
+
+section#diferenciais > article {
+    /* MOD: ajusta largura e alinhamento para evitar linhas muito longas */
+    width: min(1050px, 92vw);
+    margin: auto;
+    display: flex;
+    justify-content: flex-start;
+    gap: 24px;
+}
+
+section#diferenciais article > aside {
+    margin: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 10px;
+}
+section#diferenciais article > aside > i {
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+
+
+aside.difereciais-card {
+    background-color: #0a346b;
+    color: #fff;
+    border-radius: 10px;
+    flex: 0 1 314px;
+    height: 200px; 
+    text-align: center;
+    padding: 10px;
+    padding-top: 20px;
+    cursor: pointer;
+    transition: transform .3s;
+    transition-timing-function: ease-in;
+
+}
+aside.difereciais-card:hover {
+    transform: scale(1.05);
+}
+
+aside.difereciais-card > span {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+
+
+/* Planos de internet */
+/* 
+#planos-de-internet {
+    background: blue url(../img/planos-img.jpg) no-repeat center bottom fixed;
+    color: white;
+    MOD: permite que a seção cresça conforme o conteúdo 
+    min-height: 300px;
+}
+
+#planos-de-internet  article {
+     MOD: adiciona padding vertical para dar respiro 
+    padding: 60px 0 0 0;
+    height: 100%;
+}
+
+#planos-de-internet > article {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 10px;
+    align-items: center;
+ MOD: centraliza conteúdo e limita largura 
+    margin: 0 auto;
+    width: min(1100px, 92vw);
+}
+
+.card-plan {
+    flex: 1 1 400px;
+    height: 150px;
+    padding: 10px;
+
+    position: relative;
+
+}
+
+.card-plan a i {
+    font-size: 2.5em;
+    margin: 10px 0;
+
+}
+
+
+.card-plan > a {
+    background-color: var(--cor-destaque);
+    font-weight: bold;
+    text-decoration: none;
+    font-size: .8em;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    display: block;
+    margin: auto;
+     MOD: limita a largura do card para manter consistência 
+    width: min(320px, 90%);
+    height: 120px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+     MOD: adiciona profundidade visual sem fugir da identidade 
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+} */
+
+/* .card-plan h3 {
+    text-transform: capitalize;
+} */
+
+
+/* Depoimento de clientes */
+
+#depoimento-de-clientes {
+    margin: 100px 0 150px 0;
+}
+
+#depoimento-de-clientes {
+    display: flex;
+    gap: 30px;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    /* MOD: adiciona padding lateral para evitar encostar nas bordas */
+    padding: 0 4vw;
+}
+
+#depoimento-de-clientes > h2 {
+    flex: 0 1 100%;
+    text-align: center;
+    padding-bottom: 40px;
+    font-weight: 700;
+}
+
+.depoimento {
+    padding: 20px 20px 40px 20px;
+    flex: 0 1 320px;
+    /* MOD: permite altura automática para textos maiores */
+    height: 220px;
+    border-radius: 10px;
+    box-shadow: var(--card-sombras);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-flow: column nowrap;
+    cursor: pointer;
+    gap: 20px;
+    transition: transform .3s;
+    transition-timing-function: ease-out;
+
+}
+
+.depoimento:hover {
+    transform: scale(1.05);
+
+}
+
+.depoimento p {
+    font-size: 18px;
+    font-style: italic;
+}
+
+.depoimento h4 {
+    font-weight: bolder;
+    font-size: 1.4em;
+}
+
+/* Velocidade e perfomance */
+section#sobre {
+    /* MOD: centraliza e dá respiro lateral ao texto institucional */
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+#sobre p {
+    line-height: 1.8em;
+    text-indent: 30px;
+    text-align: justify;
+    font-size: 21px;
+    font-family: 'Times New Roman', Times, serif;
+}
+section#sobre h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    
+}
+
+/* Perguntas frequentes */
+
+section#perguntas {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 150px;
+    /* MOD: adiciona espaçamento entre imagem e conteúdo */
+    gap: 30px;
+    padding-left: 4vw;
+    padding-right: 4vw;
+    
+}
+
+section#perguntas  p:nth-child(odd) {
+    text-indent: 30px;
+    text-decoration: underline;
+}
+
+section#perguntas  p:nth-child(even) {
+    font-weight: 300;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 18px;
+}
+
+section#perguntas > article {
+    flex: 0 1 50%;
+}
+
+#img-perguntas {
+    display: flex;
+    align-items: center;
+}
+
+section#perguntas article h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+div#img-perguntas img {
+    width: 700px;
+   
+}
+
+.pergunta-container:first-child {
+    border-bottom: 2px solid #00000071;
+    border-top: 2px solid #00000071;
+    padding: 10px 0;
+    margin-bottom: 5px;
+}
+
+.pergunta-container {
+    border-bottom: 2px solid #00000071;
+    padding: 10px 0;
+    margin-bottom: 5px;
+}
+
+section#perguntas > article {
+    padding-top: 100px;
+}
+
+div.pergunta {
+    display: flex;
+    justify-content: space-between;
+}
+
+.resposta {
+    display: block;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height .35s ease, opacity .25s ease;
+}
+
+
+.show {
+    opacity: 1;
+}
+
+.hidden {
+    display: none;
+}
+
+#esconder {
+    display: none;
+}
+
+#esconder:hover, #mostrar:hover {
+    cursor: pointer;
+}  
+/* Suporte */
+
+section#suporte {
+    height: 220px;
+    padding: 0 15px;
+    margin: 250px 0 290px 0;
+    background-color: var(--cor-principal);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* MOD: cria um pouco de separação lateral em telas maiores */
+    padding-left: 6vw;
+    padding-right: 6vw;
+}
+
+section#suporte p {
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+#suporte h2 {
+    margin-bottom: 20px;
+}
+
+section#suporte a {
+    color: var(--cor-destaque);
+    background-color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    transition: transform .3s;
+    transition-timing-function: ease-out;
+}
+
+section#suporte a:hover {
+    transform: scale(1.1);
+}
+
+/* Prova Social */
+#prova-social-container {
+    height: auto;
+    background: var(--cor-principal) url(../img/61765.jpg) no-repeat center center;
+    background-size: cover;
+    margin: 200px 0;
+    padding-bottom: 100px;
+    /* MOD: garante que o conteúdo fique centralizado verticalmente */
+    display: flex;
+    align-items: center;
+}
+
+#logos-container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    /* MOD: permite quebra em telas menores sem perder alinhamento */
+    flex-wrap: wrap;
+    gap: 30px;
+
+    
+}
+
+.logo-empresa {
+    width: 200px;
+    transition: transform .3s;
+}
+
+.logo-empresa:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.fundo-preto-2 {
+    width: 100%;  
+    /* MOD: adiciona padding para o conteúdo não encostar nas bordas */
+    padding: 0;
+    margin: auto;
+}
+
+.fundo-preto-2 h2 {
+    padding: 50px 0;
+    text-align: center;
+    font-size: 3em;
+    color: #ffff;
+    text-transform: uppercase;
+}
+/* Localização */
+
+section#localizacao {
+    margin-bottom: 200px;
+    margin-top: 200px;
+    /* MOD: padding lateral para manter alinhamento com outras seções */
+    padding: 0 4vw;
+}
+
+section#localizacao > h2 {
+    margin-bottom: 80px;
+    text-align: center;
+    font-size: 3em;
+}
+
+section#localizacao iframe {
+    display: block;
+    margin: auto;
+    /* MOD: deixa o mapa responsivo sem perder proporção */
+    width: min(900px, 100%);
+    aspect-ratio: 16 / 9;
+    height: auto;
+}
+
+footer {
+    background-color: #0D0D0D;
+    padding: 10px 5px;
+    display: flex;
+    gap: 10px;
+    flex-flow: column nowrap;
+    align-items: center;
+    color: white;
+    /* MOD: melhora o espaçamento geral do rodapé */
+    padding: 30px 5px;
+}
+
+footer #redes-sociais {
+    align-self: flex-start;
+}
+
+footer h1 {
+    font-size: 4.5em;
+}
+
+footer p#dev > a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer p#dev > a:hover {
+    text-decoration: underline;
+
+}
+
+footer i {
+    color: white;
+    font-size: 1.7em;
+}
+
+footer i:hover {
+    cursor: pointer;
+    color: rgb(235, 235, 11);
+    transition: color .3s;
+}
+
+footer p:last-child > a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+
+    /* Generals */
+    h2 {
+        font-size: 1.5em;
+    }
+    /* header */
+
+    header {
+        /* MOD: mantém consistência do padding do header em mobile */
+        padding: 6px 4vw;
+        display: grid;
+        grid-template-columns: auto auto;
+        position: fixed;
+        width: 100vw;
+        background-color: var(--cor-principal);
+        z-index: 100;
+    }
+
+    div#fundo-preto {
+        padding: 0;
+    }
+    menu {
+        grid-column-start: 1;
+        grid-column-end: -1;
+    }
+    menu ul {
+        font-weight: bold;
+        flex-flow: column nowrap;
+        align-items: center;
+        flex: 1;
+        gap: 50px;
+        padding: 40px 0;
+
+    }
+    header img {
+        width: 180px;
+    }
+
+    header #cta {
+        padding: 10px;
+        border-radius: 10px;
+        color: white;
+        text-align: center; 
+        border: 1px solid var(--cor-botoes);
+    }
+
+    menu#menu-container {
+        padding-top: 24px;
+        padding-bottom: 18px;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        pointer-events: none;
+        transition: max-height .35s ease, opacity .25s ease;
+    }
+
+    menu#menu-container.menu-open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+
+     #logo, header .hamburguer-container {
+        flex: 0 1 40%;
+    
+    }
+
+    .hamburguer-container {
+        text-align: right;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+
+    #background {
+        background-image: url(../img/hero-celular.jpg);
+        background-position: center ;
+        min-height: 100vh;
+       
+    }
+
+    /* #planos-de-internet, */
+    #diferenciais,
+    #suporte {
+        scroll-margin-top: 104px;
+    }
+
+    section#hero {
+        gap: 12px;
+        margin: 0;
+        padding-left: 20px;
+        align-items: flex-start;
+        height: 90vh;
+        max-width: 90%;
+    }
+
+    section#hero a {
+        opacity: 1;
+    }
+
+    /* Diferenciais */
+    #diferenciais article {
+        flex-flow: column nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        
+        flex-flow: column nowrap;
+        text-align: center;
+        gap: 30px;
+    }
+
+     #diferenciais p.difereciais-card {
+        flex: 0 1 170px;
+        width: 80%;
+        padding-top: 40px;
+     }
+
+     #diferenciais p.difereciais-card:hover  {
+        outline: 1px solid rgba(0, 0, 0, 0.338);
+        box-shadow: none;
+     }
+
+    /* Planos de internet */
+ 
+/*     #planos-de-internet {
+        MOD: usa min-height para não cortar conteúdo 
+        min-height: 322px;
+    }
+
+    #planos-de-internet > article {
+        padding: 0;
+    } */
+
+    /* Depoimentos de clientes */
+    section#depoimento-de-clientes {
+        padding: 5px;
+    }
+    #depoimento-de-clientes {
+        gap: 30px;
+    }
+
+    .depoimento {
+        flex: 0 1 80%;
+        padding: 20px;
+    }
+
+    .depoimento:hover {
+        transform: none;
+    }
+    .depoimento:active {
+        transform: scale(.98);
+    }
+
+    .depoimento:active {transform: scale(.98);}
+    
+   /* Perguntas frequentes */
+   section#perguntas {
+        display: block;
+        padding: 5px;
+        margin-bottom: 100px;
+   }
+    
+
+   section#perguntas article h2 {
+        text-align: left;
+    }
+
+   
+   #perguntas img {
+    display: none;
+   }
+
+   section#perguntas > article {
+        flex: 0 1 100%;   
+   }
+
+   div.pergunta {
+        display: flex;
+        flex-flow: row nowrap;
+
+   }
+
+  /* Prova Social */
+   #prova-social-container {
+    padding: 0;
+
+   }
+   div.fundo-preto-2 {padding-bottom: 50px;}
+   /* Sobre */
+   section#sobre {
+        padding: 0 5px;
+   }
+   section#sobre p, section#sobre h2 {
+    text-align: left;
+   }
+   section#sobre p {
+    text-indent: 0;
+   }
+    /* Localização */
+
+    #localizacao {
+        text-align: center;
+    }
+
+    section#localizacao > h2 {
+        margin-bottom: 80px;
+        text-align: center;
+        font-size: 2em;
+    
+    }
+
+    #localizacao > iframe {
+        display: inline-block;
+        max-width: 95%;
+        aspect-ratio: 4/5;
+    }
+
+    /* Suporte */
+    section#suporte {
+        flex-flow: column nowrap;
+
+    }
+
+    section#suporte p {
+        text-align: center;
+    }
+
+    section#suporte a:hover {
+        transform: scale(.98);
+    }
+
+    /* Sobre */
+    #sobre {
+        padding: 0 10px;
+    }
+    /* Clientes */
+
+    #prova-social-container {
+        height: auto;
+        margin-top: 80px;
+    }
+
+    .fundo-preto-2 {
+        padding-bottom: 200px;
+       
+    }
+    #logos-container {
+        flex-flow: column nowrap;
+        gap: 40px;
+    }
+    
+    .logo-empresa:hover {cursor: none;}
+
+}

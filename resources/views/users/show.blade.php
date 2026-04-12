@@ -1,7 +1,7 @@
 @use('App\Helpers\DateHelper')
 @extends('layouts.app')
 
-@section('title', $user->name)
+@section('title', ucwords($user->name))
     
 @section('content')
     <x-show-user-container>
@@ -27,7 +27,7 @@
 
         <div id="user-edit">
             <x-form-container>
-            <x-slot:title>{{ $user->name }}</x-slot>
+            <x-slot:title>{{ ucwords($user->name) }}</x-slot>
 
             <form action="{{ route('users.update', ['user' => $user->id]) }}" method="POST">
                 
