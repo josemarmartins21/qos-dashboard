@@ -26,7 +26,7 @@ class TestimonyController extends Controller
     {
         try {
 
-            $testimonies = $this->testimonyService->getAll();
+            $testimonies = $this->testimonyService->getAll($request->search);
             return view('testimonies.index', compact('testimonies'));
             
         } catch (\Throwable $e) {

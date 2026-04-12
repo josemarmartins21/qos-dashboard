@@ -17,6 +17,8 @@ class TestimonyService implements TestimonyServiceInterface, TestimonySocialProv
         $this->validateAOrD = ValidateIfCanActiveOrDisableFactory::create("depoimento");
     }
 
+    
+
     public function getAll(?string $searched = '')
     {
         $testimonies = [];

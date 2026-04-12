@@ -46,7 +46,7 @@
                     
                     <?php echo csrf_field(); ?>
 
-                    <input type="search" name="searched" id="" placeholder="Busque" autofocus>
+                    <input type="search" name="search" id="" placeholder="Busque" autofocus>
                 </form>
 
                 <div id="btn-container">
