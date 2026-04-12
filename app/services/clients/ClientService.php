@@ -21,8 +21,8 @@ class ClientService implements ClientServiceInterface {
     public function getAll(): array
     {
         $clients = Client::select('id', 'name')
-                    ->orderBy('name')
-                    ->get();
+        ->orderBy('name')
+        ->get();
                     
         return $clients->toArray();
     }
@@ -70,7 +70,10 @@ class ClientService implements ClientServiceInterface {
 
         unset($data['client_id']);
 
-        $client->update($data);
+        $client->update([
+            'name' => $data['name'],
+            'company_role' => $data['company_role'],
+        ]);
 
         return $client;
     }

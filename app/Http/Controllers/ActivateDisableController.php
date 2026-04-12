@@ -23,7 +23,7 @@ class ActivateDisableController extends Controller
 
             $activateOrDisable->active($id);
 
-            return redirect()->back()->with('success', 'Testemunuho desactivado com sucesso');
+            return redirect()->back()->with('success', ucwords($datas['type']) . ' activado(a) com sucesso');
 
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', $e->getMessage());
@@ -44,7 +44,7 @@ class ActivateDisableController extends Controller
             $activateOrDisable = ActivateDisableFatory::create($datas['type']); 
             $activateOrDisable->disable($id);
     
-            return redirect()->back()->with('success', 'Testemunuho activado com sucesso');
+            return redirect()->back()->with('success', ucwords($datas['type']) . '    desactivado(a) com sucesso');
 
         } catch (UnhandledMatchError $e) {
             return redirect()->back()->with('error', $e->getMessage());

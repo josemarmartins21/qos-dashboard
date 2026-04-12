@@ -34,18 +34,18 @@ class ClientProveSocialService implements ClientProveSocialInterface, TestimonyS
 
         if (! $search) {
             $proveSocial = DB::table('client_prove_socials')
-                        ->join('clients', 'clients.id', '=', 'client_prove_socials.client_id')
-                        ->select($attributes)
-                        ->paginate(6);
-                        
+            ->join('clients', 'clients.id', '=', 'client_prove_socials.client_id')
+            ->select($attributes)
+            ->paginate(6);
+            
             return  $proveSocial;           
         }             
 
         $proveSocial = DB::table('client_prove_socials')
-                        ->join('clients', 'clients.id', '=', 'client_prove_socials.client_id')
-                        ->select($attributes)
-                        ->where('clients.company_role', 'Like', '%'. $search . '%')
-                        ->paginate(6);
+        ->join('clients', 'clients.id', '=', 'client_prove_socials.client_id')
+        ->select($attributes)
+        ->where('clients.company_role', 'Like', '%'. $search . '%')
+        ->paginate(6);
 
         return $proveSocial;
     }

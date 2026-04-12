@@ -24,7 +24,7 @@ class ClientProveSocialUpdateRequest extends FormRequest
     {
         return [
             'image' => ['bail','nullable','max:2048','image'],
-            'url' => ['bail','required' ,'url',/* 'unique:client_prove_socials,url', */],
+            'url' => ['bail','required' ,'url',],
             'name' => ['bail','required', 'string', 'max:100', 'min:4'],
             'company_role' => ['bail','required', 'string', 'max:100', 'min:4'],
             'client_id' => ['required','integer','numeric','min:1',],

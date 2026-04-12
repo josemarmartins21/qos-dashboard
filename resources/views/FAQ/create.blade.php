@@ -4,6 +4,7 @@
     
 @section('content')
     <div id="form-container">
+        <x-alert />
         <x-form-container>
             <x-slot:title>Nova Pergunta Frequente</x-slot>
 
@@ -13,21 +14,26 @@
 
                 <div class="form-group">
                     <label for="question">Pergunta</label>
-                    <input type="text" name="question" id="question" placeholder="Digite a pergunta">
+                    <input type="text" name="question" id="question" value="{{ old('question') }}" placeholder="Digite a pergunta">
                 </div>
 
                 <div class="form-group">
                     <label for="response">Resposta</label>
                     <textarea name="response" id="response" cols="30" rows="10">
+                        {{ old('response') }}
                     </textarea>
                 </div>
                 
                 <div class="form-group">
                     <label for="is_active">Estado</label>
                     <select name="is_active" id="is_active">
-                        <option value="" select>Selecione o estado</option>
-                        <option value="1" select>Activado</option>
-                        <option value="0" select>Desactivado</option>
+                        <option value="" selected>Selecione o estado</option>
+                        <option value="1" {{ old('is_active') == 1 ? 'selected': '' }}>
+                            Activado
+                        </option>
+                        <option value="0"  {{ old('is_active') == 0 ? 'selected': '' }}>
+                            Desactivado
+                        </option>
                     </select>
                 </div>
 

@@ -39,7 +39,7 @@
                 {{-- Link da Página Ou Site da Empresa --}}
                 <div class="form-group">
                     <label for="url">Link do site ou da página da empresa</label>
-                    <input type="text" name="url" id="url" placeholder="https://......" value="{{ old('url',$clientProveSocial->url) }}">
+                    <input type="text" name="url" id="url" placeholder="https://......" value="{{ old('url', $clientProveSocial->url) }}">
                 </div>
 
                 {{-- Imagem do Logotipo da Empresa --}}

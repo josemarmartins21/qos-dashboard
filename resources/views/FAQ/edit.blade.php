@@ -8,7 +8,7 @@
         <x-form-container>
             <x-slot:title>Editar Pergunta</x-slot>
 
-            <form action="{{ route('questions.update', ['question' => $question->id]) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('questions.update', ['question' => $question->id]) }}" method="post">
                 
                 @csrf
 
