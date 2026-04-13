@@ -38,6 +38,9 @@
                     </x-slot:thead>
                         <x-slot:tbody>
                             @foreach ($users as $user)
+                                @if ($user->id === Auth::user()->id)
+                                    @continue
+                                @endif
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td> {{ $user->name }} </td>
@@ -48,7 +51,7 @@
                                             <i class="fa-solid fa-eye"></i>
                                         </a>
 
-                                 
+                                    
                                         <form action="{{ route('users.destroy', ['user' => $user->id]) }}" method="post">
                                             @csrf
 
@@ -56,7 +59,7 @@
                                             
                                             <button class="delete" 
                                                     id="delete" 
-                                                    onclick="return confirm('Tem cereteza que pretende eliminar este assunto?')">
+                                                    onclick="return confirm('Tem cereteza que pretende eliminar?')">
 
                                                     <i class="fa-solid fa-trash"></i>
                                             </button>

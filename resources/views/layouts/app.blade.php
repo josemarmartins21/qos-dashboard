@@ -1,5 +1,8 @@
 @use('Illuminate\Support\Facades\Auth')
 @use('App\Helpers\DateHelper')
+@php
+    $user = Auth::user();
+@endphp
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -33,8 +36,10 @@
     </header>
     <main>
         <section id="ficha">
-            <img src="{{ asset('imagens/guanabara-perfil.jpeg') }}" alt="Josemar Martins" class="foto">
-            <h1>{{ Auth::user()->name }}</h1>
+            <img src="{{ asset('images/users/' . $user->image) }}" alt="{{ $user->name }}" class="foto">
+            <h1>
+                <a href="{{ route('users.show', ['user' => $user->id]) }}">{{ $user->name }}</a>
+            </h1>
             <div id="pages-container">
                @include('components.nav_dashboard')
             </div>

@@ -17,8 +17,8 @@ class DateHelper
     public static function currentExtendedDate()
     {
         return Carbon::now()
-            ->locale('pt_BR')
-            ->translatedFormat('l, d \\d\\e F \\d\\e Y');
+        ->locale('pt_BR')
+        ->translatedFormat('l, d \\d\\e F \\d\\e Y');
     }
     
 }

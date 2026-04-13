@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'image',
     ];
 
 
@@ -94,5 +95,10 @@ class User extends Authenticatable
         if ($permission) {
             $this->permissions()->detach($permission);
         }
+    }
+
+    public static function getPathImage(): string
+    {
+        return 'images/users/';
     }
 }

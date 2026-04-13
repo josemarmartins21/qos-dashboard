@@ -7,6 +7,7 @@ use App\Models\Permission;
 use App\Models\User;
 use App\services\users\contracts\UserServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -15,7 +16,7 @@ class UserController extends Controller
         private UserServiceInterface $user,
     )
     {
-        
+        $this->authorize('adm');
     }
     
     public function index(Request $request)
@@ -60,5 +61,11 @@ class UserController extends Controller
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
         
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return redirect()->back()->with('success', 'Usuário eliminado com sucesso!');
     }
 }

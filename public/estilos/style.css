@@ -689,7 +689,18 @@ tfoot > tr td {
     position: sticky;
     top: 65px;
     display: block;
+
+    h1 {
+      a {
+        color: var(--destaque);
+        text-decoration: none;
+      }
+
+      a:hover {text-decoration: underline;}
+    }
   }
+
+  
   section#principal {
     grid-column: 3 / 4;
   }

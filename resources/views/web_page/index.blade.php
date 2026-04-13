@@ -59,7 +59,7 @@
                     <h3>
                         Internet sem fios, sem limites e sem interrupções. Velocidade máxima para tudo o que você precisa, com planos ilimitados que cabem no seu bolso
                     </h3>
-                    <a href="#sobre">Saiba Mais</a>
+                    <a href="#diferenciais">Ver Serviços</a>
                 </section>
                 <a href="https://wa.me/244{{ $companyInfos['whatsapp']->value }}?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20internet." class="float-btn">
                     <i class="fa-brands fa-whatsapp"></i>
@@ -139,53 +139,7 @@
         </section>
     </main>
     <!-- Rodapé -->
-     <footer>
-        <div class="informacoes">
-            
-            <div class="infor">
-                {{-- <h3 class="firm-name">QoS Tel</h3>
-                <p class="barra"></p> --}}
-                <div class="logo-foot">
-                    <img 
-                        src="{{ asset('images/company_images/' . $companyInfos['logotipo']->value) }}" alt="logo da qos_tel"
-                    >
-                </div>
-
-
-
-            </div>
-            <div class="infor">
-                <h3>Contactos</h3>
-                <p class="barra"></p>
-                <p>Em caso de dúvidas ou sugestões, <br>contacte-nos.</p>
-                <p>Endereço e Telefones</p>
-            </div>
-            <div class="infor">
-                <h3>Comunicação</h3>
-                <p class="barra"></p>
-                <p>Comunicados, discursos e eventos</p>
-                <ul>
-                    <li>Agenda OPD</li>
-                    <li>Texto</li>
-                    <li>Eventos</li>
-                    <li>Galeria de imagens</li>
-                </ul>
-            </div>
-            <div class="infor">
-                <h3>Redes Sociais</h3>
-                <p class="barra"></p>
-                <p>
-                    Para facilitar o contacto e disseminação das informações, a ordem dos [nome associação] de Angola
-                </p>
-                <p>
-                    Siga nossas redes sociais e mantenha-se informado(a)
-                </p>
-            </div>
-        </div>
-        <div class="foot">
-            <p>&copy;QoS Tel - {{ date('Y') }} Todos os direitos reservados</p>
-        </div>
-    </footer>
+    @include('components.page.footer')
     {{-- <footer>
        <div id="redes-sociais">
             <ul>

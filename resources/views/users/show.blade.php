@@ -9,7 +9,7 @@
         <div id="user-header">
             <div id="profile-info">
                 <div id="profile-image-container">
-                    <img src="{{ asset('imagens/profile.png') }}" alt="Imagem de Perfil Genérica">
+                    <img src="{{ asset('images/users/' . $user->image) }}" alt="{{ $user->name }}">
                 </div>
 
                 <div id="infos">

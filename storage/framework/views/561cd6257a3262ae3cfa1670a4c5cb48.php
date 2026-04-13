@@ -1,5 +1,8 @@
 <?php use \Illuminate\Support\Facades\Auth; ?>
 <?php use \App\Helpers\DateHelper; ?>
+<?php
+    $user = Auth::user();
+?>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -33,8 +36,10 @@
     </header>
     <main>
         <section id="ficha">
-            <img src="<?php echo e(asset('imagens/guanabara-perfil.jpeg')); ?>" alt="Josemar Martins" class="foto">
-            <h1><?php echo e(Auth::user()->name); ?></h1>
+            <img src="<?php echo e(asset('images/users/' . $user->image)); ?>" alt="<?php echo e($user->name); ?>" class="foto">
+            <h1>
+                <a href="<?php echo e(route('users.show', ['user' => $user->id])); ?>"><?php echo e($user->name); ?></a>
+            </h1>
             <div id="pages-container">
                <?php echo $__env->make('components.nav_dashboard', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
             </div>
