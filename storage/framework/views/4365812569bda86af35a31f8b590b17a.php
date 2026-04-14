@@ -74,7 +74,7 @@
                              <div class="logo-card">
                                  <img 
 
-                                 src="<?php echo e('/images/logos_client/' . $clientsProveSocial->imagem); ?>" 
+                                 src="<?php echo e(asset('images/logos_client/' . $clientsProveSocial->imagem)); ?>" 
 
                                  alt="<?php echo e($clientsProveSocial->company_role); ?>" >
                              </div>

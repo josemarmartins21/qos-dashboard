@@ -17,7 +17,7 @@
                 {{-- Image Preview --}}
                 <div class="image-preview">
                     <img 
-                    src="{{ '/images/logos_client/' . $clientProveSocial->logo }}" 
+                    src="{{ asset('images/logos_client/' . $clientProveSocial->logo) }}" 
                     alt="{{ $clientProveSocial->logo }}" >
                 </div>
                 
@@ -27,7 +27,7 @@
                 {{-- Dr. da Empresa --}}
                 <div class="form-group">
                     <label for="name">Dr. da Empresa</label>
-                    <input type="text" name="name" id="name" placeholder="Digite o nome do cliente" value="{{ old('name',$clientProveSocial->client->name) }}">
+                    <input type="text" name="name" id="name" placeholder="Digite o nome do cliente" value="{{ old('name', $clientProveSocial->client->name) }}">
                 </div>
 
                 {{-- Nome da Empresa --}}
@@ -45,7 +45,7 @@
                 {{-- Imagem do Logotipo da Empresa --}}
                 <div class="form-group">
                     <label for="image">Site ou página da empresa</label>
-                    <input type="file" name="image" id="image" value="{{ old('logo', $clientProveSocial->logo) }}">
+                    <input type="file" name="image" id="image" value="{{ old('image', $clientProveSocial->logo) }}">
                 </div>
                 
                 <input type="submit" value="Atualizar" class="btn-primary"> 

@@ -37,7 +37,7 @@
                              <div class="logo-card">
                                  <img 
 
-                                 src="{{ '/images/logos_client/' . $clientsProveSocial->imagem }}" 
+                                 src="{{ asset('images/logos_client/' . $clientsProveSocial->imagem) }}" 
 
                                  alt="{{ $clientsProveSocial->company_role }}" >
                              </div>

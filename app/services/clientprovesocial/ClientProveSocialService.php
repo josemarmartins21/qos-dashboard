@@ -84,7 +84,10 @@ class ClientProveSocialService implements ClientProveSocialInterface, TestimonyS
     
         $client = ClientProveSocial::findOrFail($id);
 
-        $client->update($data);
+        $client->update([
+            'logo' => $data['image'] ?? $client->logo,
+            'url' => $data['url'],
+        ]);
         
         return $client->toArray();
     }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @use('App\enums\company_infos\CompanyInfoEnum')
 @section('title', 'Editar ' . $companyInfo->key)
-    
+
 @section('content')
 <div id="form-container">
     <x-alert />
@@ -22,14 +22,16 @@
                 <div class="form-group">
                     <label for="key">Informação</label>
 
-                    <select name="key" id="key">
+
+                    <select name="" id="" @disabled(true)>
                         <option value="" selected>Selecione uma opção</option>
                         @foreach ($company_infos as $info)
-                            <option value="{{ $info->key }}" {{ old('key', $companyInfo->key) == $info->key ? 'selected' : '' }}>
+                            <option value="" {{ old('key', $companyInfo->key) == $info->key ? 'selected' : '' }}>
                                 {{ $info->key }}
                             </option>
                         @endforeach
                     </select>
+                    <input type="hidden" name="key" value="{{ $companyInfo->key }}">
                 </div>
 
                 @if (
@@ -51,7 +53,7 @@
                 @else
                     <div class="form-group">
                         <label for="value">Valor da Informação</label>
-                        <input type="text" name="value" id="value" placeholder="Digite o {{ $companyInfo->key }}">
+                        <input type="text" name="value" id="value" value="{{ old('value', $companyInfo->value) }}" placeholder="Digite o {{ $companyInfo->key }}">
                     </div>
                 @endif
 

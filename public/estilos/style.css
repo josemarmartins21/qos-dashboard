@@ -837,12 +837,6 @@ h2.question {
     margin-top: 0px !important;
   }
 
-  .active_link {
-    background-color: var(--blue-primary);
-    
-  
-  }
-
   header {
     position: static !important;
     width: 100% !important;
@@ -941,11 +935,11 @@ h2.question {
     li {
         margin-bottom: 10px;
         a {
-            background-color: var(--destaque);
-            padding: 10px;
+            border: 3px solid var(--destaque);
+            padding: 5px;
             border-radius: 10px;
             text-align: center;
-            color: #fff;
+            color: black;
             font-weight: 500;
             text-decoration: none;
             width: 100%;
@@ -963,6 +957,12 @@ h2.question {
             transform: scale(.98);
         }
     }
+}
+
+.active_link {
+  background-color: var(--destaque);
+  color: #ffff;
+  border: 3px solid transparent;
 }
   /*======== PRINCIPAL  ===============*/
   section#principal {
