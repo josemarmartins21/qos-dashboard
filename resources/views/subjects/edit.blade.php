@@ -4,7 +4,6 @@
     
 @section('content')
 <div id="form-container">
-    <x-alert />
         <x-form-container>
             <x-slot:title>Editar Assunto</x-slot>
 
@@ -17,6 +16,7 @@
                 <div class="form-group">
                     <label for="subject">Assunto</label>
                     <input type="text" name="subject" id="subject" placeholder="Digite o assunto" value="{{ old('subject', $subject['subject']) }}">
+                    <x-input-error-dashboard :messages="$errors->get('subject')" />
                 </div>
 
                 <input type="submit" value="Atualizar" class="btn-primary"> 

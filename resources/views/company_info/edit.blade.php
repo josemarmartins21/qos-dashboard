@@ -4,7 +4,6 @@
 
 @section('content')
 <div id="form-container">
-    <x-alert />
         <x-form-container>
             <x-slot:title>Editar {{ $companyInfo->key }} </x-slot>
             @if (
@@ -41,6 +40,7 @@
                     <div class="form-group">
                         <label for="value">Valor da Informação</label>
                         <input type="file" name="value" id="value" value="{{ old('value', $companyInfo->key) }}">
+                        <x-input-error-dashboard :messages="$errors->get('value')" />
                     </div>
                     
                 @elseif ($companyInfo->key === CompanyInfoEnum::Sobre->value )
@@ -49,11 +49,13 @@
                         <textarea name="value" id="value" cols="30" rows="3">
                             {{ old('value', $companyInfo->value) }}
                         </textarea>
+                        <x-input-error-dashboard :messages="$errors->get('value')" />
                     </div>
                 @else
                     <div class="form-group">
                         <label for="value">Valor da Informação</label>
                         <input type="text" name="value" id="value" value="{{ old('value', $companyInfo->value) }}" placeholder="Digite o {{ $companyInfo->key }}">
+                        <x-input-error-dashboard :messages="$errors->get('value')" />
                     </div>
                 @endif
 

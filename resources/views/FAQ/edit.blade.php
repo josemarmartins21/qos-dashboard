@@ -17,6 +17,7 @@
                 <div class="form-group">
                     <label for="question">Pergunta</label>
                     <input type="text" name="question" id="question" placeholder="Digite a pergunta" value="{{ old('question', $question->question) }}">
+                    <x-input-error-dashboard :messages="$errors->get('question')" />
                 </div>
 
                 <div class="form-group">
@@ -24,6 +25,7 @@
                     <textarea name="response" id="response" cols="30" rows="10">
                         {{ old('response', $question->response) }}
                     </textarea>
+                    <x-input-error-dashboard :messages="$errors->get('response')" />
                 </div>
 
                 <input type="submit" value="Atualizar" class="btn-primary"> 

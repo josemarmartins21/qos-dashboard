@@ -14,6 +14,7 @@
                 <div class="form-group">
                     <label for="subject">Assunto</label>
                     <input type="text" name="subject" id="subject" placeholder="Digite o assunto" value="{{ old('subject') }}">
+                    <x-input-error-dashboard :messages="$errors->get('subject')" />
                 </div>
 
                 <input type="submit" value="Adicionar" class="btn-primary">

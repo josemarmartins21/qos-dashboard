@@ -19,6 +19,7 @@
                             <option value="{{ $client['id'] }}"> {{ $client['name'] }} </option>
                         @endforeach
                     </select>
+                    <x-input-error-dashboard :messages="$errors->get('client_id')" />
                 </div>
 
                 <div class="form-group">
@@ -26,6 +27,7 @@
                     <textarea name="testimony" id="testimony" cols="30" rows="7">
                         {{ old('testimony') }}
                     </textarea>
+                    <x-input-error-dashboard :messages="$errors->get('testimony')" />
                 </div>
 
                 <div class="form-group">
@@ -35,6 +37,7 @@
                         <option value="1">Activado</option>
                         <option value="0">Desactivado</option>
                     </select>
+                    <x-input-error-dashboard :messages="$errors->get('is_active')" />
                 </div>
 
                 <input type="submit" value="Adicionar" class="btn-primary">

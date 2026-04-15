@@ -11,7 +11,7 @@
     <main>
         <h1>500</h1>
         <p>Eita! Essa página deu um erro 500 daqueles, vamos solucionar já já...</p>
-        <a href="{{ route('home') }}">Voltar a página inicial</a>
+        <a href="{{ route('home') }}" class="back">Voltar a página inicial</a>
     </main>
 </body>
 </html>

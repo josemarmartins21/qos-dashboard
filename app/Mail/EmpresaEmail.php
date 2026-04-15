@@ -35,7 +35,6 @@ class EmpresaEmail extends Mailable
             // Resposta para.
             replyTo: new Address(
                 $this->visitor->email,
-                $this->visitor->full_name,
             ), 
 
             subject: "Email de Boas Vindas", // Assunto do email.

@@ -15,7 +15,9 @@ use App\Http\Controllers\web_page\IndexController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
- 
+Route::get('/visitors/create', [VisitorController::class, 'create'])->name('visitors.create');
+Route::post('/visitors', [VisitorController::class, 'store'])->name('visitors.store');
+
 Route::prefix('dashboard')->middleware('auth')->group(function () {
     
     Route::get('/', HomeController::class)->name('home');

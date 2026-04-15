@@ -24,7 +24,7 @@ class VisitorEmail extends Mailable
         private Message $message,
     )
     {
-        //
+       
     }
 
     /**
@@ -36,7 +36,6 @@ class VisitorEmail extends Mailable
             // Quem envia o email
             from: new Address(
                 $this->visitor->email,
-                $this->visitor->full_name,
             ),
 
             subject: $this->message->subject, // Assunto do email.

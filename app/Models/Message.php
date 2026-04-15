@@ -12,6 +12,7 @@ class Message extends Model
         'visitor_id',
         'subject',
         'body',
+        'subject_id',
     ];
 
     public function visitor()

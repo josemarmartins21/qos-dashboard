@@ -34,7 +34,7 @@ class QuestionRequest extends FormRequest
         return [
             'question' => 'pergunta',
             'response' => 'resposta',
-            'is_active' => 'activo',
+            'is_active' => 'estado',
         ];
     }
 }

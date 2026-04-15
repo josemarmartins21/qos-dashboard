@@ -19,13 +19,14 @@ class MessageService implements MessageServiceInterface
         $messageCreated = Message::create([
             'subject' => $message['subject'],
             'body' => $message['body'],
+            'subject_id' => $message['subject_id'],
             'visitor_id' => $message['visitor_id'],
         ]);
 
-        $this->observableVisitor->addObservers(new EmpresaObserver);
+        /* $this->observableVisitor->addObservers(new EmpresaObserver);
         $this->observableVisitor->addObservers(new VisitorObserver);
 
-        $this->observableVisitor->notify($messageCreated->load('visitor'));
+        $this->observableVisitor->notify($messageCreated->load('visitor')); */
 
         return $messageCreated;
     }

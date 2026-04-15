@@ -4,7 +4,6 @@
     
 @section('content')
     <div id="form-container">
-        <x-alert />
         <x-form-container>
             <x-slot:title>Nova Pergunta Frequente</x-slot>
 
@@ -15,6 +14,7 @@
                 <div class="form-group">
                     <label for="question">Pergunta</label>
                     <input type="text" name="question" id="question" value="{{ old('question') }}" placeholder="Digite a pergunta">
+                    <x-input-error-dashboard :messages="$errors->get('question')" />
                 </div>
 
                 <div class="form-group">
@@ -22,6 +22,7 @@
                     <textarea name="response" id="response" cols="30" rows="10">
                         {{ old('response') }}
                     </textarea>
+                    <x-input-error-dashboard :messages="$errors->get('response')" />
                 </div>
                 
                 <div class="form-group">
@@ -35,6 +36,7 @@
                             Desactivado
                         </option>
                     </select>
+                    <x-input-error-dashboard :messages="$errors->get('is_active')" />
                 </div>
 
                 <input type="submit" value="Adicionar" class="btn-primary">

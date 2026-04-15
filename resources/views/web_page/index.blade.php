@@ -1,71 +1,55 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QoS Tel</title>
-    <link rel="stylesheet" href="{{ asset('estilos/index.css') }}">
-    <link rel="shortcut icon" href="{{ asset('images/company_images/' . $companyInfos['logotipo']->value) }}" type="image/x-icon">
+@extends('web_page.layouts.app')
 
-    <!-- Link do fontawesome -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- Link do Google Font  -->
-
-    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-
-</head>
-<body onload="atualizarAno()" id="corpo">
-    <main>
+@section('content')
         <!-- Hero -->
-        <div id="background" style="background-image: url({{ asset('images/company_images/' . $companyInfos['hero_image']->value) }})">
-            <div class="fundo-preto">
-            <header>
-                <div id="logo">
-                    <a href="index.html"><img src="{{ asset('images/company_images/' . $companyInfos['logotipo']->value) }}" alt="logo da qos_tel"></a>
-                </div>
-                
-                <div class="hamburguer-container">
-                    <i class="fa-solid fa-bars hamburguer" id="menu-hamburguer"></i>
-                </div>
-                
-                <menu id="menu-container">
-                    <ul class="lista-links">
-                        <li class="link-target">
-                            <a href="#background" class="link">Home</a>
-                        </li>
-                        <li class="link-target">
-                            <a href="#sobre" class="link">Quem Somos</a>
-                         </li>
-                        <li class="link-target">
-                            <a href="#diferenciais" class="link">Serviços</a>
-                        </li>
-                        <li class="link-target">
-                            <a href="#prova-social-container" class="link">Clientes</a>
-                        </li>
-                        <li class="link-target">
-                            <a href="#perguntas" class="link">Perguntas Frequentes</a>
-                        </li>
-                        <li class="link-target">
-                            <a href="#suporte" class="link">Contato</a>
-                        </li>
-                    </ul>
-                </menu>
+            <div id="background" style="background-image: url({{ asset('images/company_images/' . $companyInfos['HeroImage']->value) }})">
+                <div class="fundo-preto">
+                <header>
+                    <div id="logo">
+                        <a href="index.html"><img src="{{ asset('images/company_images/' . $companyInfos['logotipo']->value) }}" alt="logo da qos_tel"></a>
+                    </div>
+                    
+                    <div class="hamburguer-container">
+                        <i class="fa-solid fa-bars hamburguer" id="menu-hamburguer"></i>
+                    </div>
+                    
+                    <menu id="menu-container">
+                        <ul class="lista-links">
+                            <li class="link-target">
+                                <a href="#background" class="link">Home</a>
+                            </li>
+                            <li class="link-target">
+                                <a href="#sobre" class="link">Quem Somos</a>
+                            </li>
+                            <li class="link-target">
+                                <a href="#diferenciais" class="link">Serviços</a>
+                            </li>
+                            <li class="link-target">
+                                <a href="#prova-social-container" class="link">Clientes</a>
+                            </li>
+                            <li class="link-target">
+                                <a href="#perguntas" class="link">Perguntas Frequentes</a>
+                            </li>
+                            <li class="link-target">
+                                <a href="{{ route('visitors.create') }}" class="link">Contato</a>
+                            </li>
+                        </ul>
+                    </menu>
 
-            </header>
-                <section id="hero">
-                    <h1>Internet ultra rápida para a sua casa</h1>
-                    <h3>
-                        Internet sem fios, sem limites e sem interrupções. Velocidade máxima para tudo o que você precisa, com planos ilimitados que cabem no seu bolso
-                    </h3>
-                    <a href="#diferenciais">Ver Serviços</a>
-                </section>
-                <a href="https://wa.me/244{{ $companyInfos['whatsapp']->value }}?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20internet." class="float-btn">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </a>
+                </header>
+                
+                    <section id="hero">
+                        <h1>Internet ultra rápida para a sua casa</h1>
+                        <h3>
+                            Internet sem fios, sem limites e sem interrupções. Velocidade máxima para tudo o que você precisa, com planos ilimitados que cabem no seu bolso
+                        </h3>
+                        <a href="#diferenciais">Ver Serviços</a>
+                    </section>
+                    <a href="https://wa.me/244{{ $companyInfos['whatsapp']->value }}?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20internet." class="float-btn">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
             </div>
-        </div>
         <!-- Secção da empresa -->
         <section id="sobre">
             <h2>Quem Somos?</h2>
@@ -137,26 +121,4 @@
             <i class="fa-brands fa-whatsapp"></i> Fale conosco pelo WhatsApp
         </a>
         </section>
-    </main>
-    <!-- Rodapé -->
-    @include('components.page.footer')
-    {{-- <footer>
-       <div id="redes-sociais">
-            <ul>
-                <a href="https://www.facebook.com/profile.php?id=100092364702262" target="_blank">
-                    <i class="fa-brands fa-facebook"></i>
-                </a>
-
-                <a href="#">
-                    <i class="fa-brands fa-square-instagram"></i>
-                </a>
-            </ul>
-        </div>
-        <h1>QoS Tel</h1>
-        <p id="dev">Desenvolvido por: <a href="https://josemarmartins21.github.io/portifolio" target="_blank">Josemar Martins</a></p>
-        <p>&copy;<span id="ano"></span> Todos os direitos reservados a QoS Tel</p>
-        <p><a href="{{ route('home') }}">Zona Restrita</a></p>
-    </footer> --}}
-    <script src="{{ asset('scripts/index.js') }}"></script>
-</body>
-</html>
+@endsection

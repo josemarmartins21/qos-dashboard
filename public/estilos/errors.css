@@ -28,6 +28,14 @@ body {
     font-family: var(--font);
 }
 
+a.back {
+    background-color: var(--Cor-de-destaque);
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;    
+}
+
 main {
     max-width: 800px;
     text-align: center;

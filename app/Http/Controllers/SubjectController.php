@@ -30,7 +30,6 @@ class SubjectController extends Controller
             $validator = $this->validate($request);
 
             if ($validator->fails()) {
-                dd($validator->errors());
                 return redirect()->back()->withInput()
                         ->withErrors($validator->errors());
             }
@@ -52,7 +51,6 @@ class SubjectController extends Controller
             $validator = $this->validate($request);
     
             if ($validator->fails()) {
-                dd($validator->errors());
                 return redirect()->back()->withInput()
                         ->withErrors($validator->errors());
             }

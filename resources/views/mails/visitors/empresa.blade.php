@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
@@ -15,4 +15,4 @@
     <hr>
     <h2>QoS Tel</h2>
 </body>
-</html>
+</html> --}}

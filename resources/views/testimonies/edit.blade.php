@@ -23,6 +23,7 @@
                             </option>
                         @endforeach
                     </select>
+                    <x-input-error-dashboard :messages="$errors->get('client_id')" />
                 </div>
 
                 <div class="form-group">
@@ -30,6 +31,7 @@
                     <textarea name="testimony" id="testimony" cols="30" rows="7">
                         {{ old('testimony', $testimony->testimony) }}
                     </textarea>
+                    <x-input-error-dashboard :messages="$errors->get('testimony')" />
                 </div>
 
                 <input type="submit" value="Atualizar" class="btn-primary">
