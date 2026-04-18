@@ -6,7 +6,7 @@
 @section('content')
     <x-show_container>
         <div id="message-container">
-            <h2>Lorem, ipsum.</h2>
+            <h2>{{ $message->subject->subject }}</h2>
             <div class="barra"></div>
             <p class="body">
                 {{ $message->body }}

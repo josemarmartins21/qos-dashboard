@@ -2,11 +2,13 @@
 
 @section('content')
         <!-- Hero -->
-            <div id="background" style="background-image: url({{ asset('images/company_images/' . $companyInfos['HeroImage']->value) }})">
+            <div id="background" style="background-image: url({{ asset('images/company_images/' . $companyInfos['HeroImage']?->value) }})">
                 <div class="fundo-preto">
                 <header>
                     <div id="logo">
-                        <a href="index.html"><img src="{{ asset('images/company_images/' . $companyInfos['logotipo']->value) }}" alt="logo da qos_tel"></a>
+                        <a href="index.html">
+                            <img src="{{ asset('images/company_images/' . $companyInfos['logotipo']?->value) }}" alt="logo da qos_tel" width="120px">
+                        </a>
                     </div>
                     
                     <div class="hamburguer-container">
@@ -45,7 +47,7 @@
                         </h3>
                         <a href="#diferenciais">Ver Serviços</a>
                     </section>
-                    <a href="https://wa.me/244{{ $companyInfos['whatsapp']->value }}?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20internet." class="float-btn">
+                    <a href="https://wa.me/244{{ $companyInfos['whatsapp']?->value }}?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20internet." class="float-btn">
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
                 </div>
@@ -56,7 +58,7 @@
             
             <article>
                 <p>
-                    {{ $companyInfos['sobre']->value }}
+                    {{ $companyInfos['sobre']?->value }}
 
                 </p>
             </article>
@@ -117,7 +119,7 @@
         <section id="suporte">
             <p>Para entrar em contato conosco, envie uma mensagem para o nosso Whatsapp</p>
             
-        <a href="https://wa.me/244{{ $companyInfos['whatsapp']->value }}?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20internet." target="_blank" class="whatsapp-link">
+        <a href="https://wa.me/244{{ $companyInfos['whatsapp']?->value ?? '' }}?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20internet." target="_blank" class="whatsapp-link">
             <i class="fa-brands fa-whatsapp"></i> Fale conosco pelo WhatsApp
         </a>
         </section>

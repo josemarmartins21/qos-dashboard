@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\CompanyInfo;
+use App\Models\Permission;
 
 class User extends Authenticatable
 {
@@ -23,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'image',
+        'permission_id',
     ];
 
 
@@ -64,9 +66,9 @@ class User extends Authenticatable
         return $this->hasMany(Subject::class);
     }
 
-    public function permissions()
+    public function permission()
     {
-        return $this->belongsToMany(Permission::class);
+        return $this->belongsTo(Permission::class);
     }
 
     public function companyInfos()
@@ -76,24 +78,22 @@ class User extends Authenticatable
 
     public function hasPermission(string $permission): bool
     {
-        return $this->permissions()->where('name', $permission)->exists();
+        return $this->permission()->where('name', $permission)->exists();
     }
 
     public function assignPermission(string $permission): void 
     {
-        $permission = $this->permissions()->where('name', $permission)->firstOrCreate([
-            'name' => $permission,
-        ]);
+        $permission = $this->permission()->where('name', $permission)->first();
 
-        $this->permissions()->attach($permission);
+        $this->permission()->associate($permission);
     }
 
     public function removePermission(string $permission): void
     {
-        $permission = $this->permissions()->where('name', $permission)->first();
+        $permission = $this->permission()->where('name', $permission)->first();
 
         if ($permission) {
-            $this->permissions()->detach($permission);
+            $this->permission()->dissociate($permission);
         }
     }
 

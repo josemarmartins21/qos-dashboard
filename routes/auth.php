@@ -11,11 +11,13 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'can:adm'])->group(function () {
+Route::middleware(['auth', 'can:admin'])->group(function () {
+    /* 
     Route::get('register', [RegisteredUserController::class, 'create'])
     ->name('register');
-    Route::get('register', [RegisteredUserController::class, 'create'])
-    ->name('register');
+    */
+    Route::get('register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'create'])
+    ->name('register'); 
 
     Route::put('update-password/{user}', [PasswordController::class, 'update'])
     ->name('update-password');
@@ -26,7 +28,7 @@ Route::middleware(['auth', 'can:adm'])->group(function () {
 
 
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
 });
 
 Route::prefix('dashboard')->middleware('guest')->group(function () {

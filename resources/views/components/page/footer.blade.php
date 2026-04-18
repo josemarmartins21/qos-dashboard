@@ -4,11 +4,11 @@
         <div class="infor">
             <div class="logo-foot">
                 <img 
-                    src="{{ asset('images/company_images/' . $companyInfos['logotipo']->value) }}" alt="logo da qos_tel"
+                    src="{{ asset('images/company_images/' . $companyInfos['logotipo']?->value ?? '')  }}" alt="logo da qos_tel"
                 >
             </div>
 
-            <a href="{{ route('home') }}" class="zona-restrita">Zona Restrita</a>
+            <a href="{{ route('home') }}" class="zona-restrita"><i class="fa-solid fa-lock"></i> Zona Restrita</a>
         </div>
         <div class="infor">
             <h3>Contactos</h3>

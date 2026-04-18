@@ -24,7 +24,7 @@
     <x-link_menu :active_link="request()->routeIs('company_infos.index')" href="{{ route('company_infos.index') }}" :name="'Informações da Empresa'" :icon="'fa-solid fa-building'"></x-link_menu>
     
     {{-- GERIR USUÁRIOS --}}
-    @can('adm')
+    @can('admin')
         <x-link_menu :active_link="request()->routeIs('users.index')" href="{{ route('users.index') }}" :name="'Gerir Usuários'" :icon="'fa-solid fa-users'"></x-link_menu>
     @endcan
     {{-- TERMINAR SESSÃO --}}

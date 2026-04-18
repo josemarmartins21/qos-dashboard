@@ -1,6 +1,7 @@
 @extends('web_page.layouts.app')
 
 @section('content')
+<x-alert />
 <section id="contactos">
     <div id="contactos-container">
         <div id="disclaimer-suporte">
@@ -31,11 +32,11 @@
             </div>
 
             <div class="form-group">
-                <label for="subject">Selecione o tipo de problema</label>
+                <label for="subject_id">Selecione o tipo de problema</label>
                 <select name="subject_id" id="subject_id">
                     <option value="" selected>Em que podemos ajudar-lo?</option>
                     @foreach ($subjects as $subject)
-                        <option value="{{ $subject->id }}" {{ old('subject') ? 'selected' : ''}}>{{ $subject->subject }}</option>
+                        <option value="{{ $subject->id }}" {{ old('subject_id') ? 'selected' : ''}}>{{ $subject->subject }}</option>
                     @endforeach
                 </select>
                 <x-input-error-dashboard :messages="$errors->get('subject_id')" />

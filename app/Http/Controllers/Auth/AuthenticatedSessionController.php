@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class AuthenticatedSessionController extends Controller
     public function create(): View
     {
         //dd('x');
-        $this->hasDefaultAdmin();
+        $this->createDefaultAdmin();
         return view('auth.login');
     }
 
@@ -49,20 +50,21 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
-    private function hasDefaultAdmin()
+    private function createDefaultAdmin()
     {
         $userExists = User::where('email', 'josemarburguel@gmail.com')
         ->exists();
 
         if (! $userExists) {
-            $user = User::create([
+            $permissionAdm = Permission::where('name', 'admin')->first();
+
+            User::create([
                 'name' => 'Josimar Martins',
                 'email' => 'josemarburguel@gmail.com',
                 'password' => Hash::make('teresa@2020'),
                 'image' => 'josemar',
+                'permission_id'  => $permissionAdm->id,
             ]);
-
-            $user->assignPermission('adm');
         }
 
         

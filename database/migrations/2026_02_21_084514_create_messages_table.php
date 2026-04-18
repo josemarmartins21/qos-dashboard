@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('subject');
             $table->text('body');
+
+            $table->foreignId('subject_id')->nullable()->constrained('subjects')->nullOnDelete()->nullOnUpdate();
 
             $table->foreignId('visitor_id')
             ->nullable()

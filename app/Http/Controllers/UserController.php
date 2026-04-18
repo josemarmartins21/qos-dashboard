@@ -16,7 +16,7 @@ class UserController extends Controller
         private UserServiceInterface $user,
     )
     {
-        $this->authorize('adm');
+        $this->authorize('admin');
     }
     
     public function index(Request $request)
@@ -46,17 +46,16 @@ class UserController extends Controller
                 'level' => 'required|'. Rule::in(Permission::pluck('name')->toArray()),
             ]);
 
+            $permission = Permission::where('name', $request->input('level'))->first();
+
             $user->update([
                 'name' => $validated['name'],
                 'email' => $validated['email'],
+                'permission_id' => $permission->id,
             ]);
-            
-            $oldPermission = $user->permissions->first()->name;
-            $user->removePermission($oldPermission);
-
-            $user->assignPermission($request->input('level'));
 
             return redirect()->route('users.show', ['user' => $user->id])->with('success', 'Usuário actualizado com sucesso!');
+
         } catch (\Throwable $e) {
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         }

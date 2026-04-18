@@ -43,13 +43,36 @@ class VisitorService implements VisitorServiceInterface {
      */
     public function create($visitor = [], $message = [])
     {
-        $visitorCreated = Visitor::updateOrCreate(
-            [
-                'phone' => $visitor['phone'],
-            ], [
+        $emailExists = Visitor::where('email', $visitor['email'])->exists();
+        $phoneExists = Visitor::where('phone', $visitor['phone'])->exists();
+
+        if ($emailExists) {
+            $visitorCreated = Visitor::updateOrCreate(
+                [
+                    'email' => $visitor['email'],
+                ], [
+                    'phone' => $visitor['phone'],
+                    'full_name' => $visitor['full_name'],
+            ]);
+        } 
+
+        if ($phoneExists) {
+            $visitorCreated = Visitor::updateOrCreate(
+                [
+                    'phone' => $visitor['phone'],
+                ], [
                     'email' => $visitor['email'],
                     'full_name' => $visitor['full_name'],
-        ]);
+            ]);
+        }
+
+        if (! $emailExists  AND ! $phoneExists ) {
+            $visitorCreated = Visitor::create([
+                'email' => $visitor['email'],
+                'phone' => $visitor['phone'],
+                'full_name' => $visitor['full_name'],
+            ]);
+        }
 
         $message['visitor_id'] = $visitorCreated->id;
         

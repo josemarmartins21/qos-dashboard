@@ -10,7 +10,6 @@ class Message extends Model
 {
     protected $fillable = [
         'visitor_id',
-        'subject',
         'body',
         'subject_id',
     ];

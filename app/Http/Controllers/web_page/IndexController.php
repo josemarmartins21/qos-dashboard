@@ -33,10 +33,12 @@ class IndexController extends Controller
         $this->pageResources->addResource(new TestimonyResource);
         $this->pageResources->addResource(new QuestionResource);
 
+        $resources = $this->pageResources->getResource();
+
         $querys = [
-            'clientes_renomados' => $this->pageResources->getResource()[0],
-            'testimonies' => $this->pageResources->getResource()[1],
-            'questions' => $this->pageResources->getResource()[2],
+            'clientes_renomados' => $resources['clientes_renomados'],
+            'testimonies' => $resources['testimonies'],
+            'questions' => $resources['questions'],
         ];
 
         return view('web_page.index', compact('querys', 'companyInfos'));

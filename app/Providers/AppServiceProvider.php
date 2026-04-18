@@ -81,8 +81,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('adm', function (User $user) {
-            return $user->hasPermission('adm');
+        Gate::define('admin', function (User $user) {
+            return $user->hasPermission('admin');
         });
 
         Gate::define('default', function (User $user) {

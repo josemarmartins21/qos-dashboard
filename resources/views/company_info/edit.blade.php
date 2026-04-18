@@ -7,7 +7,7 @@
         <x-form-container>
             <x-slot:title>Editar {{ $companyInfo->key }} </x-slot>
             @if (
-                $companyInfo->key === CompanyInfoEnum::Logotipo->value 
+                $companyInfo->key === CompanyInfoEnum::logotipo->value 
                     || $companyInfo->key === CompanyInfoEnum::HeroImage->value
                 )
                     <img src="{{ asset('images/company_images/' . $companyInfo['value']) }}" alt="{{ $companyInfo['key'] }}" width="110px" class="image-company">
@@ -34,7 +34,7 @@
                 </div>
 
                 @if (
-                $companyInfo->key === CompanyInfoEnum::Logotipo->value 
+                $companyInfo->key === CompanyInfoEnum::logotipo->value 
                     || $companyInfo->key === CompanyInfoEnum::HeroImage->value
                 )
                     <div class="form-group">

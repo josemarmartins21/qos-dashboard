@@ -1,5 +1,6 @@
 <?php use \Illuminate\Support\Facades\Auth; ?>
 <?php use \App\Helpers\DateHelper; ?>
+
 <?php
     $user = Auth::user();
 ?>

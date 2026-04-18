@@ -27,6 +27,9 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     
     
     // Informações da empresa
+    Route::get('company_infos/{type}/create', [CompanyInfoController::class, 'createWithImage'])->name('company_infos.create_with_image');
+
+    
     Route::resource('company_infos', CompanyInfoController::class)->except(['show']);
     
     // Clientes Renomados
@@ -34,7 +37,7 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     
     
     // Visitors - Visitantes
-    Route::resource('visitors', VisitorController::class)->except(['create', 'edit', 'update']);
+    Route::resource('visitors', VisitorController::class)->except(['create', 'update']);
     
     // FAQ Perguntas frequentes
     Route::resource('questions', QuestionController::class);

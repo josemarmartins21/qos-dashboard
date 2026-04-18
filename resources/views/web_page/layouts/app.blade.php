@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'QoS Tel')</title>
     <link rel="stylesheet" href="{{ asset('estilos/index.css') }}">
-    <link rel="shortcut icon" href="{{ asset('images/company_images/' . $companyInfos['logotipo']->value) }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('images/company_images/' . $companyInfos['logotipo']?->value) }}" type="image/x-icon">
 
     <!-- Link do fontawesome -->
 
@@ -22,23 +22,6 @@
     </main>
     <!-- Rodapé -->
     @include('components.page.footer')
-    {{-- <footer>
-       <div id="redes-sociais">
-            <ul>
-                <a href="https://www.facebook.com/profile.php?id=100092364702262" target="_blank">
-                    <i class="fa-brands fa-facebook"></i>
-                </a>
-
-                <a href="#">
-                    <i class="fa-brands fa-square-instagram"></i>
-                </a>
-            </ul>
-        </div>
-        <h1>QoS Tel</h1>
-        <p id="dev">Desenvolvido por: <a href="https://josemarmartins21.github.io/portifolio" target="_blank">Josemar Martins</a></p>
-        <p>&copy;<span id="ano"></span> Todos os direitos reservados a QoS Tel</p>
-        <p><a href="{{ route('home') }}">Zona Restrita</a></p>
-    </footer> --}}
     <script src="{{ asset('scripts/index.js') }}"></script>
 </body>
 </html>

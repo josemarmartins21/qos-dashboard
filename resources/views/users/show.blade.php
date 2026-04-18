@@ -2,10 +2,9 @@
 @extends('layouts.app')
 
 @section('title', ucwords($user->name))
-    
+
 @section('content')
     <x-show-user-container>
-        <x-alert />
         <div id="user-header">
             <div id="profile-info">
                 <div id="profile-image-container">
@@ -14,7 +13,7 @@
 
                 <div id="infos">
                     <h2>{{ $user->name }}</h2>
-                    <p>Nivel de Acesso: {{ $user->permissions->first()->name ?? 'Nenhum' }}</p>
+                    <p>Nivel de Acesso: {{ $user->permission()->first()->name}}</p>
                 </div>
             </div>
 
@@ -40,13 +39,13 @@
                     <label for="name">Nome</label>
                     <input type="text" name="name" id="name" placeholder="Digite o nome do cliente" value="{{ old('name', $user->name) }}">
                 </div>
-
+                <x-input-error-dashboard :messages="$errors->get('name')" />
                 {{-- Email --}}
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="email" placeholder="Digite o nome da empresa" value="{{ old('email',$user->email) }}">
                 </div>
-
+                <x-input-error-dashboard :messages="$errors->get('email')" />
                 {{-- Nível de Acesso --}}
                 <div class="form-group">
                     <label for="level">Nível de Acesso</label>
@@ -54,13 +53,13 @@
                         <option value="" selected>Selecione o nível de acesso</option>
 
                         @foreach ($levels as $level)
-                            <option value="{{ $level->name }}" {{ $user->permissions->first()->name == $level->name ? 'selected' : '' }}>
+                            <option value="{{ $level->name }}" {{ $user->permission()->first()->name == $level->name ? 'selected' : '' }}>
                                 {{ $level->name }}
                             </option>
                         @endforeach
                     </select>
                 </div>
-                
+                <x-input-error-dashboard :messages="$errors->get('level')" />
                 <input type="submit" value="Atualizar" class="btn-primary"> 
             </form>
             </x-form-container>  

@@ -14,15 +14,10 @@ class UserService implements UserServiceInterface
         if (! $search) {
             $users = DB::table('users')
                         ->join(
-                            'permission_user', 
-                            'users.id', 
-                            'permission_user.user_id'
-                        )
-                        ->join(
                             'permissions', 
                             'permissions.id', 
                             '=', 
-                            'permission_user.permission_id'
+                            'users.permission_id'
                         )->select(
                             'users.id',
                             'users.name',
@@ -35,15 +30,10 @@ class UserService implements UserServiceInterface
 
         $users = DB::table('users')
                         ->join(
-                            'permission_user', 
-                            'users.id', 
-                            'permission_user.user_id'
-                        )
-                        ->join(
                             'permissions', 
                             'permissions.id', 
                             '=', 
-                            'permission_user.permission_id'
+                            'users.permission_id'
                         )->select(
                             'users.id',
                             'users.name',

@@ -18,10 +18,10 @@ class InputValidatorFactory
     public static function create($key): InputValidatorInterface
     {
         return match ($key) {
-            CompanyInfoEnum::Email->value => new EmailValidator(),
-            CompanyInfoEnum::Phone->value, CompanyInfoEnum::Whatsapp->value => new PhoneValidator(),
-            CompanyInfoEnum::Sobre->value => new SobreValidator(),
-            CompanyInfoEnum::HeroImage->value, CompanyInfoEnum::Logotipo->value => new ImageValidator(),
+            CompanyInfoEnum::email->value => new EmailValidator(),
+            CompanyInfoEnum::phone->value, CompanyInfoEnum::whatsapp->value => new PhoneValidator(),
+            CompanyInfoEnum::sobre->value => new SobreValidator(),
+            CompanyInfoEnum::HeroImage->value, CompanyInfoEnum::logotipo->value => new ImageValidator(),
             /* 
             CompanyInfo::Logotipo->value => ,
             CompanyInfo::HeroImage->value => ,

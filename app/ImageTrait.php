@@ -38,4 +38,9 @@ trait ImageTrait
         }
         return true;
     }
+    
+    public function save($requestImage, string $path): void
+    {
+        $requestImage->move(public_path($path), $this->getImageName());
+    }
 }

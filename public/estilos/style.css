@@ -18,6 +18,45 @@
   }
   
 /* GENERALS */
+
+/* Botao de Mais info mas com Imagens **/
+
+  div#btn-container > a.mais-informacao {
+    background-color: green !important;
+    display: inline-block !important;
+    text-decoration: none !important;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: capitalize;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  
+  div#btn-container > a.mais-informacao {
+    background-color: green !important;
+    display: inline-block !important;
+    text-decoration: none !important;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: capitalize;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    opacity: .9;
+    transition: opacity .3s;
+    transition-timing-function: ease;
+  }
+
+  div#btn-container > a.mais-informacao:hover {
+    opacity: 1;
+  }
+/* ---------------------------------- */
+
 .form-group {
   ul {
     list-style-type: none;
@@ -483,6 +522,8 @@ tfoot > tr td {
         border-radius: 5px;
         text-align: center;
       }
+
+  
       a:active {transform: scale(.98);}
 
       .mais-depoimentos {

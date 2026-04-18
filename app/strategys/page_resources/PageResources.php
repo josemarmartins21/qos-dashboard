@@ -10,7 +10,8 @@ class PageResources
 
     public function addResource(PageResourceInterface $resource): void
     {
-        $this->resources[] = $resource->get();
+        $key = $resource->getInformationKey();
+        $this->resources[$key] = $resource->get();
     }
 
     public function getResource(): array

@@ -47,7 +47,7 @@
                                     @if (
                                             $companyInfo['key'] === CompanyInfoEnum::HeroImage->value 
                                             
-                                            || $companyInfo['key'] === CompanyInfoEnum::Logotipo->value 
+                                            || $companyInfo['key'] === CompanyInfoEnum::logotipo->value 
                                         )
                                             <td>
                                                 <img src="{{ asset('images/company_images/' . $companyInfo['value']) }}" alt="{{ $companyInfo['key'] }}" width="110px">

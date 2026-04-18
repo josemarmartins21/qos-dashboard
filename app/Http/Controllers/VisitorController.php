@@ -6,10 +6,8 @@ use App\Models\Subject;
 use App\Models\Visitor;
 use App\services\visitors\contracts\VisitorServiceInterface;
 use App\strategys\company_infos\CompanyInfoSearcher;
-use App\strategys\page_resources\ClienteRenomadoResource;
 use App\strategys\page_resources\PageResources;
-use App\strategys\page_resources\QuestionResource;
-use App\strategys\page_resources\TestimonyResource;
+
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -77,18 +75,20 @@ class VisitorController extends Controller
         try {
 
             $validator = $this->validate($request->all());
-    
+
+            
             if ($validator->fails()) {
                 return redirect()->back()->withInput()->withErrors($validator->errors());
-    
+                
             }
+
 
             $visitorData = $validator->safe(['full_name','email','phone',]);
             $message = $validator->safe(['body','subject_id',]);
-    
+            
             $this->visitorService->create($visitorData, $message);
     
-            return redirect()->back();
+            return redirect()->back()->with('success', 'Mensagem enviada com sucesso!');
 
         } catch (\Throwable $e) {
             dd($e->getMessage());
@@ -123,9 +123,8 @@ class VisitorController extends Controller
             'full_name' => ['bail','required','string',],
             'email' => ['bail','required','string','lowercase','email'],
             'phone' => ['bail','required','string','max:300','starts_with:9,2','ends_with:1,2,3,4,5,6,7,8,9,0','max:13','min:9'],
-            'subject' => ['bail','required','string','max:255'],
             'body' => ['bail','required','string'],
-            'subject_id' => ['bail','required','min:1', 'unique:' . Subject::class,'integer','numeric'],
+            'subject_id' => ['bail','required','min:1','integer','numeric'],
         ], [
              'full_name.required' => 'O campo :attribute é obrigatório.',
              'phone.ends_with' => 'O campo :attribute deve terminar com um número.',

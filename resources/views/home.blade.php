@@ -12,7 +12,7 @@
     <article id="overview-container">
         <aside class="overview">
             <div class="overview-top">
-                <h3><i class="fa-solid fa-people-roof"></i> {{ $datas['prove_social_active'] }}</h3>
+                <h3><i class="fa-solid fa-people-roof green-icon"></i> {{ $datas['prove_social_active'] }}</h3>
             </div>
 
             <div class="overview-bottom">

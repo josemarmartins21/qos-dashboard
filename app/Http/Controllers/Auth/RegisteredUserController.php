@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\ImageTrait;
+use App\Models\Permission;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -46,19 +47,18 @@ class RegisteredUserController extends Controller
             $request->file('image')->move(User::getPathImage(), $validated['image']);
         }
 
+        $permissionAdm = Permission::where('name', 'default')->first();
+
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'image' => $validated['image'],
             'password' => Hash::make($validated['password']),
+            'permission_id' => $permissionAdm->id,
         ]);
 
         event(new Registered($user));
 
-        $user->assignPermission('default');
-
-        // Auth::login($user);
-
-        return redirect(route('home', absolute: false));
+        return redirect(route('users.index', absolute: false));
     }
 }

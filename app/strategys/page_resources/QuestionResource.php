@@ -7,6 +7,13 @@ use App\strategys\page_resources\contracts\PageResourceInterface;
 
 class QuestionResource implements PageResourceInterface 
 {
+    private string $informationKey;
+
+    public function __construct()
+    {
+        $this->informationKey = 'questions';
+    }
+
     public function get()
     {
         $questions = Question::select('question', 'response')
@@ -15,5 +22,10 @@ class QuestionResource implements PageResourceInterface
         ->get();
 
         return $questions;
+    }
+
+    public function getInformationKey(): string
+    {
+        return $this->informationKey;
     }
 }

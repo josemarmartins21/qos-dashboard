@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\DB;
 
 class TestimonyResource implements PageResourceInterface 
 {
+    private string $informationKey;
+
+    public function __construct()
+    {
+        $this->informationKey = 'testimonies';
+    }
+
     public function get()
     {
         $testimonies = DB::table('clients')
@@ -18,4 +25,10 @@ class TestimonyResource implements PageResourceInterface
 
         return $testimonies;
     }
+
+    public function getInformationKey(): string
+    {
+        return $this->informationKey;
+    }
+
 }

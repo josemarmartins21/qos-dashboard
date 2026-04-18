@@ -27,24 +27,50 @@ class CompanyInfoController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create()    
     {
         return view('company_info.create');
+    }
+
+
+    public function createWithImage(?string $type = null)    
+    {
+        return view('company_info.create', compact('type'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCompanyInfoRequest $request)
+    public function store(Request $request)
     {
         try {
-            $validated = $request->validated();
+            $input = InputValidatorFactory::create($request->key);
     
+            $validator = $input->validate($request);
+
+            $validated = $validator->validated();
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator)->withInput();
+            }
+    
+            if ($this->isImage($request)) {
+                $this->generateName($request->file('value'));
+
+                $this->save($request->file('value'), 'images/company_images/');
+
+                $validated['value'] = $this->getImageName();
+            }
+
+
             CompanyInfo::create([
                 'key' => $validated['key'],
                 'value' => $validated['value'],
                 'user_id' => Auth::user()->id,
             ]);
+
+
+
 
             return redirect()->route('company_infos.index');
     
@@ -80,7 +106,12 @@ class CompanyInfoController extends Controller
     
             $validated = $validator->validated();
 
-            $this->checkIfIsImage($request, $validated);
+            if ($this->isImage($request)) {
+                $this->generateName($request->file('value'));
+                $this->save($request->file('value'), 'images/company_images/');
+                $validated['value'] = $this->getImageName();
+            }
+
 
             $companyInfo->update([
                 'key' => $validated['key'],
@@ -133,10 +164,17 @@ class CompanyInfoController extends Controller
     }
 
      /**
-     *  Checa se o que foi enviado é uma imagem
-     *  e gera um nome válido para ser Salvo na BD.
+     *  Checa se o que foi enviado é uma imagem.
      */
-    private function checkIfIsImage(Request $request, &$validated = []): void
+    private function isImage(Request $request): bool
+     {
+        if ($request->hasFile('value')) {
+            return true;
+        }
+        return false;
+     }
+
+/*      private function checkIfIsImage(Request $request, &$validated = []): void
     {
         if ($request->hasFile('value')) {
 
@@ -151,5 +189,21 @@ class CompanyInfoController extends Controller
 
         throw new \Exception("Imagem inválida!");
         
-    }
+    } */
+    /* private function checkIfIsImage(Request $request, &$validated = []): void
+    {
+        if ($request->hasFile('value')) {
+
+            $requestImage = $request->file('value');
+            $this->generateName($requestImage);
+
+            $validated['value'] = $this->getImageName();
+            $requestImage->move(public_path('images/company_images/'), $validated['value']);
+
+            return;
+        }
+
+        throw new \Exception("Imagem inválida!");
+        
+    } */
 }

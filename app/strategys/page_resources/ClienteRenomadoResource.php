@@ -7,6 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 class ClienteRenomadoResource implements PageResourceInterface 
 {
+    private string $informationKey;
+
+    public function __construct()
+    {
+        $this->informationKey = 'clientes_renomados';
+    }
     public function get()
     {
         $clientesRenomados = DB::table('clients')
@@ -21,5 +27,10 @@ class ClienteRenomadoResource implements PageResourceInterface
         ->get();
 
         return $clientesRenomados;
+    }
+
+    public function getInformationKey(): string
+    {
+        return $this->informationKey;
     }
 }
