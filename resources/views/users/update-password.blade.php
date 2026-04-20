@@ -16,7 +16,7 @@
 
                 <div class="form-group">
                     <label for="password">Palavra Pass</label>
-                    <input type="password" name="password" id="password" placeholder="Nova palavra pass" value="{{ old('password') }}">
+                    <input type="password" name="password" id="password" placeholder="Nova palavra pass" value="{{ old('password') }}" autofocus>
                 </div>
 
                 <div class="form-group">

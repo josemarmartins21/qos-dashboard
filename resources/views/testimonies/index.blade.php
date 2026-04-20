@@ -14,7 +14,7 @@
         {{-- Form de pesquisa --}}
         <x-index_container class="testiomonies-index">
             <x-slot:header_index>
-                <form action="{{ route('testimonies.index') }}" method="get">
+                <form action="{{ route('testimonies.index') }}" method="get" >
                     
                     @csrf
 

@@ -14,7 +14,7 @@
     
                     @csrf
     
-                    <input type="search" name="search" id="searched" placeholder="Busque" autofocus>
+                    <input type="search" name="search" id="searched" placeholder="Busque">
                 </form>
     
                 <div id="btn-container">

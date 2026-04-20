@@ -16,7 +16,7 @@
 
                 <div class="form-group">
                     <label for="question">Pergunta</label>
-                    <input type="text" name="question" id="question" placeholder="Digite a pergunta" value="{{ old('question', $question->question) }}">
+                    <input type="text" name="question" id="question" placeholder="Digite a pergunta" value="{{ old('question', $question->question) }}" autofocus>
                 </div>
 
                 <div class="form-group">

@@ -13,7 +13,7 @@
 
                 <div class="form-group">
                     <label for="question">Pergunta</label>
-                    <input type="text" name="question" id="question" value="{{ old('question') }}" placeholder="Digite a pergunta">
+                    <input type="text" name="question" id="question" value="{{ old('question') }}" placeholder="Digite a pergunta" autofocus>
                     <x-input-error-dashboard :message="$errors->first('question')" />
                 </div>
 

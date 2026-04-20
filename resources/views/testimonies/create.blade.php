@@ -13,13 +13,13 @@
 
                 <div class="form-group">
                     <label for="name">Nome do Cliente *</label>
-                    <input type="text" name="name" id="name" placeholder="Nome do cliente" value="{{ old('name') }}">
+                    <input type="text" name="name" id="name" placeholder="Nome do cliente" value="{{ old('name') }}" autofocus>
                     <x-input-error-dashboard :message="$errors->first('name')" />
                 </div>
                 
                 <div class="form-group">
                     <label for="company_role">Cargo na Empresa *</label>
-                    <input type="text" name="company_role" id="company_role" placeholder="Cargo na empresa" value="{{ old('company_role') }}">
+                    <input type="text" name="company_role" id="company_role" placeholder="Cargo na empresa" value="{{ old('company_role') }}" autofocus>
                     <x-input-error-dashboard :message="$errors->first('company_role')" />
                 </div>
 

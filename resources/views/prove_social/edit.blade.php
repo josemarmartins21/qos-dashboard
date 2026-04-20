@@ -27,7 +27,7 @@
                 {{-- Dr. da Empresa --}}
                 <div class="form-group">
                     <label for="name">Dr. da Empresa *</label>
-                    <input type="text" name="name" id="name" placeholder="Digite o nome do cliente" value="{{ old('name', $clientProveSocial->client->name) }}">
+                    <input type="text" name="name" id="name" placeholder="Digite o nome do cliente" value="{{ old('name', $clientProveSocial->client->name) }}" autofocus>
                     <x-input-error-dashboard :message="$errors->first('name')" />
                 </div>
 

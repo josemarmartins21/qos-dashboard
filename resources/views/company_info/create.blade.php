@@ -85,7 +85,7 @@
                 @else
                     <div class="form-group">
                         <label for="value">Valor da Informação</label>
-                        <textarea name="value" id="value" cols="30" rows="3">
+                        <textarea name="value" id="value" cols="30" rows="3" autofocus>
                             {{ old('value') }}
                         </textarea>
                         <x-input-error-dashboard :message="$errors->first('value')" />

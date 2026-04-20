@@ -13,7 +13,7 @@
 
                 <div class="form-group">
                     <label for="question">Pergunta</label>
-                    <input type="text" name="question" id="question" placeholder="Digite a pergunta">
+                    <input type="text" name="question" id="question" placeholder="Digite a pergunta" autofocus>
                 </div>
 
                 <div class="form-group">

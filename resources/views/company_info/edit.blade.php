@@ -45,7 +45,7 @@
                 @elseif ($companyInfo->key === CompanyInfoEnum::sobre->value )
                     <div class="form-group">
                         <label for="value">Valor da Informação</label>
-                        <textarea name="value" id="value" cols="30" rows="3">
+                        <textarea name="value" id="value" cols="30" rows="3" autofocus>
                             {{ old('value', $companyInfo->value) }}
                         </textarea>
                         <x-input-error-dashboard :message="$errors->first('value')" />
@@ -53,7 +53,7 @@
                 @else
                     <div class="form-group">
                         <label for="value">Valor da Informação</label>
-                        <input type="text" name="value" id="value" value="{{ old('value', $companyInfo->value) }}" placeholder="Digite o {{ $companyInfo->key }}">
+                        <input type="text" name="value" id="value" value="{{ old('value', $companyInfo->value) }}" placeholder="Digite o {{ $companyInfo->key }}" autofocus>
                         <x-input-error-dashboard :message="$errors->first('value')" />
                     </div>
                 @endif

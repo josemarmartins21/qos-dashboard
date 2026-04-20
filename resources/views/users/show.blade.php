@@ -68,7 +68,7 @@
                     </select>
                 </div>
                 <x-input-error-dashboard :message="$errors->get('level')" />
-                <input type="submit" value="Atualizar" class="btn-primary"> 
+                <input type="submit" value="Atualizar" class="btn-primary" autofocus> 
             </form>
             </x-form-container>  
         </div>

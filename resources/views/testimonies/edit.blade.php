@@ -17,7 +17,7 @@
 
                 <div class="form-group">
                     <label for="name">Nome do Cliente *</label>
-                    <input type="text" name="name" id="name" placeholder="Nome do cliente" value="{{ old('name', $testimony->nome) }}">
+                    <input type="text" name="name" id="name" placeholder="Nome do cliente" value="{{ old('name', $testimony->nome) }}" autofocus>
                     <x-input-error-dashboard :message="$errors->first('name')" />
                 </div>
 
