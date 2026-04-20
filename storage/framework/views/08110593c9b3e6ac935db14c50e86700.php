@@ -42,7 +42,7 @@
 <?php endif; ?>
 <?php $component->withAttributes(['class' => 'testiomonies-index']); ?>
              <?php $__env->slot('header_index', null, []); ?> 
-                <form action="<?php echo e(route('testimonies.index')); ?>" method="get">
+                <form action="<?php echo e(route('testimonies.index')); ?>" method="get" >
                     
                     <?php echo csrf_field(); ?>
 

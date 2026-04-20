@@ -23,7 +23,7 @@
 
                 <div id="btn-container">
                     <a href="{{ route('subjects.index') }}" class="mais-depoimentos">
-                        <i class="fa-solid fa-plus"></i> Assuntos
+                         Assuntos
                     </a>
                 </div>
             </x-slot:header_index>

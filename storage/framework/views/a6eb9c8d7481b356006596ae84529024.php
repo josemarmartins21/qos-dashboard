@@ -22,7 +22,7 @@
 
                 <div class="form-group">
                     <label for="name">Nome do Cliente *</label>
-                    <input type="text" name="name" id="name" placeholder="Nome do cliente" value="<?php echo e(old('name')); ?>">
+                    <input type="text" name="name" id="name" placeholder="Nome do cliente" value="<?php echo e(old('name')); ?>" autofocus>
                     <?php if (isset($component)) { $__componentOriginal204835d7c5674ffb7f0aed65068735e3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal204835d7c5674ffb7f0aed65068735e3 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error-dashboard','data' => ['message' => $errors->first('name')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -47,7 +47,7 @@
                 
                 <div class="form-group">
                     <label for="company_role">Cargo na Empresa *</label>
-                    <input type="text" name="company_role" id="company_role" placeholder="Cargo na empresa" value="<?php echo e(old('company_role')); ?>">
+                    <input type="text" name="company_role" id="company_role" placeholder="Cargo na empresa" value="<?php echo e(old('company_role')); ?>" autofocus>
                     <?php if (isset($component)) { $__componentOriginal204835d7c5674ffb7f0aed65068735e3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal204835d7c5674ffb7f0aed65068735e3 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error-dashboard','data' => ['message' => $errors->first('company_role')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
