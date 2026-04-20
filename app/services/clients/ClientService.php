@@ -5,6 +5,7 @@ namespace App\services\clients;
 use App\factorys\TestimonySocialProveFactory;
 use App\Models\Client;
 use App\services\clients\contracts\ClientServiceInterface;
+use Illuminate\Support\Facades\Auth;
 
 class ClientService implements ClientServiceInterface {
 
@@ -38,11 +39,13 @@ class ClientService implements ClientServiceInterface {
     {
         try {
 
-            $createdClient = Client::create([
-                'name' => $client['client_name'],
+            $createdClient = Client::updateOrCreate([
+                'name' => $client['name'],
+            ], [
                 'company_role' => $client['company_role'],
+                'user_id' => Auth::user()->id,
             ])->toArray();
-    
+
             $relation['client_id'] = $createdClient['id'];
     
             $service = $this->testimonySocialFactory->create($relation["type"]);
@@ -67,8 +70,6 @@ class ClientService implements ClientServiceInterface {
     public function update($data = []): Client
     {
         $client = Client::findOrFail($data['client_id']);
-
-        unset($data['client_id']);
 
         $client->update([
             'name' => $data['name'],

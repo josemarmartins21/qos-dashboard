@@ -1,18 +1,18 @@
 @extends('layouts.app')
 @use('App\enums\company_infos\CompanyInfoEnum')
-
+@use('App\Models\CompanyInfo')
 @section('title', 'Adicionar Assunto')
-    
+
 @section('content')
-    <div id="form-container">
-        <x-alert />
+<div id="form-container">
+    <x-alert /> 
         <x-form-container>
             <x-slot:title>Nova Informação da Empresa</x-slot>
             @if (! isset($type))
                 <div id="btn-container">
                         <a href="{{ route('company_infos.create_with_image', ['type' => 'image']) }}" class="mais-informacao">
 
-                            <i class="fa-solid fa-image"></i> Adicionar Logo ou Hero
+                            <i class="fa-solid fa-image"></i> Adicionar Logotipo / Banner
                         </a>
                 </div>
             @endif
@@ -30,7 +30,7 @@
                             @if (
                                 isset($type) AND ($info->value === CompanyInfoEnum::logotipo->value || $info->value === CompanyInfoEnum::HeroImage->value)
                             )
-                                <option value="{{ $info->value }}" {{ old('key') == $info->value ? 'selected' : '' }}>
+                                <option @disabled(CompanyInfo::where('key', $info->value)->exists())  value="{{ $info->value }}" {{ old('key') == $info->value ? 'selected' : '' }}>
                                         {{ $info->value }}
                                 </option>
                                 @continue
@@ -39,7 +39,7 @@
                             @if (
                                 ! isset($type) AND ($info->value !== CompanyInfoEnum::logotipo->value && $info->value !== CompanyInfoEnum::HeroImage->value)
                             )
-                                <option value="{{ $info->value }}" {{ old('key') == $info->value ? 'selected' : '' }}>
+                                <option  @disabled(CompanyInfo::where('key', $info->value)->exists()) value="{{ $info->value }}" {{ old('key') == $info->value ? 'selected' : '' }}>
                                         {{ $info->value }}
                                 </option>
                                 @continue
@@ -74,11 +74,13 @@
                             @endforeach
                         @endif --}}
                     </select>
+                    <x-input-error-dashboard :message="$errors->first('key')" />
                 </div>
 
                 @if (isset($type))
                     <div class="form-group">
                         <input type="file" name="value" id="value" value="{{ old('value') }}">
+                        <x-input-error-dashboard :message="$errors->first('value')" />
                     </div>
                 @else
                     <div class="form-group">
@@ -86,6 +88,7 @@
                         <textarea name="value" id="value" cols="30" rows="3">
                             {{ old('value') }}
                         </textarea>
+                        <x-input-error-dashboard :message="$errors->first('value')" />
                     </div>
                 @endif
 

@@ -48,27 +48,15 @@ class QuestionController extends Controller
             $this->questionService->save($validated);
 
             return redirect()->route('questions.index');
+
         } catch (\Throwable $e) {
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Question $question)
     {
-        try {
-
-            $question = $this->questionService->get($question->id);
-
-            return response()->json([
-                'status' => true,
-                'data' => $question
-            ]);
-        } catch (\Throwable $e) {
-            return redirect()->back()->withInput()->with('error', $e->getMessage());
-        }
+        return view('FAQ.show', compact('question'));
     }
 
     /**
@@ -85,11 +73,13 @@ class QuestionController extends Controller
     public function update(QuestionUpdateResquest $request, Question $question)
     {
         try {
+
             $validated = $request->validated();
     
-            $this->questionService->update($question->id, $validated)->toArray();
+            $question = $this->questionService->update($question->id, $validated)->toArray();
 
-            return redirect()->route('questions.index');
+            return redirect()->route('questions.show', ['question' => $question['id']]);
+
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         } catch (\Throwable $e) {
@@ -107,6 +97,7 @@ class QuestionController extends Controller
             $this->questionService->delete($question->id);
 
             return redirect()->route('questions.index');
+            
         } catch (ModelNotFoundException $e) {
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         } catch (\Throwable $e) {

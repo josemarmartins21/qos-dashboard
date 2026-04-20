@@ -15,12 +15,9 @@ class ActivateDisableFAQ implements ActivateDisableInterface {
     {
         $this->validateAOrD = ValidateIfCanActiveOrDisableFactory::create("faq");
     }
+    
     public function active(int $id): bool
     {
-        $question = Question::where('id', $id)->where('is_active', false)->exists();
-    
-        if ($question === false) throw new \Exception("A pergunta frequente já se encontra activa");
-
         if ($this->validateAOrD->validateIfCanActive() === false) throw new InvalidArgumentException("Número máximo pergunta frequente activas foi atingido");    
 
         $question = Question::findOrFail($id)->update([
@@ -32,11 +29,14 @@ class ActivateDisableFAQ implements ActivateDisableInterface {
 
     public function disable(int $id): bool
     {
-        $question = Question::where('id', $id)->where('is_active',true)->exists();
-        
-        if ($question === false) throw new \Exception("A pergunta frequente já se encontra desactivada");
-        
-        if ($this->validateAOrD->validateIfCanDisable() === false) throw new InvalidArgumentException("Número mínimo de pergunta frequente  activo foi atingido");  
+        $question = Question::where('id', $id)->where('is_active', true)->exists();
+
+
+        if (
+            $this->validateAOrD->validateIfCanDisable() === false
+            AND $question === true
+        ) 
+            throw new InvalidArgumentException("Não foi possível eliminar o depoimento, pois o número mínimo de perguntas frequentes será ultrapassado.");  
 
         $question = Question::findOrFail($id)->update([
             'is_active' => false,

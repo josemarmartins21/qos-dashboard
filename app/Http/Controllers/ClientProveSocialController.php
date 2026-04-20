@@ -60,8 +60,7 @@ class ClientProveSocialController extends Controller
             $request->validated();
                 
             $client = $request->safe([
-                'client_name',
-                'user_id',
+                'name',
                 'company_role',
             ]);
                 
@@ -82,8 +81,8 @@ class ClientProveSocialController extends Controller
             return redirect()->route('client_prove_socials.index');
 
         } catch (\Throwable $e) {
-            dd($e->getMessage());
             return redirect()->back()->withInput()->with('error', $e->getMessage());
+            /* dd($e->getMessage()); */
         }
     }
 
@@ -121,9 +120,8 @@ class ClientProveSocialController extends Controller
 
             if (array_key_exists('image', $proveSocialClient)) {
                 $this->generateName($request->file('image'));
+                $this->save($request->file('image'), ClientProveSocial::getPathImages());
                 $proveSocialClient['image'] = $this->getImageName();
-
-                $request->file('image')->move(ClientProveSocial::getPathImages(), $proveSocialClient['image']);
             }
 
             $this->clientService->update($client);   

@@ -23,10 +23,10 @@ class ClientProveSocialUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['bail','nullable','max:2048','image'],
+            'image' => ['bail','nullable','max:2048','image','file', 'mimes:jpg,png,jpeg'],
             'url' => ['bail','required' ,'url',],
-            'name' => ['bail','required', 'string', 'max:100', 'min:4'],
-            'company_role' => ['bail','required', 'string', 'max:100', 'min:4'],
+            'name' => ['bail','required', 'string', 'max:100'],
+            'company_role' => ['bail','required', 'string', 'max:100'],
             'client_id' => ['required','integer','numeric','min:1',],
         ];
     }
@@ -34,8 +34,8 @@ class ClientProveSocialUpdateRequest extends FormRequest
     public function attributes()
     {
         return [
-            'logo' => 'logotipo',
-            'url' => 'link',
+            'logo' => 'Logo da empresa',
+            'url' => 'página/site da empresa',
             'client_name' => 'nome do cliente',
             'company_role' => 'nome da empresa',
         ];

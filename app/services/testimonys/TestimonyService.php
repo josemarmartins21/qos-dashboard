@@ -2,19 +2,29 @@
 
 namespace App\services\testimonys;
 
+use App\factorys\ActivateDisableFatory;
+use App\factorys\contracts\ActivateDisableInterface;
 use App\factorys\contracts\TestimonySocialProveInterface;
+use App\factorys\TestimonySocialProveFactory;
 use App\factorys\ValidateIfCanActiveOrDisableFactory;
 use App\Models\Testimony;
+use App\services\clients\ClientService;
 use App\services\testimonys\contracts\TestimonyServiceInterface;
 use App\services\validators\contracts\ValidateIfCanActiveOrDisableInterface;
 use Illuminate\Support\Facades\DB;
+use App\services\clients\contracts\ClientServiceInterface;
 
 class TestimonyService implements TestimonyServiceInterface, TestimonySocialProveInterface   {
     private ValidateIfCanActiveOrDisableInterface $validateAOrD;
-    
-    public function __construct()
+    private ActivateDisableInterface $activateOrDisable;
+    private ClientServiceInterface $clientService;
+
+    public function __construct(
+    )    
     {
+        $this->clientService = new ClientService(new TestimonySocialProveFactory);
         $this->validateAOrD = ValidateIfCanActiveOrDisableFactory::create("depoimento");
+        $this->activateOrDisable = ActivateDisableFatory::create("depoimento");
     }
 
     
@@ -59,6 +69,8 @@ class TestimonyService implements TestimonyServiceInterface, TestimonySocialProv
                         ->join('testimonies','c.id','=','testimonies.client_id')
                         ->select(
                             'c.name as nome',
+                            'testimonies.id as id',
+                            'c.id as client_id',
                             'testimonies.testimony as depoimento',
                             'c.company_role as cargo',
                             'testimonies.created_at as data_criacao',
@@ -97,18 +109,30 @@ class TestimonyService implements TestimonyServiceInterface, TestimonySocialProv
 
     public function update(int $id, $data = []): bool
     {
+        $client = [
+            'name' => $data['name'],
+            'company_role' => $data['company_role'],
+            'client_id' => $data['client_id'],
+        ];
+
+        $this->clientService->update($client);
+
         $testimony = Testimony::findOrFail($id);
 
-        return $testimony->update($data);
+        return $testimony->update([
+            'testimony' => $data['testimony'],
+        ]);
          
     }
 
     public function delete(int $id): bool
     {
         if (Testimony::count()  < Testimony::getMinActive()) {
-            throw new \Exception("Não foi possível eliminar o depoimento, pois o número mínimo de depoimentos será ultrapassado.");
+            throw new \InvalidArgumentException("Não foi possível eliminar o depoimento, pois o número mínimo de depoimentos será ultrapassado.");
         }
 
+        $this->activateOrDisable->disable($id);
+        
         $testimony = Testimony::findOrFail($id);
 
         $deleted = $testimony->delete();

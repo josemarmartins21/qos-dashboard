@@ -28,11 +28,11 @@
                          <x-slot:top_card>
                             <h2 class="question"> {{ Str::limit(ucfirst($question['question']), 41, '...?') }}</h2>
                             
-                            <a href="#" class="ver-resposta">Ler resposta</a>
+                            <a href="{{ route('questions.show', ['question' => $question['id']]) }}" class="ver-resposta">Ler resposta</a>
                          </x-slot:top_card>
  
                          <x-slot:btn_actions >
-                            @can ('adm') 
+                            @can ('access-admin-area') 
                                 @if ($question['is_active'] === 0)
                                     <form action="{{ route('active') }}" method="POST" class="active">
                                         
@@ -97,6 +97,6 @@
                    @endforelse 
             </x-slot:container_cards>
         </x-index_container>
-        {{ $questions->links('vendor.pagination.tailwind') }}               
+    {{ $questions->links('vendor.pagination.tailwind') }}               
 </div>
 @endsection

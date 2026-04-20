@@ -17,17 +17,33 @@ class VisitorService implements VisitorServiceInterface {
      * Retorna todos os visitantes com suas mensagens.
      * @return Collection
      */
-    public function getAll(): LengthAwarePaginator 
+    public function getAll(?string $search = ''): LengthAwarePaginator 
     {
+        if (! $search) {
+            $visitors = DB::table('visitors')->join(
+                'messages', 
+                'messages.visitor_id', '=', 'visitors.id'
+            )->select(
+                    'messages.id as message_id', 
+                    'messages.read as lida', 
+                    'visitors.full_name as nome',
+                    'visitors.phone as tel',
+                    'visitors.email',
+            )->orderByDesc('messages.created_at')->paginate(5);
+            return $visitors;
+        }
+
         $visitors = DB::table('visitors')->join(
-            'messages', 
-            'messages.visitor_id', '=', 'visitors.id'
-        )->select(
-                'messages.id as message_id', 
-                'visitors.full_name as nome',
-                'visitors.phone as tel',
-                'visitors.email',
-        )->orderByDesc('messages.created_at')->paginate(5);
+                'messages', 
+                'messages.visitor_id', '=', 'visitors.id'
+            )->select(
+                    'messages.id as message_id', 
+                    'visitors.full_name as nome',
+                    'visitors.phone as tel',
+                    'visitors.email',
+            )->where('visitors.full_name', 'like', "%{$search}%")
+            ->orderByDesc('messages.created_at')
+            ->paginate(5);
 
         return $visitors;
     }

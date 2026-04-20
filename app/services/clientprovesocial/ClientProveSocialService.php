@@ -2,6 +2,8 @@
 
 namespace App\services\clientprovesocial;
 
+use App\factorys\ActivateDisableFatory;
+use App\factorys\contracts\ActivateDisableInterface;
 use App\factorys\contracts\TestimonySocialProveInterface;
 use App\factorys\ValidateIfCanActiveOrDisableFactory;
 use App\Models\ClientProveSocial;
@@ -11,10 +13,12 @@ use Illuminate\Support\Facades\DB;
 
 class ClientProveSocialService implements ClientProveSocialInterface, TestimonySocialProveInterface {
     private ValidateIfCanActiveOrDisableInterface $validateAOrD;
+    private ActivateDisableInterface $activateOrDisable;
 
     public function __construct()
     {
         $this->validateAOrD = ValidateIfCanActiveOrDisableFactory::create("prova social");
+        $this->activateOrDisable = ActivateDisableFatory::create("prova social");
     }
     /**
      * Lista todos clientes de renome cadastrados.
@@ -67,7 +71,9 @@ class ClientProveSocialService implements ClientProveSocialInterface, TestimonyS
         $can_active = false;
 
         if ($data['is_active'] == true) $can_active = $this->validateAOrD->validateIfCanActive();
+        if ($data['is_active'] == false) $can_active = $this->validateAOrD->validateIfCanDisable();
         
+
         return ClientProveSocial::create([
             'logo' => $data['image'],
             'url' => $data['url'],
@@ -83,6 +89,12 @@ class ClientProveSocialService implements ClientProveSocialInterface, TestimonyS
     {
     
         $client = ClientProveSocial::findOrFail($id);
+
+        $urlExisits = ClientProveSocial::where('url', $data['url'])->where('id', '!=', $id)->exists();
+
+        if ($urlExisits) {
+            throw new \InvalidArgumentException("O URL informado já está em uso por outro cliente de prova social.");
+        }
 
         $client->update([
             'logo' => $data['image'] ?? $client->logo,
@@ -111,11 +123,15 @@ class ClientProveSocialService implements ClientProveSocialInterface, TestimonyS
      */
     public function delete(int $id): bool
     {
-        if (ClientProveSocial::count() < ClientProveSocial::getMin()) {
-            throw new \Exception("O número mínimo de clientes de prova social é ". (ClientProveSocial::getMin() - 1));
+        if (ClientProveSocial::count() < ClientProveSocial::getMinActive()) {
+            throw new \InvalidArgumentException("O número mínimo de clientes de prova social é ". (ClientProveSocial::getMinActive() - 1));
         }
+
+        $this->activateOrDisable->disable($id);
         
-        $client = ClientProveSocial::findOrFail($id)->client()->first();
-        return $client->delete();
+        $clientRenomado = ClientProveSocial::findOrFail($id);
+
+
+        return $clientRenomado->delete();
     } 
 }

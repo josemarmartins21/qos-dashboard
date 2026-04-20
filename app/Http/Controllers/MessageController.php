@@ -10,6 +10,8 @@ class MessageController extends Controller
     public function show(Message $message)
     {
        // dd($message->subject);
+       $this->markAsRead($message);
+       
         return view('messages.show', compact('message'));
     }
 
@@ -17,5 +19,16 @@ class MessageController extends Controller
     {
         $message->delete();
         return redirect()->back();
+    }
+
+    private function markAsRead(Message $message): void
+    {
+        if ($message->read !== true) {
+            $message->update([
+                'read' => true
+            ]);
+        }
+
+
     }
 }

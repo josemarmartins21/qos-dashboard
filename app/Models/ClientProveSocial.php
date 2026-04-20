@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class ClientProveSocial extends Model
 {
     private const LIMIT = 10;
-    private const MIN = 4;
-    private const MAX_ACTIVE = 5;
-    private const MIN_ACTIVE = 4;
+    private const MAX_ACTIVE = 4;
+    private const MIN_ACTIVE = 3;
 
     protected $fillable = [
         'logo',
@@ -17,11 +16,6 @@ class ClientProveSocial extends Model
         'is_active',
         'client_id',
     ];
-
-    public static function getMin()
-    {
-        return self::MIN;
-    }
 
     public static function getLimit()
     {

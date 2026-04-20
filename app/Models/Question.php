@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Question extends Model
 {
@@ -14,7 +15,7 @@ class Question extends Model
     ];
 
     private const LIMIT = 11;
-    private const MIN_ACTIVE = 4;
+    private const MIN_ACTIVE = 3;
     private const MAX_ACTIVE = 6;
 
     public static function getLimit()
@@ -39,6 +40,6 @@ class Question extends Model
 
     public static function getQuantityActive(): int
     {
-        return self::where('is_active',1)->count();
+        return self::where('is_active', 1)->count();
     }
 }

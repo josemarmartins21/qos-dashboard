@@ -15,6 +15,11 @@
             <p class="barra"></p>
             <p>Em caso de dúvidas ou sugestões, <br>contacte-nos.</p>
             <p>Endereço e Telefones</p>
+
+            <ul>
+                <li><strong>Email:</strong> {{ $companyInfos['email']?->value ?? '' }}</li>
+                <li><strong>Telefone:</strong> {{ $companyInfos['phone']?->value ?? '924 910 904' }}</li>
+            </ul>
         </div>
         <div class="infor">
             <h3>Mapa do Site</h3>
@@ -33,8 +38,25 @@
             <p>
                 Para facilitar o contacto e disseminação das informações, a QoS Tel dispõe de redes sociais
             </p>
+
             <p>
                 Siga nossas redes sociais e mantenha-se informado(a)
+            </p>
+            
+            <div id="redes-container">
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="rede-social-card">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+
+
+                    <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="rede-social-card" class="rede-social-card">
+                        <i class="fa-brands fa-square-instagram"></i>
+                    </a>
+            </div>
+
+            <p class="dev">
+                <strong>Desenvolvido por</strong> 
+                <a href="https://josemarmartins21.github.io/portifolio" target="_blank">Josimar Martins</a>
             </p>
         </div>
     </div>

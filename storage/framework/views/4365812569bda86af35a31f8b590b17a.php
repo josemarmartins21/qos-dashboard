@@ -90,7 +90,7 @@
                           <?php $__env->endSlot(); ?>
  
                           <?php $__env->slot('btn_actions', null, []); ?> 
-                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('adm')): ?> 
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('access-admin-area')): ?> 
                                 <?php if($clientsProveSocial->is_active === 0): ?>
                                     <form action="<?php echo e(route('active')); ?>" method="POST" class="active">
                                         

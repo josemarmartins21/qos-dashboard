@@ -1,3 +1,5 @@
+<?php use \Illuminate\Support\Facades\Auth; ?>
+
 
 
 <?php $__env->startSection('title', 'Adicionar Depoimento'); ?>
@@ -14,8 +16,8 @@
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
         <h2><?php echo e($testimony->nome); ?></h2>
-        <p class="role"><?php echo e($testimony->cargo); ?></p>
-
+        <p class="role">Cargo de <?php echo e($testimony->cargo); ?></p>
+        <div class="barra"></div>
         <h3>Depoimento</h3>
         <p class="testimony-content">
             <?php echo e($testimony->depoimento); ?>
@@ -24,7 +26,8 @@
 
         <div id="show-details-info">
             <p>
-                Publicado <?php echo e($created_at); ?> por Celmira
+                Publicado <?php echo e($created_at); ?> por <?php echo e(Auth::user()->name); ?>
+
             </p>
         </div>
 

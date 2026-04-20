@@ -50,13 +50,14 @@
                                 <td>{{ $visitor->email }}</td>
                                 <td>
                                     <a href="{{ route('messages.show', ['message' => $visitor->message_id]) }}" class="base-btn ler" id="delete-btn-table">
-                                        <i class="fa-brands fa-readme"></i> Ler mensagem
+                                        @if ($visitor->lida == false)
+                                            <i class="fa-solid fa-circle"></i> 
+                                        @endif
+                                        
+                                        Ler mensagem
                                     </a>
 
-                                    <form action="" method="" id="form-table">
-                                        {{-- @csrf('Delete') --}}
-
-                                        <form action="{{ route('messages.destroy', ['message' => $visitor->message_id]) }}" method="POST" id="form-table">
+                                    <form action="{{ route('messages.destroy', ['message' => $visitor->message_id]) }}" method="POST" id="form-table">
 
                                         @csrf
 
@@ -65,7 +66,6 @@
                                         <button type="submit" class="base-btn apagar" onclick="return confirm('Tem a certeza que deseja eliminar?')">
                                             <i class="fa-solid fa-trash"></i> Apagar
                                         </button>
-                                    </form>
                                     </form>
                                 </td>
                             </tr>
@@ -89,5 +89,6 @@
                 @endif               
             </x-slot:container_cards>
     </x-index_container>
+    {{ $visitors->links('vendor.pagination.tailwind') }}   
 </div>
 @endsection

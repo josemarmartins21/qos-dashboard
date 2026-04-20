@@ -51,7 +51,7 @@
                          </x-slot:top_card>
  
                          <x-slot:btn_actions >
-                            @can ('adm') 
+                            @can ('access-admin-area') 
                                 @if ($clientsProveSocial->is_active === 0)
                                     <form action="{{ route('active') }}" method="POST" class="active">
                                         

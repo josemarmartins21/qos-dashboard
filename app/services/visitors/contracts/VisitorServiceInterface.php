@@ -6,7 +6,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 interface VisitorServiceInterface
 {
-    public function getAll(): LengthAwarePaginator;
+    public function getAll(?string $search = ''): LengthAwarePaginator;
     public function create($visitor = [], $message = []);
     public function delete(int $id): bool; 
     public function get(int $id);

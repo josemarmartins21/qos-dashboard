@@ -11,11 +11,3 @@
         <p>{{ session('success') }}</p>
     @endif
 </div>
-
-<div id="errors">
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            <p>{{ $error }}</p>
-        @endforeach
-    @endif
-</div>

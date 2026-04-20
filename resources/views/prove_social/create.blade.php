@@ -13,16 +13,16 @@
 
                 {{-- Dr. da Empresa --}}
                 <div class="form-group">
-                    <label for="client_name">Dr. da Empresa</label>
-                    <input type="text" name="client_name" id="client_name" placeholder="Digite o nome do cliente *" value="{{ old('client_name') }}">
-                    <x-input-error-dashboard :messages="$errors->get('client_name')" />
+                    <label for="name">Dr. da Empresa *</label>
+                    <input type="text" name="name" id="name" placeholder="Digite o nome do cliente" value="{{ old('name') }}">
+                    <x-input-error-dashboard :message="$errors->first('name')" />
                 </div>
 
                 {{-- Nome da Empresa --}}
                 <div class="form-group">
-                    <label for="company_role">Empresa</label>
-                    <input type="text" name="company_role" id="company_role" placeholder="Digite o nome da empresa *" value="{{ old('company_role') }}">
-                    <x-input-error-dashboard :messages="$errors->get('company_role')" />
+                    <label for="company_role">Empresa *</label>
+                    <input type="text" name="company_role" id="company_role" placeholder="Digite o nome da empresa" value="{{ old('company_role') }}">
+                    <x-input-error-dashboard :message="$errors->first('company_role')" />
 
                 </div>
 
@@ -30,26 +30,26 @@
 
                 {{-- Link da Página Ou Site da Empresa --}}
                 <div class="form-group">
-                    <label for="testimony">Link do site ou da página da empresa</label>
+                    <label for="testimony">Link do site ou da página da empresa *</label>
                     <input type="text" name="url" id="url" placeholder="htttps:\\....." value="{{ old('url') }}">
-                    <x-input-error-dashboard :messages="$errors->get('url')" />
+                    <x-input-error-dashboard :message="$errors->first('url')" />
                 </div>
 
                 {{-- Imagem do Logotipo da Empresa --}}
                 <div class="form-group">
-                    <label for="image">Logo da empresa</label>
+                    <label for="image">Logo da empresa *</label>
                     <input type="file" name="image" id="image" value="{{ old('image') }}">
-                    <x-input-error-dashboard :messages="$errors->get('image')" />
+                    <x-input-error-dashboard :message="$errors->first('image')" />
                 </div>
                 
                 <div class="form-group">
-                    <label for="is_active">Estado</label>
+                    <label for="is_active">Estado *</label>
                     <select name="is_active" id="is_active">
                         <option value="" selected>Selecione um Estado</option>
                         <option value="1">Activado</option>
                         <option value="0">Desactivado</option>
                     </select>
-                    <x-input-error-dashboard :messages="$errors->get('is_active')" />
+                    <x-input-error-dashboard :message="$errors->first('is_active')" />
                 </div>
 
                 <input type="submit" value="Adicionar" class="btn-primary">

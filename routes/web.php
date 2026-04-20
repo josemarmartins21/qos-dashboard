@@ -27,7 +27,8 @@ Route::prefix('dashboard')->middleware('auth')->group(function () {
     
     
     // Informações da empresa
-    Route::get('company_infos/{type}/create', [CompanyInfoController::class, 'createWithImage'])->name('company_infos.create_with_image');
+
+    Route::view('company_infos/{type}/create', 'company_info.create', ['type' => null])->name('company_infos.create_with_image');
 
     
     Route::resource('company_infos', CompanyInfoController::class)->except(['show']);

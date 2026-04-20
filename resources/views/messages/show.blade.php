@@ -2,11 +2,11 @@
 @extends('layouts.app')
 
 @section('title', 'Mensagem de ' . $message->visitor->full_name)
-    
+
 @section('content')
     <x-show_container>
         <div id="message-container">
-            <h2>{{ $message->subject->subject }}</h2>
+            <h2>{{ $message->subject()?->first()?->subject }}</h2>
             <div class="barra"></div>
             <p class="body">
                 {{ $message->body }}

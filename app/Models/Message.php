@@ -12,7 +12,13 @@ class Message extends Model
         'visitor_id',
         'body',
         'subject_id',
+        'read',
     ];
+
+    public static function getUnreadMessages()
+    {
+        return self::where('read', false)->count();
+    }
 
     public function visitor()
     {

@@ -14,7 +14,7 @@ class Testimony extends Model
     ];
 
     private const LIMIT = 10;
-    private const MIN_QUANTITY = 4;
+    private const MIN_QUANTITY = 3;
     private const MAX_QUANTITY = 5;
 
     public static function getLimit()

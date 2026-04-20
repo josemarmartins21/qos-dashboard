@@ -21,8 +21,8 @@ class PhoneValidator implements InputValidatorInterface
             'value.max' => 'O campo :attribute deve ter no máximo :max caracteres.',
             'value.min' => 'O campo :attribute deve ter no mínimo :min caracteres.',
         ], [
-            'key' => CompanyInfoEnum::Phone->value,
-            'value' => 'Valor do telefone',
+            'key' => CompanyInfoEnum::phone->value,
+            'value' => CompanyInfoEnum::phone->value . "/". CompanyInfoEnum::whatsapp->value ,
         ]);
 
         return $validator;

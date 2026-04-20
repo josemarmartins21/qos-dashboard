@@ -1,4 +1,4 @@
-@use('App\Models\Visitor')
+@use('App\Models\Message')
 @use('Illuminate\Support\Facades\Auth')
 
 @extends('layouts.app')
@@ -39,7 +39,7 @@
         </aside>
         <aside class="overview">
             <div class="overview-top">
-                <h3> <i class="fa-solid fa-message"></i> 5</h3>
+                <h3> <i class="fa-solid fa-message"></i> {{ $datas['messages_unread'] }}</h3>
             </div>
 
             <div class="overview-bottom">
@@ -51,7 +51,7 @@
 
     @if (count($visitors) > 0)
                 <x-table>
-                    <x-slot:title>Visitantes</x-slot:title>
+                    <x-slot:title>Últitmas Mensagens</x-slot:title>
                     <x-slot:thead>
                         <tr>
                             <th>ID</th>
@@ -63,6 +63,9 @@
                     </x-slot:thead>
                     <x-slot:tbody>
                         @foreach ($visitors as $visitor) 
+                        @if ($loop->index > 3)
+                            @break
+                        @endif
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $visitor->nome }}</td>
@@ -70,7 +73,11 @@
                                 <td>{{ $visitor->email }}</td>
                                 <td>
                                     <a href="{{ route('messages.show', ['message' => $visitor->message_id]) }}" class="base-btn ler" id="delete-btn-table">
-                                        <i class="fa-brands fa-readme"></i> Ler mensagem
+                                        @if ($visitor->lida == false)
+                                            <i class="fa-solid fa-circle"></i> 
+                                        @endif
+                                        
+                                        Ler mensagem
                                     </a>
 
                                     <form action="{{ route('messages.destroy', ['message' => $visitor->message_id]) }}" method="POST" id="form-table">
@@ -90,7 +97,7 @@
                     <x-slot:tfoot>
                         <tr>
                         <th colspan="4" id="foot-header">Total</th>
-                        <td>{{ Visitor::count() }}</td>
+                        <td>{{ Message::count() }}</td>
                     </tr>    
                     </x-slot:tfoot>  
                 </x-table>

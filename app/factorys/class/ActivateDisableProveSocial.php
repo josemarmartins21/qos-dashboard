@@ -15,13 +15,9 @@ class ActivateDisableProveSocial implements ActivateDisableInterface {
     {
         $this->activator = ValidateIfCanActiveOrDisableFactory::create("prova social");
     }
+    
     public function active(int $id): bool
     {
-
-        $proveSocial = ClientProveSocial::where('id', $id)->where('is_active', false)->exists();
-    
-        if ($proveSocial === false) throw new \Exception("O registo de cliente renomado já se encontra activo");
-
         if ($this->activator->validateIfCanActive() === false) throw new InvalidArgumentException("Número máximo de registo de cliente renomado activo foi atingido");    
 
         $proveSocial = ClientProveSocial::findOrFail($id)->update([
@@ -35,9 +31,11 @@ class ActivateDisableProveSocial implements ActivateDisableInterface {
     {
         $proveSocial = ClientProveSocial::where('id', $id)->where('is_active', true)->exists();
         
-        if ($proveSocial === false) throw new \Exception("O registo de cliente renomado já se encontra desactivado");
-        
-        if ($this->activator->validateIfCanDisable() === false) throw new InvalidArgumentException("Número mínimo de registo de cliente renomado  activo foi atingido");  
+        if (
+                $this->activator->validateIfCanDisable() === false 
+                AND $proveSocial === true
+            ) 
+                throw new InvalidArgumentException("Número mínimo de registo de cliente renomado  activo foi atingido");  
 
         $proveSocial = ClientProveSocial::findOrFail($id)->update([
             'is_active' => false,

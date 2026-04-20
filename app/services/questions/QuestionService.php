@@ -2,17 +2,22 @@
 
 namespace App\services\questions;
 
+use App\factorys\ActivateDisableFatory;
+use App\factorys\contracts\ActivateDisableInterface;
 use App\factorys\ValidateIfCanActiveOrDisableFactory;
 use App\Models\Question;
 use App\services\questions\contracts\QuestionServiceInterface;
 use App\services\validators\contracts\ValidateIfCanActiveOrDisableInterface;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionService implements QuestionServiceInterface {
     private ValidateIfCanActiveOrDisableInterface $validateAOrD;
+    private ActivateDisableInterface $activateOrDisable;
     
     public function __construct()
     {
         $this->validateAOrD = ValidateIfCanActiveOrDisableFactory::create("faq");
+        $this->activateOrDisable = ActivateDisableFatory::create("pergunta frequente");
     }
 
     public function getAll() {
@@ -24,7 +29,7 @@ class QuestionService implements QuestionServiceInterface {
     {
         
         if (! ((Question::count() + 1) < Question::getLimit()))
-            throw new \Exception("Número máximo de perguntas atingido.");
+            throw new \InvalidArgumentException("Número máximo de perguntas atingido.");
 
             $can_active = false;
 
@@ -32,7 +37,12 @@ class QuestionService implements QuestionServiceInterface {
             
             $data['is_active'] = $can_active;
 
-            return Question::create($data)->toArray();
+            return Question::create([
+                'question' => $data['question'],
+                'response' => $data['response'],
+                'is_active' => $data['is_active'],
+                'user_id' => Auth::user()->id,
+            ])->toArray();
     }
 
     public function update(int $id, $data = []): Question
@@ -51,9 +61,12 @@ class QuestionService implements QuestionServiceInterface {
 
     public function delete(int $id): bool 
     {
-        if (Question::count() < Question::getMin()) {
-            throw new \Exception("Número mínimo de perguntas atingido.");
+        if (Question::count() < Question::getMinActive()) {
+            throw new \InvalidArgumentException("Número mínimo de perguntas atingido.");
         }
+
+        $this->activateOrDisable->disable($id);
+
         $question = Question::findOrFail($id);
 
         return $question->delete();

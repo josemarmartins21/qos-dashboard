@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class SubjectController extends Controller
@@ -34,7 +35,12 @@ class SubjectController extends Controller
                         ->withErrors($validator->errors());
             }
     
-            Subject::create($validator->validated());
+            $validated = $validator->validated();
+            
+            Subject::create([
+                'subject' => $validated['subject'],
+                'user_id' => Auth::user()->id,
+            ]);
     
             return redirect()->route('subjects.index');
             

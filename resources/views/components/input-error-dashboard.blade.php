@@ -1,9 +1,7 @@
-@props(['messages'])
+@props(['message'])
 
-@if ($messages)
+@if ($message)
     <ul>
-        @foreach ((array) $messages as $message)
-            <li class="error-message">{{ $message }}</li>
-        @endforeach
+        <li class="error-message">{{ $message }}</li>
     </ul>
 @endif

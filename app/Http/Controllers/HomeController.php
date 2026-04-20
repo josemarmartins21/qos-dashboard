@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClientProveSocial;
+use App\Models\Message;
 use App\Models\Question;
 use App\Models\Testimony;
 use App\services\visitors\contracts\VisitorServiceInterface;
@@ -23,6 +24,7 @@ class HomeController extends Controller
             'prove_social_active' => ClientProveSocial::getQuantityActive(),
             'testimonies_active' => Testimony::getQuantityActive(),
             'questions_active' => Question::getQuantityActive(),
+            'messages_unread' => Message::getUnreadMessages(),
         ];
 
         $visitors = $this->visitorService->getAll();

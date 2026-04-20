@@ -30,7 +30,6 @@ class TestimonyController extends Controller
             return view('testimonies.index', compact('testimonies'));
             
         } catch (\Throwable $e) {
-            dd($e->getMessage());
             return view('errors.500', ['menssage' => $e->getMessage()]);
         }
     }
@@ -48,11 +47,23 @@ class TestimonyController extends Controller
 
             $validated = $request->validated(); 
 
-            $this->testimonyService->save($validated);
+            $client = [
+                'company_role' => $validated['company_role'],
+                'name' => $validated['name'],
+            ];
+
+            $testimony = [
+                'testimony' => $validated['testimony'],
+                'is_active' => $validated['is_active'],
+                'type' => $validated['type'],
+            ];
+
+            $this->clientService->save($client, $testimony);
 
             return redirect()->route('testimonies.index');
 
         } catch (\Throwable $e) {
+            dd($e->getMessage());
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
         
@@ -75,6 +86,8 @@ class TestimonyController extends Controller
 
     public function edit(Testimony $testimony)
     {
+        $testimony = $this->testimonyService->get($testimony->id)[0];
+        
         $clients = $this->clientService->getAll();
 
         return view('testimonies.edit', compact('testimony', 'clients'));
@@ -91,7 +104,7 @@ class TestimonyController extends Controller
             return redirect()->route('testimonies.show', ['testimony' => $testimony['id']])->with('success', 'depoimento atualizado com sucesso!');
 
         } catch (\Throwable $e) {
-            return view('400');
+            return redirect()->back()->withInput()->with('error', 'Erro interno no servidor, tente novamente mais tarde!');
         }
     }
 
@@ -105,11 +118,10 @@ class TestimonyController extends Controller
                     ->route('testimonies.index')
                         ->with('success', 'Depoimento eliminado com sucesso!');
 
-        } catch (Exception $e) {
+        } catch (\InvalidArgumentException $e) {
             return redirect()
                     ->back()
                         ->with('error', $e->getMessage());
-            
         }
     }
 }

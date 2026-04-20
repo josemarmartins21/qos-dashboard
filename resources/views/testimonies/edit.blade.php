@@ -13,25 +13,26 @@
 
                 @method('PUT')
 
+                <input type="hidden" name="client_id" value="{{ $testimony->client_id }}">
+
                 <div class="form-group">
-                    <label for="client_id">Cliente</label>
-                    <select name="client_id" id="client_id">
-                        <option value=""  selected>Selecione o Cliente</option>
-                        @foreach ($clients as $client)
-                            <option value="{{ $client['id'] }}" {{ $testimony->client_id ? 'selected' : '' }}>
-                                {{ $client['name'] }} 
-                            </option>
-                        @endforeach
-                    </select>
-                    <x-input-error-dashboard :messages="$errors->get('client_id')" />
+                    <label for="name">Nome do Cliente *</label>
+                    <input type="text" name="name" id="name" placeholder="Nome do cliente" value="{{ old('name', $testimony->nome) }}">
+                    <x-input-error-dashboard :message="$errors->first('name')" />
+                </div>
+
+                <div class="form-group">
+                    <label for="company_role">Cargo na Empresa *</label>
+                    <input type="text" name="company_role" id="company_role" placeholder="Cargo na empresa" value="{{ old('company_role', $testimony->cargo) }}">
+                    <x-input-error-dashboard :message="$errors->first('company_role')" />
                 </div>
 
                 <div class="form-group">
                     <label for="testimony">Depoimento</label>
                     <textarea name="testimony" id="testimony" cols="30" rows="7">
-                        {{ old('testimony', $testimony->testimony) }}
+                        {{ old('testimony', $testimony->depoimento) }}
                     </textarea>
-                    <x-input-error-dashboard :messages="$errors->get('testimony')" />
+                    <x-input-error-dashboard :message="$errors->first('testimony')" />
                 </div>
 
                 <input type="submit" value="Atualizar" class="btn-primary">

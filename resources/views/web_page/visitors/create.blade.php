@@ -16,19 +16,19 @@
             <div class="form-group">
                 <label for="full_name">Nome Completo *</label>
                 <input type="text" id="full_name" name="full_name" value="{{ old('full_name') }}">
-                <x-input-error-dashboard :messages="$errors->get('full_name')" />
+                <x-input-error-dashboard :message="$errors->first('full_name')" />
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email"  value="{{ old('email') }}">
-                <x-input-error-dashboard :messages="$errors->get('email')" />
+                <x-input-error-dashboard :message="$errors->first('email')" />
             </div>
 
             <div class="form-group">
                 <label for="phone">Telefone *</label>
                 <input type="phone" id="phone" name="phone" value="{{ old('phone') }}">
-                <x-input-error-dashboard :messages="$errors->get('phone')" />
+                <x-input-error-dashboard :message="$errors->first('phone')" />
             </div>
 
             <div class="form-group">
@@ -39,7 +39,7 @@
                         <option value="{{ $subject->id }}" {{ old('subject_id') ? 'selected' : ''}}>{{ $subject->subject }}</option>
                     @endforeach
                 </select>
-                <x-input-error-dashboard :messages="$errors->get('subject_id')" />
+                <x-input-error-dashboard :message="$errors->first('subject_id')" />
             </div>
 
             <div class="form-group">
@@ -47,7 +47,7 @@
                 <textarea id="body" name="body" rows="5">
                     {{ old('body') }}
                 </textarea>
-                <x-input-error-dashboard :messages="$errors->get('body')" />
+                <x-input-error-dashboard :message="$errors->first('body')" />
             </div>
 
             <input type="submit" value="Enviar">

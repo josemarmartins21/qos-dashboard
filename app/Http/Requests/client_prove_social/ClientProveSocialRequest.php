@@ -24,10 +24,10 @@ class ClientProveSocialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['bail','required','max:2048', 'image','file'],
+            'image' => ['bail','required','max:2048', 'image','file', 'mimes:jpg,png,jpeg'],
             'url' => ['bail','required' ,'url','unique:client_prove_socials,url',/* 'exists:client_prove_socials,url' */],
-            'client_name' => ['bail','required', 'string', 'max:100', 'min:4'],
-            'company_role' => ['bail','required', 'string', 'max:100', 'min:4'],
+            'name' => ['bail','required', 'string', 'max:100', 'min:4'],
+            'company_role' => ['bail','required', 'string', 'max:100'],
             'is_active' => ['required','integer','numeric','min:0','max:1'],
             'type' => ['bail','required','string','max:50', Rule::in(['cliente renomado'])],
         ];
@@ -36,10 +36,10 @@ class ClientProveSocialRequest extends FormRequest
     public function attributes()
     {
         return [
-            'image' => 'logotipo',
-            'url' => 'link',
+            'image' => 'Logo da empresa',
+            'url' => 'página/site da empresa',
             'is_active' => 'estado',
-            'client_name' => 'nome do cliente',
+            'name' => 'nome do cliente',
             'company_role' => 'nome da empresa',
         ];
     }

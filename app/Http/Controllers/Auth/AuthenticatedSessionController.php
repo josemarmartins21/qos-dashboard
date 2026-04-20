@@ -47,7 +47,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect()->route('login');
     }
 
     private function createDefaultAdmin()
@@ -56,7 +56,7 @@ class AuthenticatedSessionController extends Controller
         ->exists();
 
         if (! $userExists) {
-            $permissionAdm = Permission::where('name', 'admin')->first();
+            $permissionAdm = Permission::where('name', 'super-admin')->first();
 
             User::create([
                 'name' => 'Josimar Martins',

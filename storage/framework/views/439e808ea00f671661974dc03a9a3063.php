@@ -22,26 +22,46 @@
 
                 <?php echo method_field('PUT'); ?>
 
+                <input type="hidden" name="client_id" value="<?php echo e($testimony->client_id); ?>">
+
                 <div class="form-group">
-                    <label for="client_id">Cliente</label>
-                    <select name="client_id" id="client_id">
-                        <option value=""  selected>Selecione o Cliente</option>
-                        <?php $__currentLoopData = $clients; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $client): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <option value="<?php echo e($client['id']); ?>" <?php echo e($testimony->client_id ? 'selected' : ''); ?>>
-                                <?php echo e($client['name']); ?> 
-                            </option>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </select>
+                    <label for="name">Nome do Cliente *</label>
+                    <input type="text" name="name" id="name" placeholder="Nome do cliente" value="<?php echo e(old('name', $testimony->nome)); ?>">
                     <?php if (isset($component)) { $__componentOriginal204835d7c5674ffb7f0aed65068735e3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal204835d7c5674ffb7f0aed65068735e3 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error-dashboard','data' => ['messages' => $errors->get('client_id')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error-dashboard','data' => ['message' => $errors->first('name')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-error-dashboard'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['messages' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($errors->get('client_id'))]); ?>
+<?php $component->withAttributes(['message' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($errors->first('name'))]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal204835d7c5674ffb7f0aed65068735e3)): ?>
+<?php $attributes = $__attributesOriginal204835d7c5674ffb7f0aed65068735e3; ?>
+<?php unset($__attributesOriginal204835d7c5674ffb7f0aed65068735e3); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal204835d7c5674ffb7f0aed65068735e3)): ?>
+<?php $component = $__componentOriginal204835d7c5674ffb7f0aed65068735e3; ?>
+<?php unset($__componentOriginal204835d7c5674ffb7f0aed65068735e3); ?>
+<?php endif; ?>
+                </div>
+
+                <div class="form-group">
+                    <label for="company_role">Cargo na Empresa *</label>
+                    <input type="text" name="company_role" id="company_role" placeholder="Cargo na empresa" value="<?php echo e(old('company_role', $testimony->cargo)); ?>">
+                    <?php if (isset($component)) { $__componentOriginal204835d7c5674ffb7f0aed65068735e3 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal204835d7c5674ffb7f0aed65068735e3 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error-dashboard','data' => ['message' => $errors->first('company_role')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-error-dashboard'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['message' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($errors->first('company_role'))]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal204835d7c5674ffb7f0aed65068735e3)): ?>
@@ -57,19 +77,19 @@
                 <div class="form-group">
                     <label for="testimony">Depoimento</label>
                     <textarea name="testimony" id="testimony" cols="30" rows="7">
-                        <?php echo e(old('testimony', $testimony->testimony)); ?>
+                        <?php echo e(old('testimony', $testimony->depoimento)); ?>
 
                     </textarea>
                     <?php if (isset($component)) { $__componentOriginal204835d7c5674ffb7f0aed65068735e3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal204835d7c5674ffb7f0aed65068735e3 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error-dashboard','data' => ['messages' => $errors->get('testimony')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error-dashboard','data' => ['message' => $errors->first('testimony')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-error-dashboard'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['messages' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($errors->get('testimony'))]); ?>
+<?php $component->withAttributes(['message' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($errors->first('testimony'))]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal204835d7c5674ffb7f0aed65068735e3)): ?>

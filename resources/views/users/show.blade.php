@@ -1,5 +1,10 @@
 @use('App\Helpers\DateHelper')
+@use('Illuminate\Support\Facades\Auth')
+
+
 @extends('layouts.app')
+
+
 
 @section('title', ucwords($user->name))
 
@@ -39,13 +44,13 @@
                     <label for="name">Nome</label>
                     <input type="text" name="name" id="name" placeholder="Digite o nome do cliente" value="{{ old('name', $user->name) }}">
                 </div>
-                <x-input-error-dashboard :messages="$errors->get('name')" />
+                <x-input-error-dashboard :message="$errors->get('name')" />
                 {{-- Email --}}
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="email" placeholder="Digite o nome da empresa" value="{{ old('email',$user->email) }}">
                 </div>
-                <x-input-error-dashboard :messages="$errors->get('email')" />
+                <x-input-error-dashboard :message="$errors->get('email')" />
                 {{-- Nível de Acesso --}}
                 <div class="form-group">
                     <label for="level">Nível de Acesso</label>
@@ -53,13 +58,16 @@
                         <option value="" selected>Selecione o nível de acesso</option>
 
                         @foreach ($levels as $level)
-                            <option value="{{ $level->name }}" {{ $user->permission()->first()->name == $level->name ? 'selected' : '' }}>
+                            <option @disabled(
+                                ! Auth::user()->hasPermission('super-admin'))
+                                value="{{ $level->name }}"  
+                                {{ $user->permission()->first()->name == $level->name ? 'selected' : '' }}>
                                 {{ $level->name }}
                             </option>
                         @endforeach
                     </select>
                 </div>
-                <x-input-error-dashboard :messages="$errors->get('level')" />
+                <x-input-error-dashboard :message="$errors->get('level')" />
                 <input type="submit" value="Atualizar" class="btn-primary"> 
             </form>
             </x-form-container>  

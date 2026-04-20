@@ -23,9 +23,22 @@ class TestimonyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'client_id' => ['required', 'integer', 'exists:clients,id', 'min:1', 'numeric'],
-            'testimony' => ['required', 'string',],
-            'is_active' => ['boolean', 'min:0', 'max:1',],
+            'name' => ['required', 'string', 'max:100'],
+            'company_role' => ['required', 'string', 'max:100'],
+            'type' => ['required', 'string', 'max:100'],
+            'testimony' => ['required', 'string', 'max:500'],
+            'is_active' => ['boolean', 'min:0', 'max:1','integer'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'O campo :attribute é obrigatório.',
+            'company_role.required' => 'O campo :attribute é obrigatório.',
+            'testimony.required' => 'O campo :attribute é obrigatório.',
+            'is_active.boolean' => 'O campo :attribute deve ser selecionado.',
+            
         ];
     }
 
@@ -33,7 +46,8 @@ class TestimonyRequest extends FormRequest
     {
         return [
             'testimony' => 'depoimento',
-            'client_id' => 'cliente',
+            'company_role' => 'cargo na empresa',
+            'name' => 'nome',
             'is_active' => 'estado',
         ];
     }

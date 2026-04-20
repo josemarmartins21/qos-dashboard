@@ -22,11 +22,6 @@ class InputValidatorFactory
             CompanyInfoEnum::phone->value, CompanyInfoEnum::whatsapp->value => new PhoneValidator(),
             CompanyInfoEnum::sobre->value => new SobreValidator(),
             CompanyInfoEnum::HeroImage->value, CompanyInfoEnum::logotipo->value => new ImageValidator(),
-            /* 
-            CompanyInfo::Logotipo->value => ,
-            CompanyInfo::HeroImage->value => ,
-            CompanyInfo::Sobre->value => ,
-            CompanyInfo::Whatsapp->value => , */
         };
     }
 }

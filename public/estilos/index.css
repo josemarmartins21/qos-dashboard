@@ -766,7 +766,13 @@ div.foot  > p {
     text-align: center;
     padding: 13px 0px;
 }
+#redes-container a {color: white; text-decoration: none;}
+#redes-container i {font-size: 24px; transition: color .3s;}
 
+#redes-container i:hover {color: #049DBF;}
+p.dev a {color: white; text-decoration: none;}
+
+p.dev a:hover {text-decoration: underline;}
 /** ================ CONTACTOS ====================*/
 
 section#contactos {

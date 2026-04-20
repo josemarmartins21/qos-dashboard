@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\CompanyInfo;
 use App\Models\Permission;
+use App\Models\Question;
 
 class User extends Authenticatable
 {

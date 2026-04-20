@@ -14,7 +14,7 @@ class PageResources
         $this->resources[$key] = $resource->get();
     }
 
-    public function getResource(): array
+    public function getResources(): array
     {
         return $this->resources;
     }

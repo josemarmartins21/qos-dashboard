@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\enums\company_infos\CompanyInfoEnum;
 use App\factorys\company_info\InputValidatorFactory;
 use App\Models\CompanyInfo;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\company_info\StoreCompanyInfoRequest;
 use App\ImageTrait;
+use Exception;
+use Faker\Provider\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
+use InvalidArgumentException;
 
 class CompanyInfoController extends Controller
 {
@@ -32,28 +36,22 @@ class CompanyInfoController extends Controller
         return view('company_info.create');
     }
 
-
-    public function createWithImage(?string $type = null)    
-    {
-        return view('company_info.create', compact('type'));
-    }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         try {
-            $input = InputValidatorFactory::create($request->key);
-    
+            
+            $input = InputValidatorFactory::create(CompanyInfoEnum::tryFrom($request->key)->value);
             $validator = $input->validate($request);
 
-            $validated = $validator->validated();
-
             if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator)->withInput();
+                return redirect()->back()->withErrors($validator->errors())->withInput();
             }
     
+            $validated = $validator->validated();
+
             if ($this->isImage($request)) {
                 $this->generateName($request->file('value'));
 
@@ -116,7 +114,6 @@ class CompanyInfoController extends Controller
             $companyInfo->update([
                 'key' => $validated['key'],
                 'value' => $validated['value'],
-                'user_id' => $request->user()->id,
             ]);
     
             return redirect()->route('company_infos.index');
@@ -167,43 +164,8 @@ class CompanyInfoController extends Controller
      *  Checa se o que foi enviado é uma imagem.
      */
     private function isImage(Request $request): bool
-     {
-        if ($request->hasFile('value')) {
-            return true;
-        }
-        return false;
-     }
-
-/*      private function checkIfIsImage(Request $request, &$validated = []): void
     {
-        if ($request->hasFile('value')) {
+        return $request->hasFile('value') ? true : false;
+    }
 
-            $requestImage = $request->file('value');
-            $this->generateName($requestImage);
-
-            $validated['value'] = $this->getImageName();
-            $requestImage->move(public_path('images/company_images/'), $validated['value']);
-
-            return;
-        }
-
-        throw new \Exception("Imagem inválida!");
-        
-    } */
-    /* private function checkIfIsImage(Request $request, &$validated = []): void
-    {
-        if ($request->hasFile('value')) {
-
-            $requestImage = $request->file('value');
-            $this->generateName($requestImage);
-
-            $validated['value'] = $this->getImageName();
-            $requestImage->move(public_path('images/company_images/'), $validated['value']);
-
-            return;
-        }
-
-        throw new \Exception("Imagem inválida!");
-        
-    } */
 }

@@ -1,4 +1,4 @@
-<?php use \App\Models\Visitor; ?>
+<?php use \App\Models\Message; ?>
 <?php use \Illuminate\Support\Facades\Auth; ?>
 
 
@@ -39,7 +39,7 @@
         </aside>
         <aside class="overview">
             <div class="overview-top">
-                <h3> <i class="fa-solid fa-message"></i> 5</h3>
+                <h3> <i class="fa-solid fa-message"></i> <?php echo e($datas['messages_unread']); ?></h3>
             </div>
 
             <div class="overview-bottom">
@@ -60,7 +60,7 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-                     <?php $__env->slot('title', null, []); ?> Visitantes <?php $__env->endSlot(); ?>
+                     <?php $__env->slot('title', null, []); ?> Últitmas Mensagens <?php $__env->endSlot(); ?>
                      <?php $__env->slot('thead', null, []); ?> 
                         <tr>
                             <th>ID</th>
@@ -72,6 +72,9 @@
                      <?php $__env->endSlot(); ?>
                      <?php $__env->slot('tbody', null, []); ?> 
                         <?php $__currentLoopData = $visitors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $visitor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                        <?php if($loop->index > 3): ?>
+                            <?php break; ?>
+                        <?php endif; ?>
                             <tr>
                                 <td><?php echo e($loop->index + 1); ?></td>
                                 <td><?php echo e($visitor->nome); ?></td>
@@ -79,7 +82,11 @@
                                 <td><?php echo e($visitor->email); ?></td>
                                 <td>
                                     <a href="<?php echo e(route('messages.show', ['message' => $visitor->message_id])); ?>" class="base-btn ler" id="delete-btn-table">
-                                        <i class="fa-brands fa-readme"></i> Ler mensagem
+                                        <?php if($visitor->lida == false): ?>
+                                            <i class="fa-solid fa-circle"></i> 
+                                        <?php endif; ?>
+                                        
+                                        Ler mensagem
                                     </a>
 
                                     <form action="<?php echo e(route('messages.destroy', ['message' => $visitor->message_id])); ?>" method="POST" id="form-table">
@@ -99,7 +106,7 @@
                      <?php $__env->slot('tfoot', null, []); ?> 
                         <tr>
                         <th colspan="4" id="foot-header">Total</th>
-                        <td><?php echo e(Visitor::count()); ?></td>
+                        <td><?php echo e(Message::count()); ?></td>
                     </tr>    
                      <?php $__env->endSlot(); ?>  
                  <?php echo $__env->renderComponent(); ?>

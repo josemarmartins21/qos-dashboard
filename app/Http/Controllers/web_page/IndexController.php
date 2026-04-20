@@ -33,7 +33,7 @@ class IndexController extends Controller
         $this->pageResources->addResource(new TestimonyResource);
         $this->pageResources->addResource(new QuestionResource);
 
-        $resources = $this->pageResources->getResource();
+        $resources = $this->pageResources->getResources();
 
         $querys = [
             'clientes_renomados' => $resources['clientes_renomados'],

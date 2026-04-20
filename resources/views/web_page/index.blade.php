@@ -7,7 +7,7 @@
                 <header>
                     <div id="logo">
                         <a href="index.html">
-                            <img src="{{ asset('images/company_images/' . $companyInfos['logotipo']?->value) }}" alt="logo da qos_tel" width="120px">
+                            <img src="{{ asset('images/company_images/' . $companyInfos['logotipo']?->value) }}" alt="logo da qos_tel">
                         </a>
                     </div>
                     

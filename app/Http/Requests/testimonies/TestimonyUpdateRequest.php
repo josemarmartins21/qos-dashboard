@@ -23,8 +23,10 @@ class TestimonyUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'client_id' => ['required', 'integer', 'exists:clients,id', 'min:1', 'numeric'],
-            'testimony' => ['required', 'string',],
+            'name' => ['required', 'string', 'max:100'],
+            'company_role' => ['required', 'string', 'max:100'],
+            'testimony' => ['required', 'string', 'max:500'],
+            'client_id' => ['required', 'exists:clients,id','integer', 'min:1'],
         ];
     }
 
@@ -32,7 +34,8 @@ class TestimonyUpdateRequest extends FormRequest
     {
         return [
             'testimony' => 'depoimento',
-            'client_id' => 'cliente',
+            'name' => 'nome do cliente',
+            'company_role' => 'cargo na empresa',
         ];
     }
 }

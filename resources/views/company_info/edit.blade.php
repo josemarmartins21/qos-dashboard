@@ -20,8 +20,6 @@
 
                 <div class="form-group">
                     <label for="key">Informação</label>
-
-
                     <select name="" id="" @disabled(true)>
                         <option value="" selected>Selecione uma opção</option>
                         @foreach ($company_infos as $info)
@@ -30,6 +28,7 @@
                             </option>
                         @endforeach
                     </select>
+
                     <input type="hidden" name="key" value="{{ $companyInfo->key }}">
                 </div>
 
@@ -40,22 +39,22 @@
                     <div class="form-group">
                         <label for="value">Valor da Informação</label>
                         <input type="file" name="value" id="value" value="{{ old('value', $companyInfo->key) }}">
-                        <x-input-error-dashboard :messages="$errors->get('value')" />
+                        <x-input-error-dashboard :message="$errors->first('value')" />
                     </div>
                     
-                @elseif ($companyInfo->key === CompanyInfoEnum::Sobre->value )
+                @elseif ($companyInfo->key === CompanyInfoEnum::sobre->value )
                     <div class="form-group">
                         <label for="value">Valor da Informação</label>
                         <textarea name="value" id="value" cols="30" rows="3">
                             {{ old('value', $companyInfo->value) }}
                         </textarea>
-                        <x-input-error-dashboard :messages="$errors->get('value')" />
+                        <x-input-error-dashboard :message="$errors->first('value')" />
                     </div>
                 @else
                     <div class="form-group">
                         <label for="value">Valor da Informação</label>
                         <input type="text" name="value" id="value" value="{{ old('value', $companyInfo->value) }}" placeholder="Digite o {{ $companyInfo->key }}">
-                        <x-input-error-dashboard :messages="$errors->get('value')" />
+                        <x-input-error-dashboard :message="$errors->first('value')" />
                     </div>
                 @endif
 

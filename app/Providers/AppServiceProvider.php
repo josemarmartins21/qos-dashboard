@@ -85,8 +85,16 @@ class AppServiceProvider extends ServiceProvider
             return $user->hasPermission('admin');
         });
 
+        Gate::define('super-admin', function (User $user) {
+            return $user->hasPermission('super-admin');
+        });
+
         Gate::define('default', function (User $user) {
             return $user->hasPermission('default');
+        });
+
+        Gate::define('access-admin-area', function (User $user) {
+            return $user->hasPermission('admin') || $user->hasPermission('super-admin');
         });
     }
 }
