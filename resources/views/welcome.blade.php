@@ -13,7 +13,7 @@
     }
 </style>
 <body>
-    <h1>Teste Mensagem</h1>
+    <h1>Teste Mensagens</h1>
     
     {{-- <form action="{{ route('visitors.store') }}" method="post">
         @csrf
