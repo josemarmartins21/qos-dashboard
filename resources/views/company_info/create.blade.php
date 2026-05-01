@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @use('App\enums\company_infos\CompanyInfoEnum')
 @use('App\Models\CompanyInfo')
-@section('title', 'Adicionar Assunto')
+@section('title', 'Adicionar Informção da Empresa')
 
 @section('content')
 <div id="form-container">
@@ -30,7 +30,7 @@
                             @if (
                                 isset($type) AND ($info->value === CompanyInfoEnum::logotipo->value || $info->value === CompanyInfoEnum::HeroImage->value)
                             )
-                                <option @disabled(CompanyInfo::where('key', $info->value)->exists())  value="{{ $info->value }}" {{ old('key') == $info->value ? 'selected' : '' }}>
+                                <option @disabled(CompanyInfo::where('key', $info->value)->exists())  value="{{ $info->value }}"  @selected(old('key') == $info->value)>
                                         {{ $info->value }}
                                 </option>
                                 @continue
@@ -39,40 +39,12 @@
                             @if (
                                 ! isset($type) AND ($info->value !== CompanyInfoEnum::logotipo->value && $info->value !== CompanyInfoEnum::HeroImage->value)
                             )
-                                <option  @disabled(CompanyInfo::where('key', $info->value)->exists()) value="{{ $info->value }}" {{ old('key') == $info->value ? 'selected' : '' }}>
+                                <option  @disabled(CompanyInfo::where('key', $info->value)->exists()) value="{{ $info->value }}" @selected(old('key') == $info->value )>
                                         {{ $info->value }}
                                 </option>
                                 @continue
                             @endif
                         @endforeach
-                       {{--  @if (isset($type)) 
-
-                            @foreach (CompanyInfoEnum::cases() as $info)
-                                @if (
-                                    $info->value !== CompanyInfoEnum::logotipo->value || $info->value !== CompanyInfoEnum::HeroImage->value
-                                )
-                                    @continue
-                                @endif
-
-                                    <option value="{{ $info->value }}" {{ old('key') == $info->value ? 'selected' : '' }}>
-                                        {{ $info->value }}
-                                    </option>
-                                    
-                            @endforeach
-                            
-                        @else
-                            @foreach (CompanyInfoEnum::cases() as $info)
-                                @if (
-                                    $info->value === CompanyInfoEnum::logotipo->value || $info->value === CompanyInfoEnum::HeroImage->value
-                                )    
-                                    @continue
-                                @endif
-
-                                <option value="{{ $info->value }}" {{ old('key') == $info->value ? 'selected' : '' }}>
-                                    {{ $info->value }}
-                                </option>
-                            @endforeach
-                        @endif --}}
                     </select>
                     <x-input-error-dashboard :message="$errors->first('key')" />
                 </div>

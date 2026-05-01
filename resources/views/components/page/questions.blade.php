@@ -1,5 +1,5 @@
 <div id="img-perguntas">
-    <img src="img/perguntas.png" alt="imagem representando clientes se perguntando">
+    <img src="{{ asset('imagens/perguntas.png') }}" alt="imagem representando clientes se perguntando">
 </div>
             
 <article>

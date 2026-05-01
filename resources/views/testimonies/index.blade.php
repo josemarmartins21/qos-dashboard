@@ -21,11 +21,7 @@
                     <input type="search" name="search" id="" placeholder="Busque">
                 </form>
 
-                <div id="btn-container">
-                    <a href="{{ route('testimonies.create') }}" class="mais-depoimentos">
-                        <i class="fa-solid fa-plus"></i> Adicionar
-                    </a>
-                </div>
+
             </x-slot:header_index>
 
             {{-- Cards de depoimentos --}}
@@ -114,4 +110,5 @@
             {{ $testimonies->links() }}
     </x-index_container>
 </div>
+<x-add-btn class="float-btn btn-plus" href="{{ route('testimonies.create') }}"></x-add-btn>
 @endsection

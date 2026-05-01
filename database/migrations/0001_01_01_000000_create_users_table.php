@@ -18,9 +18,10 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->foreignId('permission_id')
+            ->nullable()
             ->constrained('permissions')
-            ->cascadeOnDelete()
-            ->cascadeOnUpdate();
+            ->nullOnDelete()
+            ->nullOnUpdate();
             $table->rememberToken();
             $table->timestamps();
         });

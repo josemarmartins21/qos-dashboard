@@ -144,7 +144,7 @@ abstract class AbstractUid implements \JsonSerializable, \Stringable, HashableIn
         $uuid = bin2hex($this->toBinary());
         $uuid = substr_replace($uuid, '-', 8, 0);
         $uuid = substr_replace($uuid, '-', 13, 0);
-        $uuid = substr_replace($uuid, '-', 18, 0);
+        $uuid = substr_replace($uuid, '-', 18, 0); 
 
         return substr_replace($uuid, '-', 23, 0);
     }

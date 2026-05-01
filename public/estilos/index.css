@@ -200,8 +200,8 @@ section#diferenciais article > aside {
     gap: 10px;
 }
 section#diferenciais article > aside > i {
-    font-size: 1.8em;
-    font-weight: bold;
+    font-size: 2em;
+    font-weight: bolder;
 }
 
 
@@ -581,51 +581,6 @@ section#localizacao iframe {
 
 
 
-/* footer {
-    background-color: #0D0D0D;
-    padding: 10px 5px;
-    display: flex;
-    gap: 10px;
-    flex-flow: column nowrap;
-    align-items: center;
-    color: white;
-
-    padding: 30px 5px;
-}
-
-footer #redes-sociais {
-    align-self: flex-start;
-}
-
-footer h1 {
-    font-size: 4.5em;
-}
-
-footer p#dev > a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-footer p#dev > a:hover {
-    text-decoration: underline;
-
-}
-
-footer i {
-    color: white;
-    font-size: 1.7em;
-}
-
-footer i:hover {
-    cursor: pointer;
-    color: rgb(235, 235, 11);
-    transition: color .3s;
-}
-
-footer p:last-child > a:hover {
-    text-decoration: underline;
-} */
 
 /* Footer do site */
 
@@ -705,7 +660,10 @@ div.informacoes {
 
 .link-mapa {
     color: #fff;
+    text-decoration: none;
 }
+
+.link-mapa:hover {text-decoration: underline;}
 
 
 div.foot {
@@ -878,17 +836,18 @@ section#contactos {
 
     header {
         /* MOD: mantém consistência do padding do header em mobile */
-        padding: 6px 4vw;
+        padding: 5px !important;
         display: grid;
         grid-template-columns: auto auto;
-        position: fixed;
         width: 100vw;
         background-color: var(--cor-principal);
-        z-index: 100;
+        position: relative;
+        z-index: 100 !important;
     }
 
     div#fundo-preto {
         padding: 0;
+        background-position: right top;
     }
     menu {
         grid-column-start: 1;

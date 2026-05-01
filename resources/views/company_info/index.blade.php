@@ -18,12 +18,7 @@
     
                     <input type="search" name="search" id="searched" placeholder="Busque uma informação" autofocus>
                 </form>
-    
-                <div id="btn-container">
-                    <a href="{{ route('company_infos.create') }}" class="mais-depoimentos">
-                        <i class="fa-solid fa-plus"></i> Adicionar
-                    </a>
-                </div>
+
             </x-slot:header_index>
             <x-slot:container_cards>
                 @if (count($companyInfos) > 0)
@@ -95,4 +90,5 @@
             {{ $companyInfos->links() }}
     </x-index_container>
 </div>
+<x-add-btn class="float-btn btn-plus" href="{{ route('company_infos.create') }}"></x-add-btn>
 @endsection

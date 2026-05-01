@@ -20,11 +20,11 @@
                     <input type="search" name="search" id="search" placeholder="Busque" title="Pesquisar">
                 </form>
 
-                <div id="btn-container">
-                    <a href="{{ route('client_prove_socials.create') }}" class="mais-depoimentos" title="Adicionar">
+                {{-- <div id="btn-container">
+                    <a href="" class="mais-depoimentos" title="Adicionar">
                         <i class="fa-solid fa-plus"></i> Adicionar
                     </a>
-                </div>
+                </div> --}}
             </x-slot:header_index>
 
             {{-- Cards de depoimentos --}}
@@ -119,4 +119,6 @@
                 {{ $clientsProveSocials->links() }}
     </x-index_container>
 </div>
+
+<x-add-btn class="float-btn btn-plus" href="{{ route('client_prove_socials.create') }}"></x-add-btn>
 @endsection

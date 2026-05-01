@@ -10,9 +10,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
+
     <link rel="stylesheet" href="/estilos/style.css">
+
     <link rel="shortcut icon" href="favicon.svg" type="image/svg">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
     <script src="https://kit.fontawesome.com/8e770ce0b4.js" crossorigin="anonymous"></script>
+
     @vite(['resources/js/app.js'])
 </head>
 <body>

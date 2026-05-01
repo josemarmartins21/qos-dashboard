@@ -18,7 +18,11 @@
   }
   
 /* GENERALS */
+i {font-weight: bolder; font-size: 1.2em;}
 
+.red-icon {color: red;}
+.green-icon {color: green;}
+.yellow-icon {color: rgb(233, 180, 4);}
 /* Botao de Mais info mas com Imagens **/
 
   div#btn-container > a.mais-informacao {
@@ -80,17 +84,22 @@ a.float-btn {
     padding-top: 15px;
     color: white;
     aspect-ratio: 1/1;
-    border-radius: 50%;
+    border-radius: 25%;
     font-size: 1.5em;
     z-index: 1000;
     text-decoration: none;
-    opacity: .7;
     transition: opacity .5s ease-out;
 }
 
 a.suporte {
   bottom: 87px !important;
   background-color: green;
+}
+
+a.btn-plus {
+  opacity: 1;
+  bottom: 150px !important;
+  background-color: var(--blue-primary);
 }
 
 a.site {
@@ -270,7 +279,8 @@ div#logo-container img {
 
 #menu-hamburguer i {
   color: #fff;
-  font-size: 24px;
+  font-size: 30px !important;
+  font-weight: bolder !important;
 }
 
 nav#menu-container {
@@ -359,7 +369,6 @@ article#overview-container {
     font-size: 24px;
     flex: 1;
     text-align: left;
-    color: var(--blue-primary);
   }
 }
 
@@ -832,6 +841,7 @@ div.barra {
   div#user-header {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     background-color: #fff;
     box-shadow: var(--card-sombras);
     padding: 32px 10px;

@@ -44,8 +44,12 @@ class UserController extends Controller
                 'email' => 'required|email|string',
                 'level' => 'required|'. Rule::in(Permission::pluck('name')->toArray()),
             ]);
-
-            $permission = Permission::where('name', $request->input('level'))->first();
+            
+            $permission = Permission::where('name', $validated['level'])->firstOrCreate([
+                'name' => $validated['level'],
+            ], [
+                'name' => $validated['level'],
+            ]);
 
             $user->update([
                 'name' => $validated['name'],

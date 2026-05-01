@@ -11,13 +11,6 @@
 
         {{-- Form de pesquisa --}}
         <x-index_container>
-            <x-slot:header_index>
-                <div id="btn-container">   
-                    <a href="{{ route('questions.create') }}" class="mais-depoimentos">
-                        <i class="fa-solid fa-plus"></i> Adicionar
-                    </a>
-                </div>
-            </x-slot:header_index>
 
             {{-- Cards de depoimentos --}}
             <x-slot:container_cards>
@@ -99,4 +92,5 @@
         </x-index_container>
     {{ $questions->links('vendor.pagination.tailwind') }}               
 </div>
+<x-add-btn class="float-btn btn-plus" href="{{ route('questions.create') }}"></x-add-btn>
 @endsection

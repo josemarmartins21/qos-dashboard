@@ -56,14 +56,20 @@ class AuthenticatedSessionController extends Controller
         ->exists();
 
         if (! $userExists) {
-            $permissionAdm = Permission::where('name', 'super-admin')->first();
+            $abillity = 'super-admin';
+
+            $permission = Permission::where('name', $abillity)->firstOrCreate([
+                'name' => $abillity,
+            ], [
+                'name' => $abillity,
+            ]);
 
             User::create([
                 'name' => 'Josimar Martins',
                 'email' => 'josemarburguel@gmail.com',
                 'password' => Hash::make('teresa@2020'),
-                'image' => 'josemar',
-                'permission_id'  => $permissionAdm->id,
+                'image' => 'josemar.jpg',
+                'permission_id'  => $permission->id,
             ]);
         }
 

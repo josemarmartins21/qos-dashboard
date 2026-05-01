@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="{{ asset('estilos/index.css') }}">
     <link rel="shortcut icon" href="{{ asset('images/company_images/' . $companyInfos['logotipo']?->value) }}" type="image/x-icon">
 
-    <!-- Link do fontawesome -->
+    {{-- Link de icones do bootstrap --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
+    {{-- Link de icones do font awesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Link do Google Font  -->

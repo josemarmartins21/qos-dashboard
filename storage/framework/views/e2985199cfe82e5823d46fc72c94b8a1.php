@@ -21,7 +21,7 @@
         </aside>
         <aside class="overview">
             <div class="overview-top">
-                <h3><i class="fa-brands fa-stack-exchange"></i> <?php echo e($datas['testimonies_active']); ?></h3>
+                <h3><i class="fa-brands fa-stack-exchange green-icon"></i> <?php echo e($datas['testimonies_active']); ?></h3>
             </div>
 
             <div class="overview-bottom">
@@ -30,7 +30,7 @@
         </aside>
         <aside class="overview">
             <div class="overview-top">
-                    <h3><i class="fa-solid fa-file-circle-question"></i> <?php echo e($datas['questions_active']); ?></h3>
+                    <h3><i class="fa-solid fa-file-circle-question yellow-icon"></i> <?php echo e($datas['questions_active']); ?></h3>
             </div>
 
             <div class="overview-bottom">
@@ -39,7 +39,7 @@
         </aside>
         <aside class="overview">
             <div class="overview-top">
-                <h3> <i class="fa-solid fa-message"></i> <?php echo e($datas['messages_unread']); ?></h3>
+                <h3> <i class="fa-solid fa-message red-icon"></i> <?php echo e($datas['messages_unread']); ?></h3>
             </div>
 
             <div class="overview-bottom">
@@ -81,6 +81,7 @@
                                 <td><?php echo e($visitor->tel); ?></td>
                                 <td><?php echo e($visitor->email); ?></td>
                                 <td>
+                                    <?php if(isset($visitor->message_id)): ?> 
                                     <a href="<?php echo e(route('messages.show', ['message' => $visitor->message_id])); ?>" class="base-btn ler" id="delete-btn-table">
                                         <?php if($visitor->lida == false): ?>
                                             <i class="fa-solid fa-circle"></i> 
@@ -99,6 +100,9 @@
                                             <i class="fa-solid fa-trash"></i> Apagar
                                         </button>
                                     </form>
+                                    <?php else: ?>
+                                        Sem Mensagem
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>    
@@ -146,6 +150,7 @@
 <?php unset($__componentOriginald89414b43ac0016d9b63ffd55ac5aa59); ?>
 <?php endif; ?>
                 <?php endif; ?>    
+  
 </section>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\josimarmartins21\Documents\GitHub\qos-dashboard\resources\views/home.blade.php ENDPATH**/ ?>

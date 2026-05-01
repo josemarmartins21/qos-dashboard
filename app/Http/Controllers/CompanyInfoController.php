@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\LengthAwarePaginator;
 use InvalidArgumentException;
+use UnhandledMatchError;
 
 class CompanyInfoController extends Controller
 {
@@ -42,8 +43,7 @@ class CompanyInfoController extends Controller
     public function store(Request $request)
     {
         try {
-            
-            $input = InputValidatorFactory::create(CompanyInfoEnum::tryFrom($request->key)->value);
+            $input = InputValidatorFactory::create(CompanyInfoEnum::tryFrom($request->key)?->value);
             $validator = $input->validate($request);
 
             if ($validator->fails()) {
@@ -72,7 +72,9 @@ class CompanyInfoController extends Controller
 
             return redirect()->route('company_infos.index');
     
-        } catch (\Throwable $e) {
+        } catch(UnhandledMatchError $e) {
+            return redirect()->back()->withInput()->with('error', "Selecione uma das opções");
+        }catch (\Throwable $e) {
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         }
     }

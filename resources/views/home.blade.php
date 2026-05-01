@@ -21,7 +21,7 @@
         </aside>
         <aside class="overview">
             <div class="overview-top">
-                <h3><i class="fa-brands fa-stack-exchange"></i> {{ $datas['testimonies_active'] }}</h3>
+                <h3><i class="fa-brands fa-stack-exchange green-icon"></i> {{ $datas['testimonies_active'] }}</h3>
             </div>
 
             <div class="overview-bottom">
@@ -30,7 +30,7 @@
         </aside>
         <aside class="overview">
             <div class="overview-top">
-                    <h3><i class="fa-solid fa-file-circle-question"></i> {{ $datas['questions_active'] }}</h3>
+                    <h3><i class="fa-solid fa-file-circle-question yellow-icon"></i> {{ $datas['questions_active'] }}</h3>
             </div>
 
             <div class="overview-bottom">
@@ -39,7 +39,7 @@
         </aside>
         <aside class="overview">
             <div class="overview-top">
-                <h3> <i class="fa-solid fa-message"></i> {{ $datas['messages_unread'] }}</h3>
+                <h3> <i class="fa-solid fa-message red-icon"></i> {{ $datas['messages_unread'] }}</h3>
             </div>
 
             <div class="overview-bottom">
@@ -72,6 +72,7 @@
                                 <td>{{ $visitor->tel }}</td>
                                 <td>{{ $visitor->email }}</td>
                                 <td>
+                                    @if (isset($visitor->message_id)) 
                                     <a href="{{ route('messages.show', ['message' => $visitor->message_id]) }}" class="base-btn ler" id="delete-btn-table">
                                         @if ($visitor->lida == false)
                                             <i class="fa-solid fa-circle"></i> 
@@ -90,6 +91,9 @@
                                             <i class="fa-solid fa-trash"></i> Apagar
                                         </button>
                                     </form>
+                                    @else
+                                        Sem Mensagem
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach    
@@ -110,5 +114,6 @@
                         </x-slot:btn_back>
                     </x-image-container>
                 @endif    
+  
 </section>
 @endsection

@@ -23,7 +23,7 @@
                     <select name="" id="" @disabled(true)>
                         <option value="" selected>Selecione uma opção</option>
                         @foreach ($company_infos as $info)
-                            <option value="" {{ old('key', $companyInfo->key) == $info->key ? 'selected' : '' }}>
+                            <option value="" @selected(old('key', $companyInfo->key) == $info->key)>
                                 {{ $info->key }}
                             </option>
                         @endforeach

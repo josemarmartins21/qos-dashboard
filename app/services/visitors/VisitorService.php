@@ -20,7 +20,7 @@ class VisitorService implements VisitorServiceInterface {
     public function getAll(?string $search = ''): LengthAwarePaginator 
     {
         if (! $search) {
-            $visitors = DB::table('visitors')->join(
+            $visitors = DB::table('visitors')->leftJoin(
                 'messages', 
                 'messages.visitor_id', '=', 'visitors.id'
             )->select(
@@ -33,7 +33,7 @@ class VisitorService implements VisitorServiceInterface {
             return $visitors;
         }
 
-        $visitors = DB::table('visitors')->join(
+        $visitors = DB::table('visitors')->leftJoin(
                 'messages', 
                 'messages.visitor_id', '=', 'visitors.id'
             )->select(

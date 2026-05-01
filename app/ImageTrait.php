@@ -5,6 +5,8 @@ namespace App;
 use DateTime;
 use InvalidArgumentException;
 
+use function Symfony\Component\Clock\now;
+
 trait ImageTrait
 {
     private string $name;
@@ -20,7 +22,7 @@ trait ImageTrait
     
         $extension = $requestImage->extension();
 
-        $this->name = md5($requestImage->getClientOriginalName() . new DateTime()->getTimestamp()) . "." . $extension;
+        $this->name = md5($requestImage->getClientOriginalName() . (now()->getTimestamp())) . "." . $extension;
     }
 
     public function getImageName(): string 

@@ -16,12 +16,7 @@
     
                     <input type="search" name="search" id="searched" placeholder="Busque">
                 </form>
-    
-                <div id="btn-container">
-                    <a href="{{ route('register') }}" class="mais-depoimentos">
-                        <i class="fa-solid fa-plus"></i> Adicionar
-                    </a>
-                </div>
+
             </x-slot:header_index>
             <x-slot:container_cards>
                 @if (count($users->toArray()) > 0)
@@ -38,7 +33,7 @@
                     </x-slot:thead>
                         <x-slot:tbody>
                             @foreach ($users as $user)
-                                @if ($user->id === Auth::user()->id)
+                                @if ($user->id == Auth::user()->id)
                                     @continue
                                 @endif
                                 <tr>
@@ -85,4 +80,5 @@
             {{ $users->links('vendor.pagination.tailwind') }}
     </x-index_container>
 </div>
+<x-add-btn class="float-btn btn-plus" href="{{ route('register') }}"></x-add-btn>
 @endsection

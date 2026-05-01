@@ -18,11 +18,6 @@
                     <input type="search" name="searched" id="searched" placeholder="Busque" title="Pesquisar">
                 </form>
     
-                <div id="btn-container">
-                    <a href="{{ route('subjects.create') }}" class="mais-depoimentos">
-                        <i class="fa-solid fa-plus"></i> Adicionar
-                    </a>
-                </div>
             </x-slot:header_index>
             <x-slot:container_cards>
                 @if (count($subjects) > 0)
@@ -79,4 +74,6 @@
             </x-slot:container_cards>
     </x-index_container>
 </div>
+
+<x-add-btn class="float-btn btn-plus" href="{{ route('subjects.create') }}"></x-add-btn>
 @endsection

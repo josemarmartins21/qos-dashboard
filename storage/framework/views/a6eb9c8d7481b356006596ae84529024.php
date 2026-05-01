@@ -102,8 +102,8 @@
                     <label for="is_active">Estado *</label>
                     <select name="is_active" id="is_active">
                         <option value="" selected >Selecione um Estado</option>
-                        <option value="1" <?php echo e(old('is_active') === '1' ? 'selected' : ''); ?>>Activado</option>
-                        <option value="0" <?php echo e(old('is_active') === '0' ? 'selected' : ''); ?>>Desactivado</option>
+                        <option value="1" <?php if(old('is_active') == 1): echo 'selected'; endif; ?>>Activado</option>
+                        <option value="0" <?php if(old('is_active') == 0): echo 'selected'; endif; ?>>Desactivado</option>
                     </select>
                     <?php if (isset($component)) { $__componentOriginal204835d7c5674ffb7f0aed65068735e3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal204835d7c5674ffb7f0aed65068735e3 = $attributes; } ?>

@@ -2,13 +2,17 @@
     <div class="informacoes">
         
         <div class="infor">
-            <div class="logo-foot">
-                <img 
-                    src="{{ asset('images/company_images/' . $companyInfos['logotipo']?->value ?? '')  }}" alt="logo da qos_tel"
-                >
-            </div>
+            @isset($companyInfos['logotipo']?->value)
+                <div class="logo-foot">
+                    <img 
+                        src="{{ asset('images/company_images/' . $companyInfos['logotipo']?->value)  }}" alt="logo da qos_tel"
+                    >
+                </div>
+            @endisset
 
-            <a href="{{ route('home') }}" class="zona-restrita"><i class="fa-solid fa-lock"></i> Zona Restrita</a>
+            <a href="{{ route('home') }}" class="zona-restrita">
+                <i class="bi bi-lock-fill"></i> Zona Restrita
+            </a>
         </div>
         <div class="infor">
             <h3>Contactos</h3>
@@ -30,6 +34,7 @@
                 <li><a href="#perguntas" class="link-mapa">Perguntas Frequentes</a></li>
                 <li><a href="#sobre" class="link-mapa">Quem Somos</a></li>
                 <li><a href="#diferenciais" class="link-mapa">Diferenciais da Empresa</a></li>
+                <li><a href="{{ route('visitors.create') }}" class="link-mapa">Contacta-nos</a></li>
             </ul>
         </div>
         <div class="infor">
@@ -45,12 +50,12 @@
             
             <div id="redes-container">
                     <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="rede-social-card">
-                        <i class="fa-brands fa-facebook"></i>
+                        <i class="bi bi-facebook"></i>
                     </a>
 
 
                     <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="rede-social-card" class="rede-social-card">
-                        <i class="fa-brands fa-square-instagram"></i>
+                        <i class="bi bi-instagram"></i>
                     </a>
             </div>
 

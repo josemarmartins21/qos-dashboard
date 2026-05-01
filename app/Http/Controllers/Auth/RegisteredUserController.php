@@ -47,14 +47,20 @@ class RegisteredUserController extends Controller
             $request->file('image')->move(User::getPathImage(), $validated['image']);
         }
 
-        $permissionAdm = Permission::where('name', 'default')->first();
+        $abillity = 'default';
+            
+        $permission = Permission::where('name', $abillity)->firstOrCreate([
+            'name' => $abillity
+        ], [
+            'name' => $abillity
+        ]);
 
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'image' => $validated['image'],
             'password' => Hash::make($validated['password']),
-            'permission_id' => $permissionAdm->id,
+            'permission_id' => $permission->id,
         ]);
 
         event(new Registered($user));

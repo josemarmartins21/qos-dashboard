@@ -46,14 +46,10 @@
                     
                     <?php echo csrf_field(); ?>
 
-                    <input type="search" name="search" id="" placeholder="Busque" autofocus>
+                    <input type="search" name="search" id="" placeholder="Busque">
                 </form>
 
-                <div id="btn-container">
-                    <a href="<?php echo e(route('testimonies.create')); ?>" class="mais-depoimentos">
-                        <i class="fa-solid fa-plus"></i> Adicionar
-                    </a>
-                </div>
+
              <?php $__env->endSlot(); ?>
 
             
@@ -189,5 +185,24 @@
 <?php unset($__componentOriginal8dcebddd58fd2230969fc69369d9a523); ?>
 <?php endif; ?>
 </div>
+<?php if (isset($component)) { $__componentOriginal4bf2d369d6e253cba86e9c891108795a = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal4bf2d369d6e253cba86e9c891108795a = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.add-btn','data' => ['class' => 'float-btn btn-plus','href' => ''.e(route('testimonies.create')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('add-btn'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'float-btn btn-plus','href' => ''.e(route('testimonies.create')).'']); ?> <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal4bf2d369d6e253cba86e9c891108795a)): ?>
+<?php $attributes = $__attributesOriginal4bf2d369d6e253cba86e9c891108795a; ?>
+<?php unset($__attributesOriginal4bf2d369d6e253cba86e9c891108795a); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal4bf2d369d6e253cba86e9c891108795a)): ?>
+<?php $component = $__componentOriginal4bf2d369d6e253cba86e9c891108795a; ?>
+<?php unset($__componentOriginal4bf2d369d6e253cba86e9c891108795a); ?>
+<?php endif; ?>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\josimarmartins21\Documents\GitHub\qos-dashboard\resources\views/testimonies/index.blade.php ENDPATH**/ ?>

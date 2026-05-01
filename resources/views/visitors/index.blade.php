@@ -23,7 +23,7 @@
 
                 <div id="btn-container">
                     <a href="{{ route('subjects.index') }}" class="mais-depoimentos">
-                         Assuntos
+                        Assuntos
                     </a>
                 </div>
             </x-slot:header_index>
@@ -49,26 +49,31 @@
                                 <td>{{ $visitor->tel }}</td>
                                 <td>{{ $visitor->email }}</td>
                                 <td>
-                                    <a href="{{ route('messages.show', ['message' => $visitor->message_id]) }}" class="base-btn ler" id="delete-btn-table">
-                                        @if ($visitor->lida == false)
-                                            <i class="fa-solid fa-circle"></i> 
-                                        @endif
-                                        
-                                        Ler mensagem
-                                    </a>
-
-                                    <form action="{{ route('messages.destroy', ['message' => $visitor->message_id]) }}" method="POST" id="form-table">
-
-                                        @csrf
-
-                                        @method('DELETE')
-
-                                        <button type="submit" class="base-btn apagar" onclick="return confirm('Tem a certeza que deseja eliminar?')">
-                                            <i class="fa-solid fa-trash"></i> Apagar
-                                        </button>
-                                    </form>
+                                @if (isset($visitor->message_id)) 
+                                        <a href="{{ route('messages.show', ['message' => $visitor->message_id]) }}" class="base-btn ler" id="delete-btn-table">
+                                            @if ($visitor->lida == false)
+                                                <i class="fa-solid fa-circle"></i> 
+                                            @endif
+                                            
+                                            Ler mensagem
+                                        </a>
+    
+                                        <form action="{{ route('messages.destroy', ['message' => $visitor->message_id]) }}" method="POST" id="form-table">
+    
+                                            @csrf
+    
+                                            @method('DELETE')
+    
+                                            <button type="submit" class="base-btn apagar" onclick="return confirm('Tem a certeza que deseja eliminar?')">
+                                                <i class="fa-solid fa-trash"></i> Apagar
+                                            </button>
+                                        </form>
+                                @else 
+                                    Sem Mensagem
+                                @endif
                                 </td>
-                            </tr>
+                                </tr>
+                                
                         @endforeach    
                     </x-slot:tbody>
                     <x-slot:tfoot>

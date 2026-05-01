@@ -6,9 +6,11 @@
                 <div class="fundo-preto">
                 <header>
                     <div id="logo">
-                        <a href="index.html">
-                            <img src="{{ asset('images/company_images/' . $companyInfos['logotipo']?->value) }}" alt="logo da qos_tel">
-                        </a>
+                        @isset($companyInfos['logotipo']->value)
+                            <a href="index.html">
+                                <img src="{{ asset('images/company_images/' . $companyInfos['logotipo']?->value) }}" alt="logo da qos_tel">
+                            </a>
+                        @endisset
                     </div>
                     
                     <div class="hamburguer-container">
@@ -30,10 +32,10 @@
                                 <a href="#prova-social-container" class="link">Clientes</a>
                             </li>
                             <li class="link-target">
-                                <a href="#perguntas" class="link">Perguntas Frequentes</a>
+                                <a href="{{ route('visitors.create') }}" class="link">Contato</a>
                             </li>
                             <li class="link-target">
-                                <a href="{{ route('visitors.create') }}" class="link">Contato</a>
+                                <a href="#perguntas" class="link">Perguntas Frequentes</a>
                             </li>
                         </ul>
                     </menu>
@@ -48,7 +50,7 @@
                         <a href="#diferenciais">Ver Serviços</a>
                     </section>
                     <a href="https://wa.me/244{{ $companyInfos['whatsapp']?->value }}?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20internet." class="float-btn">
-                        <i class="fa-brands fa-whatsapp"></i>
+                        <i class="bi bi-whatsapp"></i>
                     </a>
                 </div>
             </div>
@@ -69,7 +71,7 @@
 
             <article>
                     <aside class="difereciais-card">
-                         <i class="fa-solid fa-wifi"></i>
+                        <i class="bi bi-wifi"></i>
                         <span>Rede ilimitada</span>
 
                         <p>
@@ -78,7 +80,7 @@
                     </aside>
 
                     <aside class="difereciais-card">
-                        <i class="fa-solid fa-location-dot"></i>
+                        <i class="bi bi-tools"></i>
                         <span>Cobertura Geográfica</span>
 
                         <p>
@@ -87,7 +89,7 @@
                     </aside>
 
                     <aside class="difereciais-card">
-                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                        <i class="bi bi-geo-alt-fill"></i>
                         <span>Instalação rápida</span>      
                         
                         <p>
@@ -120,7 +122,7 @@
             <p>Para entrar em contato conosco, envie uma mensagem para o nosso Whatsapp</p>
             
         <a href="https://wa.me/244{{ $companyInfos['whatsapp']?->value ?? '' }}?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20de%20internet." target="_blank" class="whatsapp-link">
-            <i class="fa-brands fa-whatsapp"></i> Fale conosco pelo WhatsApp
+            <i class="bi bi-whatsapp"></i> Fale conosco pelo WhatsApp
         </a>
         </section>
 @endsection

@@ -46,8 +46,8 @@
                     <label for="is_active">Estado *</label>
                     <select name="is_active" id="is_active">
                         <option value="" selected>Selecione um Estado</option>
-                        <option value="1">Activado</option>
-                        <option value="0">Desactivado</option>
+                        <option value="1" @selected(old('is_active') == 1)>Activado</option>
+                        <option value="0" @selected(old('is_active') == 0)>Desactivado</option>
                     </select>
                     <x-input-error-dashboard :message="$errors->first('is_active')" />
                 </div>
