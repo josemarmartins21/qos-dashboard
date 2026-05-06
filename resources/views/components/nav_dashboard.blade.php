@@ -25,7 +25,7 @@
     
     {{-- GERIR USUÁRIOS --}}
     @can('access-admin-area')
-        <x-link_menu :active_link="request()->routeIs('users.index')" href="{{ route('users.index') }}" :name="'Gerir Usuários'" :icon="'fa-solid fa-users'"></x-link_menu>
+        <x-link_menu :active_link="request()->routeIs('users.index') || request()->routeIs('users.show')" href="{{ route('users.index') }}" :name="'Gerir Usuários'" :icon="'fa-solid fa-users'"></x-link_menu>
     @endcan
     {{-- TERMINAR SESSÃO --}}
     <li>

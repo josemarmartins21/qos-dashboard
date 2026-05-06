@@ -1,13 +1,13 @@
 {{-- Mensagem de erro! --}}
-<div id="error">
+<div  class="error-messages">
     @if (session('error'))
-        <p>{{ session('error') }}</p>
+        <p id="error">{{ session('error') }}</p>
     @endif
 </div>
 
 {{-- Mensagem de sucesso! --}}
-<div id="success">
+<div class="error-messages">
     @if (session('success'))
-        <p>{{ session('success') }}</p>
+        <p id="success">{{ session('success') }}</p>
     @endif
 </div>

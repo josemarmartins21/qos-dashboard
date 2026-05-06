@@ -18,6 +18,31 @@
   }
   
 /* GENERALS */
+
+/** Errors e Success */
+.error-messages {
+  margin-bottom: 15px !important;
+  
+  #success, #error {
+    font-weight: bold;
+    width: 98%;
+    margin: auto;
+    padding: 20px;
+    color: #ffff;
+    border-left: 6px solid var(--blue-primary);
+  }
+
+  #success {
+    background-color: rgba(0, 128, 0, 0.438);
+  }
+
+  #error {
+    background-color: rgba(255, 0, 0, 0.418);
+  }
+
+}
+
+
 i {font-weight: bolder; font-size: 1.2em;}
 
 .red-icon {color: red;}
@@ -896,6 +921,13 @@ div.barra {
   padding-bottom: 20px;
 }
 @media screen and (min-width: 768px) {
+
+  /** Mensagens de Erro */
+  #success, #error { 
+    width: 100% !important;
+  }
+
+
   main {
     margin-top: 0px !important;
     min-height: 100% !important;

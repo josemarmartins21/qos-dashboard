@@ -10,9 +10,10 @@
                 </div>
             @endisset
 
-            <a href="{{ route('home') }}" class="zona-restrita">
+            <a href="{{ route('home') }}" class="zona-restrita" target="_blank">
                 <i class="bi bi-lock-fill"></i> Zona Restrita
             </a>
+            
         </div>
         <div class="infor">
             <h3>Contactos</h3>
