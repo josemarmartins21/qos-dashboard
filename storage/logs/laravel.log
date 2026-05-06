@@ -56431,3 +56431,27 @@ Did you mean one of these?
 #49 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Foundation/resources/server.php(23): require_once('C://Users//josima...')
 #50 {main}
 "} 
+[2026-05-05 18:41:47] local.ERROR: Unable to prepare route [dashboard/visitors] for serialization. Another route has already been assigned name [visitors.store]. {"exception":"[object] (LogicException(code: 0): Unable to prepare route [dashboard/visitors] for serialization. Another route has already been assigned name [visitors.store]. at C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Routing/AbstractRouteCollection.php:257)
+[stacktrace]
+#0 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Routing/AbstractRouteCollection.php(221): Illuminate/Routing/AbstractRouteCollection->addToSymfonyRoutesCollection(Object(Symfony/Component/Routing/RouteCollection), Object(Illuminate/Routing/Route))
+#1 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Routing/RouteCollection.php(268): Illuminate/Routing/AbstractRouteCollection->toSymfonyRouteCollection()
+#2 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Routing/AbstractRouteCollection.php(200): Illuminate/Routing/RouteCollection->toSymfonyRouteCollection()
+#3 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Routing/AbstractRouteCollection.php(171): Illuminate/Routing/AbstractRouteCollection->dumper()
+#4 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Foundation/Console/RouteCacheCommand.php(108): Illuminate/Routing/AbstractRouteCollection->compile()
+#5 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Foundation/Console/RouteCacheCommand.php(67): Illuminate/Foundation/Console/RouteCacheCommand->buildRouteCacheFile(Object(Illuminate/Routing/RouteCollection))
+#6 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate/Foundation/Console/RouteCacheCommand->handle()
+#7 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate/Container/BoundMethod::{closure:Illuminate/Container/BoundMethod::call():35}()
+#8 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate/Container/Util::unwrapIfClosure(Object(Closure))
+#9 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate/Container/BoundMethod::callBoundMethod(Object(Illuminate/Foundation/Application), Array, Object(Closure))
+#10 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Container/Container.php(799): Illuminate/Container/BoundMethod::call(Object(Illuminate/Foundation/Application), Array, Array, NULL)
+#11 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Console/Command.php(211): Illuminate/Container/Container->call(Array)
+#12 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/symfony/console/Command/Command.php(341): Illuminate/Console/Command->execute(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#13 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony/Component/Console/Command/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Illuminate/Console/OutputStyle))
+#14 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/symfony/console/Application.php(1117): Illuminate/Console/Command->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#15 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/symfony/console/Application.php(356): Symfony/Component/Console/Application->doRunCommand(Object(Illuminate/Foundation/Console/RouteCacheCommand), Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#16 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/symfony/console/Application.php(195): Symfony/Component/Console/Application->doRun(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#17 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony/Component/Console/Application->run(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#18 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate/Foundation/Console/Kernel->handle(Object(Symfony/Component/Console/Input/ArgvInput), Object(Symfony/Component/Console/Output/ConsoleOutput))
+#19 C:/Users/josimarmartins21/Documents/GitHub/qos-dashboard/artisan(16): Illuminate/Foundation/Application->handleCommand(Object(Symfony/Component/Console/Input/ArgvInput))
+#20 {main}
+"} 
