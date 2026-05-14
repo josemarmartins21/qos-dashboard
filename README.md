@@ -55,4 +55,7 @@ npm run dev
 
 // Laravel
 php artisan serve
+
+// Saas
+sass public/estilos/style.scss public/estilos/style.css --watch
 ```

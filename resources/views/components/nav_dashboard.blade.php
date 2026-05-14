@@ -1,20 +1,58 @@
 <ul>
     {{-- HOME --}}
-    <x-link_menu :active_link="request()->routeIs('home')"  href="{{ route('home') }}" :name="'Home'" :icon="'fa-solid fa-house'"></x-link_menu>
+    <x-link_menu 
+        :active_link="request()->routeIs('home')"  
+        href="{{ route('home') }}" 
+
+        :name="'Home'" 
+
+        :icon="'fa-solid fa-house'"
+    >
+    </x-link_menu>
 
     {{-- DEPOIMENTOS --}}
-    <x-link_menu :active_link="request()->routeIs('testimonies.index')" :name="'Depoimentos'" :icon="'fa-brands fa-stack-exchange'" href="{{ route('testimonies.index') }}"></x-link_menu>
+    <x-link_menu 
+        :active_link="request()->routeIs('testimonies.index') || request()->routeIs('testimonies.create') || request()->routeIs('testimonies.edit', ['testimony' => isset($testimony->id) ? $testimony->id : ''])" 
+
+        :name="'Depoimentos'" 
+
+        :icon="'fa-brands fa-stack-exchange'" 
+
+        href="{{ route('testimonies.index') }}">
+    </x-link_menu>
 
     {{-- PERGUNTAS FREQUENTES --}}
     <x-link_menu 
-    :active_link="request()->routeIs('questions.index')" 
-    href="{{ route('questions.index') }}" 
+    :active_link="request()->routeIs('questions.index') || request()->routeIs('questions.create') || 
+    request()->routeIs('questions.edit', ['question' => isset($questions->id) ? $questions->id : '']) || request()->routeIs('questions.show', ['question' => isset($questions->id) ? $questions->id : ''])
+    " 
+
     :name="'Perguntas Frequentes'"
+    
     :icon="'fa-solid fa-file-circle-question'"
-    ></x-link_menu>
+
+    href="{{ route('questions.index') }}">
+    </x-link_menu>
 
     {{-- CLIENTES RENOMADOS --}}
-    <x-link_menu :active_link="request()->routeIs('client_prove_socials.index')" href="{{ route('client_prove_socials.index') }}" :name="'Clientes renomados'" :icon="'fa-solid fa-people-roof'">
+    <x-link_menu 
+        :active_link="request()->routeIs('client_prove_socials.index') || request()->routeIs('client_prove_socials.create') || 
+
+        request()->routeIs(
+            'client_prove_socials.edit', 
+
+            ['client_prove_socials' => isset($client_prove_social->id) 
+
+            ? $client_prove_social->id : '']
+            
+        )
+        " 
+
+        :name="'Clientes renomados'"
+        
+        :icon="'fa-solid fa-file-circle-question'"
+
+        href="{{ route('client_prove_socials.index') }}">
     </x-link_menu>
 
     {{-- MENSAGENS DE VISITANTES --}}
@@ -25,7 +63,14 @@
     
     {{-- GERIR USUÁRIOS --}}
     @can('access-admin-area')
-        <x-link_menu :active_link="request()->routeIs('users.index') || request()->routeIs('users.show')" href="{{ route('users.index') }}" :name="'Gerir Usuários'" :icon="'fa-solid fa-users'"></x-link_menu>
+        <x-link_menu 
+        :active_link="request()->routeIs('users.index') || request()->routeIs('users.show' )" href="{{ route('users.index') }}" 
+
+        :name="'Gerir Usuários'" 
+
+        :icon="'fa-solid fa-users'" 
+        >
+        </x-link_menu>
     @endcan
     {{-- TERMINAR SESSÃO --}}
     <li>

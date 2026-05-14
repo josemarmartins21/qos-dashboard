@@ -31,7 +31,7 @@ Route::middleware(['auth', 'can:access-admin-area'])->group(function () {
     Route::post('register', [App\Http\Controllers\Auth\RegisteredUserController::class, 'store']);
 });
 
-Route::prefix('dashboard')->middleware('guest')->group(function () {
+Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
