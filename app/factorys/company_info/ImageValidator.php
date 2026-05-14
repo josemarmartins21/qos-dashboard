@@ -13,7 +13,7 @@ class ImageValidator implements InputValidatorInterface
     public function validate(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'value' => 'required|max:2048|file|image',  
+            'value' => 'required|max:512|file|image',  
             'key' => 'required|string|' . Rule::in(CompanyInfoEnum::cases()),
         ]);
 

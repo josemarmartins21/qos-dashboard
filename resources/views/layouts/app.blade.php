@@ -1,5 +1,5 @@
 @use('Illuminate\Support\Facades\Auth')
-@use('App\Helpers\DateHelper')
+@use('App\helpers\DateHelper')
 
 @php
     $user = Auth::user();
