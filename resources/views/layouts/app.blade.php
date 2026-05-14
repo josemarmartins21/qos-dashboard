@@ -19,7 +19,7 @@
 
     <script src="https://kit.fontawesome.com/8e770ce0b4.js" crossorigin="anonymous"></script>
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/js/app.js'])
 </head>
 <body>
     <header>
