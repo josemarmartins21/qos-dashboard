@@ -19,7 +19,7 @@
 
     <script src="https://kit.fontawesome.com/8e770ce0b4.js" crossorigin="anonymous"></script>
 
-    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/js/app.js']); ?>
 </head>
 <body>
     <header>

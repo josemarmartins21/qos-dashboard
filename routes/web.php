@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     
     
     // Visitors - Visitantes
-    Route::resource('visitors', VisitorController::class)->except(['create', 'update']);
+    Route::resource('visitors', VisitorController::class)->except(['update']);
     
     // FAQ Perguntas frequentes
     Route::resource('questions', QuestionController::class);
