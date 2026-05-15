@@ -4,9 +4,11 @@
         <div class="infor">
             @isset($companyInfos['logotipo']?->value)
                 <div class="logo-foot">
-                    <img 
-                        src="{{ asset('images/company_images/' . $companyInfos['logotipo']?->value)  }}" alt="logo da qos_tel"
-                    >
+                    <a href="https://qostel.co.ao/">
+                        <img
+                            src="{{ asset('images/company_images/' . $companyInfos['logotipo']?->value)  }}" alt="logo da qos_tel"
+                        >
+                    </a>
                 </div>
             @endisset
 
