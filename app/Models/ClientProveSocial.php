@@ -29,7 +29,7 @@ class ClientProveSocial extends Model
 
     public static function getPathImages(): string
     {
-        return 'images/logos_client/';
+        return 'logos_client';
     }
 
     public static function getMinActive(): int

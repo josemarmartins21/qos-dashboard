@@ -100,6 +100,6 @@ class User extends Authenticatable
 
     public static function getPathImage(): string
     {
-        return 'images/users/';
+        return 'users';
     }
 }

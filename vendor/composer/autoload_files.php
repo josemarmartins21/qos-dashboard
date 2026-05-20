@@ -36,4 +36,6 @@ return array(
     '91892b814db86b8442ad76273bb7aec5' => $vendorDir . '/laravel/framework/src/Illuminate/Reflection/helpers.php',
     '493c6aea52f6009bab023b26c21a386a' => $vendorDir . '/laravel/framework/src/Illuminate/Support/functions.php',
     '58571171fd5812e6e447dce228f52f4d' => $vendorDir . '/laravel/framework/src/Illuminate/Support/helpers.php',
+    '9eb92a60b23a168bdc5f3366f76ebf52' => $baseDir . '/app/helpers/helpers.php',
+    '4dae0f6b4397e9510f3c641fd4343198' => $baseDir . '/app/helpers/constants.php',
 );

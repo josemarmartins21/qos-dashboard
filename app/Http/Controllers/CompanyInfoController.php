@@ -16,6 +16,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use InvalidArgumentException;
 use UnhandledMatchError;
 
+use function App\helpers\getEnviromentFilePath;
+
 class CompanyInfoController extends Controller
 {
     use ImageTrait;
@@ -43,7 +45,11 @@ class CompanyInfoController extends Controller
     public function store(Request $request)
     {
         try {
-            $input = InputValidatorFactory::create(CompanyInfoEnum::tryFrom($request->key)?->value);
+            $imagePath = CompanyInfo::getPathImage();
+            $input = InputValidatorFactory::create(
+                CompanyInfoEnum::tryFrom($request->key)
+                ?->value
+            );
             $validator = $input->validate($request);
 
             if ($validator->fails()) {
@@ -53,22 +59,26 @@ class CompanyInfoController extends Controller
             $validated = $validator->validated();
 
             if ($this->isImage($request)) {
-                $this->generateName($request->file('value'));
+                $requestImage = $request->file('value');
 
-                $this->save($request->file('value'), 'images/company_images/');
+                $imageName = $this->save(
+                    $requestImage, 
+                    getEnviromentFilePath($imagePath),
+                );
 
-                $validated['value'] = $this->getImageName();
+                $requestImage->move(
+                    public_path('images/' . $imagePath), 
+                    $imageName,
+                );
+
+                $validated['value'] = $imageName;
             }
-
 
             CompanyInfo::create([
                 'key' => $validated['key'],
                 'value' => $validated['value'],
                 'user_id' => Auth::user()->id,
             ]);
-
-
-
 
             return redirect()->route('company_infos.index');
     
@@ -107,11 +117,20 @@ class CompanyInfoController extends Controller
             $validated = $validator->validated();
 
             if ($this->isImage($request)) {
-                $this->generateName($request->file('value'));
-                $this->save($request->file('value'), 'images/company_images/');
-                $validated['value'] = $this->getImageName();
-            }
+                $imagePath = CompanyInfo::getPathImage();
+                $requestImage = $request->file('value');
 
+                $imageName = $this->save(
+                    $requestImage, 
+                    getEnviromentFilePath($imagePath),
+                );
+
+                $requestImage->move(
+                    public_path('images/' . $imagePath), 
+                    $imageName
+                );
+                $validated['value'] = $imageName;
+            }
 
             $companyInfo->update([
                 'key' => $validated['key'],
@@ -121,6 +140,7 @@ class CompanyInfoController extends Controller
             return redirect()->route('company_infos.index');
 
         } catch (\Throwable $e) {
+            dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
     }

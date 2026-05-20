@@ -15,6 +15,8 @@ use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
+use function App\helpers\getEnviromentFilePath;
+
 class RegisteredUserController extends Controller
 {
     use ImageTrait;
@@ -41,10 +43,17 @@ class RegisteredUserController extends Controller
         ]);
        
         if (array_key_exists('image', $validated)) {
-            $this->generateName($request->file('image'));
-            $validated['image'] = $this->getImageName();
+            $imageRequest = $request->file('image');
 
-            $request->file('image')->move(User::getPathImage(), $validated['image']);
+            $validated['image'] = $this->save(
+                $imageRequest,
+                getEnviromentFilePath(User::getPathImage())
+            );
+
+            $imageRequest->move(
+                public_path('images/' . User::getPathImage()), 
+                $validated['image'],
+            );
         }
 
         $abillity = 'default';

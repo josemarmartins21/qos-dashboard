@@ -84,6 +84,7 @@ return array(
     'App\\factorys\\company_info\\contracts\\InputValidatorInterface' => $baseDir . '/app/factorys/company_info/contracts/InputValidatorInterface.php',
     'App\\factorys\\contracts\\ActivateDisableInterface' => $baseDir . '/app/factorys/contracts/ActivateDisableInterface.php',
     'App\\factorys\\contracts\\TestimonySocialProveInterface' => $baseDir . '/app/factorys/contracts/TestimonySocialProveInterface.php',
+    'App\\helpers\\DateHelper' => $baseDir . '/app/helpers/DateHelper.php',
     'App\\services\\clientprovesocial\\ClientProveSocialService' => $baseDir . '/app/services/clientprovesocial/ClientProveSocialService.php',
     'App\\services\\clientprovesocial\\contracts\\ClientProveSocialInterface' => $baseDir . '/app/services/clientprovesocial/contracts/ClientProveSocialInterface.php',
     'App\\services\\clients\\ClientService' => $baseDir . '/app/services/clients/ClientService.php',

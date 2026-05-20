@@ -2,9 +2,10 @@
 
 namespace App;
 
-use DateTime;
+use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 
+use function App\helpers\getEnviromentFilePath;
 use function Symfony\Component\Clock\now;
 
 trait ImageTrait
@@ -41,8 +42,17 @@ trait ImageTrait
         return true;
     }
     
-    public function save($requestImage, string $path): void
+    public function save($requestImage, string $path): string
     {
-        $requestImage->move(public_path($path), $this->getImageName());
+        $disk = Storage::build([
+            'driver' => 'local',
+            'root' => $path,
+        ]);
+
+        $imageName = $disk->put('', $requestImage);
+
+        return basename($imageName);
+
+        //$requestImage->move(public_path($path), $this->getImageName());
     }
 }

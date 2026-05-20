@@ -10,6 +10,7 @@ use App\services\clients\contracts\ClientServiceInterface;
 use Illuminate\Http\Request;
 use App\ImageTrait;
 
+use function App\helpers\getEnviromentFilePath;
 
 class ClientProveSocialController extends Controller
 {
@@ -57,6 +58,9 @@ class ClientProveSocialController extends Controller
     public function store(ClientProveSocialRequest $request)
     {
         try {
+            $path = ClientProveSocial::getPathImages();
+            $requestImage = $request->file('image');
+
             $request->validated();
                 
             $client = $request->safe([
@@ -71,10 +75,17 @@ class ClientProveSocialController extends Controller
                 'type',
             ]);
 
-            $this->generateName($request->file('image'));
-            $relation['image'] = $this->getImageName();
+            $relation['image'] = $this->save(
+                $requestImage, 
+                getEnviromentFilePath($path)
+            );
          
-            $request->file('image')->move(public_path(ClientProveSocial::getPathImages()), $relation['image']);
+            $requestImage->move(
+                public_path(
+                    'images/' . ClientProveSocial::getPathImages()
+                ), 
+                $relation['image'],
+            );
             
             $this->clientService->save($client, $relation);
 
@@ -82,7 +93,6 @@ class ClientProveSocialController extends Controller
 
         } catch (\Throwable $e) {
             return redirect()->back()->withInput()->with('error', $e->getMessage());
-            /* dd($e->getMessage()); */
         }
     }
 
@@ -103,8 +113,9 @@ class ClientProveSocialController extends Controller
         ClientProveSocial $clientProveSocial,
     )
     {
-        try {
 
+        try {
+            $requestImage = $request->file('image');
             $request->validated();
 
             $client = $request->safe([
@@ -119,16 +130,26 @@ class ClientProveSocialController extends Controller
             ]);
 
             if (array_key_exists('image', $proveSocialClient)) {
-                $this->generateName($request->file('image'));
-                $this->save($request->file('image'), ClientProveSocial::getPathImages());
-                $proveSocialClient['image'] = $this->getImageName();
+                $imageName = $this->save(
+                    $requestImage, 
+                    getEnviromentFilePath('logos_client'),    
+                );
+
+                $requestImage->move(
+                    public_path(
+                       'images/' . ClientProveSocial::getPathImages()
+                    ), 
+                    $imageName,
+                );
+
+                $proveSocialClient['image'] = $imageName;
             }
 
             $this->clientService->update($client);   
-
             $this->clientProveSocial->update($clientProveSocial->id, $proveSocialClient);
-            
+
             return redirect()->route('client_prove_socials.index');
+            
         } catch (\Throwable $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
