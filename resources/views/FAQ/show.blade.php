@@ -1,4 +1,4 @@
-@use('App\Helpers\DateHelper')
+@use('App\helpers\DateHelper')
 
 @extends('layouts.app')
 @section('title', 'Detalhes da Pergunta Frequente')
