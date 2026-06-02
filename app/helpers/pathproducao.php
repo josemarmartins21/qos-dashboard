@@ -2,4 +2,4 @@
 
 namespace App\helpers;
 
-define('IS_PRODUCTION', true);
+define('IS_PRODUCTION', false);

@@ -23,4 +23,7 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 /storage/logs/*.log
+<<<<<<< HEAD
 /app/helpers/pathproducao.php
+=======
+>>>>>>> parent of 6436bd5 (path de producao habilitado!)
